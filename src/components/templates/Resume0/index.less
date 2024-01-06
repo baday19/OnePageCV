@@ -1,109 +1,21 @@
-#resume0 {
-
-  line-height: var(--r-line-height);
-
-  .header {
-    height: 5mm;
-    background-color: var(--r-theme-color);
-  }
-
-  .main {
-    padding: 10mm;
-  }
-
-  .base-info {
-    display: flex;
-    justify-content: space-between;
-    height: 35mm;
-  }
-
-  .school-logo {
-    height: 13mm;
-    width: 25mm;
-  }
-
-  .personal-info {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    font-size: var(--r-large-font-size);
-    box-sizing: border-box;
-    margin: 0 10mm;
-
-    .name {
-      font-size: var(--r-large-font-size);
-      font-weight: bold;
-      margin-bottom: var(--r-line-margin);
-    }
-
-    .more {
-      font-size: var(--r-small-font-size);
-    }
-  }
-
-  .photo {
-    height: 30mm;
-    width: 25mm;
-    background-color: var(--r-theme-color);
-    font-size: var(--r-large-font-size);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-  }
-
-  .common-info {
-    margin-top: var(--r-line-margin);
-    font-size: var(--r-small-font-size);
-    line-height: var(--r-line-height);
-
-    .common-title {
-      display: flex;
-      align-items: center;
-      font-size: var(--r-medium-font-size);
-      font-weight: bold;
-      color: var(--r-theme-color);
-      border-left: 2mm solid var(--r-theme-color);
-      padding: 1mm 4mm;
-      background-color: var(--r-border-color);
-      margin-bottom: var(--r-line-margin);
-    }
-
-    .line-two-sides {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: var(--r-line-margin);
-    }
-
-    .line-normal {
-      margin-bottom: var(--r-line-margin);
-    }
-
-    .bold-text {
-      font-weight: bold;
-    }
-  }
-
+#opcv-paper-container {
+  // the size of A4 paper. do not change
+  height: var(--r-paper-height);
+  width: var(--r-paper-width);
+  background-color: white;
 }
 
-#edit0 {
-  min-height: 900px;
+#opcv-editor-container {
+  margin-left: 8mm;
+  background-color: white;
+  width: calc(var(--r-paper-width) - 30mm);
+  height: var(--r-paper-height);
+  border-radius: 5px;
+  padding: 5mm;
+  box-sizing: border-box;
 
-  .edit-item, .edit-add-btn {
-    min-height: 100px;
-    background-color: #F7FAFF;
-    margin-bottom: 4mm;
-    border-radius: 2mm;
+  .edit-box {
+    height: 100%;
+    overflow-y: auto;
   }
-
-  .edit-add-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .edit-item {
-    
-  }
-
 }

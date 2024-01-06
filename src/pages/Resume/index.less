@@ -1,9 +1,11 @@
-.resume-wrap {
+.opcv-wrap {
   background-color: #F2F3F5;
+  min-height: 100vh;
   // display: flex;
 
-  .resume-header {
-    height: 10mm;
+
+  .opcv-header {
+    height: 50px;
     background-color: white;
     position: fixed;
     top: 0;
@@ -12,69 +14,42 @@
     box-shadow: 0 2px 8px #f2f3f5;
     display: flex;
     justify-content: space-between;
-    font-size: var(--r-small-font-size);
-    padding: 0 8mm;
+    font-size: 13px;
+    padding: 0 20px;
     box-sizing: border-box;
     align-items: center;
+
+    .home {
+      font-size: 18px;
+      font-weight: bold;
+    }
 
     .right-area {
       display: flex;
 
       .config, .export, .more-templates {
-        margin-left: 4mm;
-        height: 6mm;
-        background-color: #1E80FF;
-        color: white;
-        padding: 0 4mm;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
+        margin-left: 15px;
+        height: 30px;
+        // background-color: #1E80FF;
+        // color: white;
+        padding: 0 16px;
+        // border-radius: 4px;
+        // display: flex;
+        // align-items: center;
+        // cursor: pointer;
       }
     }
   }
 
-  .resume-main {
-    display: flex;
+  .opcv-main {
     padding: 8mm;
-    margin-top: 8mm;
-  }
-}
-
-.resume-container {
-  height: var(--r-paper-height);
-  width: var(--r-paper-width);
-  background-color: white;
-}
-
-::-webkit-scrollbar {
-  display: none;
-  /* Chrome Safari */
-}
-
-.edit-container {
-  background-color: white;
-  width: calc(100vw - 24mm - 210mm);
-  height: calc(100vh - 24mm);
-  position: fixed;
-  top: 16mm;
-  right: 8mm;
-  border-radius: 5px;
-  padding: 5mm;
-  box-sizing: border-box;
-
-  .edit-box {
-    height: calc(100vh - 34mm);
-    overflow-y: auto;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
   }
 
-  .export-btn {
-    background-color: var(--r-theme-color);
-    color: white;
-    border-radius: 4px;
-    font-size: 12px;
-    padding: 4px 10px;
-    width: fit-content;
-    cursor: pointer;
+  ::-webkit-scrollbar {
+    width: 0;
   }
 }
 
@@ -83,20 +58,21 @@
     margin: 0;
   }
 
-  .resume-wrap {
+  .opcv-wrap {
     padding: 0;
+    height: auto;
 
-    .resume-header {
+    .opcv-header {
       display: none;
     }
 
-    .resume-main {
+    .opcv-main {
       padding: 0;
       margin: 0;
     }
   }
 
-  .edit-container {
+  #opcv-editor-container {
     display: none;
   }
 }

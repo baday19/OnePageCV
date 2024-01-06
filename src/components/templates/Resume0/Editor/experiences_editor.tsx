@@ -28,6 +28,7 @@ const LineItem = ({
   const handleTypeChange = (e: any) => {
     const value = []
     value.push(info.value[0])
+    value[0].type = 'div'
     if (e == 1) {
       value.push(info.value.length == 2 ? info.value[1] : { className: 'line-normal', value: '' })
     } else if (e == 2) {

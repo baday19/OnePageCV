@@ -187,7 +187,7 @@ const defaultExperiences = [
           },
           {
             className: 'line-normal',
-            value: '2022年10月 - 2023年02月',
+            value: '2021年09月 - 2021年11月',
           }
         ],
       },
@@ -289,7 +289,7 @@ const defaultExperiences = [
     ]
   },
   {
-    title: '自定义',
+    title: '其他',
     isShow: false,
     data: []
   }

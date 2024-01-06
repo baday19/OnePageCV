@@ -130,7 +130,7 @@ const ExperienceEditor = ({
   return (
     <div className="base-info-editor">
       <div className="info-title">
-        <div className="title-name">个人经历</div>
+        <div className="title-name">{title||'经历信息'}</div>
         <div className="btn-containers">
           <Switch checked={isShow} onChange={() => {
             onSubmit({

@@ -43,7 +43,7 @@ const Index = () => {
     <div id="resume0" className="opcv-main">
       {/* donot change 'id' */}
       <div id="opcv-paper-container">
-        <RContent experiences={convertExperiences()} baseInfo={baseInfo} isLeft={config.isLeft} isHeaderShow={config.isHeaderShow} titleType={config.titleType} />
+        <RContent experiences={convertExperiences()} baseInfo={baseInfo} isLeft={config.isLeft} isHeaderShow={config.isHeaderShow} titleType={config.titleType} hasPhoto={config.hasPhoto} />
       </div>
       {/* cannot change 'id', it will be none when print */}
       <div id="opcv-editor-container">

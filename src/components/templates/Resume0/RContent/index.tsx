@@ -10,7 +10,8 @@ interface RContentProps {
   experiences: any[];
   isLeft?: boolean;
   isHeaderShow?: boolean;
-  titleType: number
+  titleType: number;
+  hasPhoto: boolean;
 }
 
 
@@ -19,19 +20,20 @@ export const RContent = ({
   experiences,
   isLeft = false,
   isHeaderShow = true,
-  titleType
+  titleType,
+  hasPhoto,
 }: RContentProps) => {
 
   const handleExperiences = (experiences: any) => {
     console.log(experiences)
     return experiences.map((line: any) => {
       if (line.className === 'line-title') {
-          return (
-            <div className={`line-title${titleType}`}>
-              <div className="title-main">{line.value[0].value}</div>
-              <div className="title-hr" />
-            </div>
-          )
+        return (
+          <div className={`line-title${titleType}`}>
+            <div className="title-main">{line.value[0].value}</div>
+            <div className="title-hr" />
+          </div>
+        )
 
       } else if (line.className === 'line-two-sides') {
         return (
@@ -61,7 +63,7 @@ export const RContent = ({
       <div className="main">
         <div className="base-info">
           {
-            !isLeft && <div className="school-logo">
+            !isLeft && hasPhoto && <div className="school-logo">
               {
                 baseInfo.schoolLogo && <img src={baseInfo.schoolLogo} alt="学校" style={{ height: '100%' }} />
               }
@@ -79,13 +81,15 @@ export const RContent = ({
               })
             }
           </div>
-          <div className="photo">
-            {
-              baseInfo.photo ?
-                <img src={baseInfo.photo} alt="照片" style={{ width: '100%' }} /> :
-                <div className='photo-block'>照片</div>
-            }
-          </div>
+          {
+            hasPhoto && <div className="photo">
+              {
+                baseInfo.photo ?
+                  <img src={baseInfo.photo} alt="照片" style={{ width: '100%' }} /> :
+                  <div className='photo-block'>照片</div>
+              }
+            </div>
+          }
         </div>
         {/* 教育经历 */}
         {

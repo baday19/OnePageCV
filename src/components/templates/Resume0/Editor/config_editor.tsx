@@ -5,6 +5,7 @@ interface ConfigEditorProps {
   isLeft?: boolean;
   isHeaderShow?: boolean;
   titleType?: number;
+  hasPhoto: boolean;
   onSubmit: (config: any) => void;
 }
 
@@ -12,6 +13,7 @@ export const ConfigEditor = ({
   isLeft,
   isHeaderShow,
   titleType = 0,
+  hasPhoto,
   onSubmit,
 }: ConfigEditorProps) => {
 
@@ -25,7 +27,8 @@ export const ConfigEditor = ({
             onSubmit({
               isLeft: !isLeft,
               isHeaderShow: isHeaderShow,
-              titleType: titleType
+              titleType: titleType,
+              hasPhoto: hasPhoto
             })
           }} />
         </div>
@@ -35,7 +38,19 @@ export const ConfigEditor = ({
             onSubmit({
               isLeft: isLeft,
               isHeaderShow: !isHeaderShow,
-              titleType: titleType
+              titleType: titleType,
+              hasPhoto: hasPhoto
+            })
+          }} />
+        </div>
+        <div className="config-form-item">
+          <div className="config">是否包含照片</div>
+          <Switch checked={hasPhoto} onChange={() => {
+            onSubmit({
+              isLeft: isLeft,
+              isHeaderShow: isHeaderShow,
+              titleType: titleType,
+              hasPhoto: !hasPhoto
             })
           }} />
         </div>
@@ -49,7 +64,8 @@ export const ConfigEditor = ({
               onSubmit({
                 isLeft: isLeft,
                 isHeaderShow: isHeaderShow,
-                titleType: Number(e)
+                titleType: Number(e),
+                hasPhoto: hasPhoto
               })
             }}
             options={[
@@ -65,7 +81,7 @@ export const ConfigEditor = ({
         <div>注：</div>
         <li>导出时可通过页面顶部的配置<u>调整行高和行距</u></li>
         <li><u>左侧简历支持直接编辑</u>，可通过ctrl+b等指令实现局部加粗</li>
-        <li><u>输入框支持html</u>，如使用{'<b></b>, <u></u>, <a></a>'}可实现加粗,下划线,超链接。例如</li>
+        <li><u>输入框支持html</u>，如使用{'<b></b>, <u></u>, <a></a>'}可实现加粗,下划线,超链接。</li>
         <li>{'<b>Hello</b>: 你好'} 会渲染为 <b>Hello</b>: 你好</li>
         <li>{'<a href="https://github.com/baday19">github</a>'} 会渲染为 <a href="https://github.com/baday19">github</a></li>
       </div>

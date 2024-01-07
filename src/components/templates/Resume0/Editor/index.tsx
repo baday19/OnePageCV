@@ -29,7 +29,7 @@ export const Editor = ({
 
   return (
     <div id='resume0-editor'>
-      <ConfigEditor isLeft={config.isLeft} isHeaderShow={config.isHeaderShow} titleType={config.titleType} onSubmit={onConfigChange} />
+      <ConfigEditor hasPhoto={config.hasPhoto} isLeft={config.isLeft} isHeaderShow={config.isHeaderShow} titleType={config.titleType} onSubmit={onConfigChange} />
       <BaseInfoEditor onBaseInfoSubmit={onBaseInfoChange} baseInfo={baseInfo} />
       <ExperiencesEditor onExperiencesSubmit={onExperiencesChange} experiences={experiences} />
     </div>

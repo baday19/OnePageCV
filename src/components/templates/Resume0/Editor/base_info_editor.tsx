@@ -43,12 +43,14 @@ export const BaseInfoEditor = ({
 
 
   const uploadPhoto = (file: any) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      const base64Str = reader.result;
-      setPhoto(base64Str)
-    };
+    // URL.createObjectURL()
+    setPhoto(URL.createObjectURL(file))
+    // const reader = new FileReader();
+    // reader.readAsDataURL(file);
+    // reader.onload = () => {
+    //   const base64Str = reader.result;
+    //   setPhoto(base64Str)
+    // };
     return false
   };
 
@@ -99,20 +101,6 @@ export const BaseInfoEditor = ({
           </Upload>
         </div>
         <div className="form-item">
-          <div className="item-name">照片:</div>
-          <Upload name="file" beforeUpload={(e) => {
-            console.log(e)
-          }}
-            onChange={e=>{
-              console.log(e)
-            }}
-            listType="picture" maxCount={1} onRemove={() => {
-              setPhoto(null)
-            }}>
-            <Button icon={<UploadOutlined />}>点击上传</Button>
-          </Upload>
-        </div>
-        <div className="form-item">
           <div className="item-name">校徽:</div>
           <Upload name="file" beforeUpload={uploadSchoolLogo} listType="picture" maxCount={1} onRemove={() => {
             setSchoolLogo(null)
@@ -144,7 +132,7 @@ export const BaseInfoEditor = ({
           })
         }
         {
-          infoList.length < 3 && <div className="form-item">
+          infoList.length < 4 && <div className="form-item">
             <Button
               type="dashed"
               onClick={addInfoLine}

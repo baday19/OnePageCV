@@ -12,7 +12,7 @@ const defaultExperiences = [
           },
           {
             className: 'line-normal',
-            value: '2023年09月 - 2026年04月',
+            value: '2023年09月 - 至今',
           }
         ],
       },
@@ -30,7 +30,7 @@ const defaultExperiences = [
         value: [
           {
             className: 'line-normal',
-            value: 'GPA: 92.5 / 100',
+            value: 'GPA: ? / ?',
           }
         ],
       },
@@ -70,7 +70,7 @@ const defaultExperiences = [
         value: [
           {
             className: 'line-normal',
-            value: 'GPA：3.58 / 4.10（专业前10%）',
+            value: 'GPA：X.XX / 4.10（专业前10%）',
           }
         ],
       },
@@ -79,7 +79,7 @@ const defaultExperiences = [
         value: [
           {
             className: 'line-normal',
-            value: '荣誉奖项：科为奖学金（年级仅2位）、一等奖学金、全国大学生软件测试大赛全国二等奖、中国大学生计算机设计大赛省级一等奖',
+            value: '荣誉奖项：科为奖学金（年级xx位）、一等奖学金、全国大学生软件测试大赛全国二等奖、中国大学生计算机设计大赛省级一等奖',
           }
         ],
       },
@@ -116,7 +116,7 @@ const defaultExperiences = [
         value: [
           {
             className: 'line-normal',
-            value: '针对搭载HarmonyOS的手机、平板、电脑、音响、智慧屏等进行缺陷漏洞调研测试，负责维护和升级HarmonyOS中的互联互通能力。',
+            value: '实习内容打码实习内容打码实习内容打码实习内容打码实习内容打码实习内容打码实习内容打码实习内容打码实习内容打码实习内容打码实习内容打码',
           }
         ],
       },
@@ -295,8 +295,8 @@ const defaultExperiences = [
   }
 ]
 const defaultBaseInfo = {
-  name: '邓乐',
-  infoList: ['15978018778 | dengle@zju.edu.cn'],
+  name: 'Hap',
+  infoList: ['13212349876 | myname@zju.edu.cn', '<a href="https://github.com/baday19">github.com/baday19</a>'],
   photo: '',
   schoolLogo: ''
 }
@@ -304,7 +304,8 @@ const defaultBaseInfo = {
 const defaultConfig = {
   isLeft: false,
   isHeaderShow: true,
-  titleType: 3,
+  titleType: 0,
+  hasPhoto: true
 }
 export {
   defaultExperiences,

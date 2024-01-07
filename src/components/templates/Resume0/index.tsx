@@ -2,9 +2,11 @@ import "./index.less"
 import { useState } from "react";
 import { Editor } from "@/components/templates/Resume0/Editor";
 import { RContent } from "@/components/templates/Resume0/RContent";
-import { defaultExperiences, defaultBaseInfo } from "./config";
+import { defaultExperiences, defaultBaseInfo, defaultConfig } from "./config";
 
 const Index = () => {
+
+  const [config, setConfig] = useState(defaultConfig)
 
   const [experiences, setExperiences] = useState(defaultExperiences)
 
@@ -31,6 +33,7 @@ const Index = () => {
     })
     return res
   }
+
   const [baseInfo, setBaseInfo] = useState(defaultBaseInfo)
 
   return (
@@ -40,17 +43,26 @@ const Index = () => {
     <div id="resume0" className="opcv-main">
       {/* donot change 'id' */}
       <div id="opcv-paper-container">
-        <RContent experiences={convertExperiences()} baseInfo={baseInfo} />
+        <RContent experiences={convertExperiences()} baseInfo={baseInfo} isLeft={config.isLeft} isHeaderShow={config.isHeaderShow} titleType={config.titleType} />
       </div>
       {/* cannot change 'id', it will be none when print */}
       <div id="opcv-editor-container">
         <div className="edit-box">
-          <Editor onBaseInfoChange={(e) => {
-            setBaseInfo(e)
-          }} onExperiencesChange={(e) => {
-            // console.log(e)
-            setExperiences(e)
-          }} baseInfo={baseInfo} experiences={experiences} />
+          <Editor
+            onBaseInfoChange={(e) => {
+              setBaseInfo(e)
+            }}
+            onExperiencesChange={(e) => {
+              // console.log(e)
+              setExperiences(e)
+            }}
+            onConfigChange={(e)=>{
+              setConfig(e)
+            }}
+            baseInfo={baseInfo}
+            experiences={experiences}
+            config={config}
+          />
         </div>
       </div>
     </div>

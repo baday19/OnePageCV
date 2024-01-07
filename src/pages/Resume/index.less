@@ -54,7 +54,30 @@
   }
 }
 
+@media (max-width: 500mm) {
+  body {
+    zoom: 0.8;
+  }
+}
+
+@media (max-width: 400mm) {
+  body {
+    zoom: 0.75;
+  }
+}
+
+@media (max-width: 300mm) {
+  body {
+    zoom: 0.6;
+  }
+}
+
 @media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
   body {
     margin: 0;
     zoom: 1;

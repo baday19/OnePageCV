@@ -300,7 +300,14 @@ const defaultBaseInfo = {
   photo: '',
   schoolLogo: ''
 }
+
+const defaultConfig = {
+  isLeft: false,
+  isHeaderShow: true,
+  titleType: 3,
+}
 export {
   defaultExperiences,
-  defaultBaseInfo
+  defaultBaseInfo,
+  defaultConfig
 }

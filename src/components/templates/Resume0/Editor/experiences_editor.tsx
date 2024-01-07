@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { UploadOutlined, PlusOutlined, MinusCircleOutlined, DownOutlined } from '@ant-design/icons';
+import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import {
   Button,
   Input,
@@ -118,6 +118,10 @@ const ExperienceEditor = ({
     setInfoList(temp)
   }
 
+  useEffect(()=>{
+    submit()
+  }, [title, infoList])
+
 
 
   const submit = () => {
@@ -144,9 +148,9 @@ const ExperienceEditor = ({
           <Button size="small" type="primary" onClick={onDel} danger>
             删除
           </Button>
-          <Button size="small" type="primary" onClick={submit}>
+          {/* <Button size="small" type="primary" onClick={submit}>
             保存
-          </Button>
+          </Button> */}
         </div>
       </div>
       <div className="info-form">

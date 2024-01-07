@@ -5,59 +5,76 @@ interface RContentProps {
     name: string;
     infoList: string[];
     photo: string;
-    schoolLogo: string
+    schoolLogo: string;
   };
-  experiences: any[]
+  experiences: any[];
+  isLeft?: boolean;
+  isHeaderShow?: boolean;
+  titleType: number
 }
+
 
 export const RContent = ({
   baseInfo,
-  experiences
+  experiences,
+  isLeft = false,
+  isHeaderShow = true,
+  titleType
 }: RContentProps) => {
 
   const handleExperiences = (experiences: any) => {
     console.log(experiences)
     return experiences.map((line: any) => {
       if (line.className === 'line-title') {
-        return (
-          <div className="line-title">
-            {line.value[0].value}
-          </div>
-        )
+          return (
+            <div className={`line-title${titleType}`}>
+              <div className="title-main">{line.value[0].value}</div>
+              <div className="title-hr" />
+            </div>
+          )
+
       } else if (line.className === 'line-two-sides') {
         return (
           <div className="line-two-sides">
             {
               line.value.map((item: any, index: number) => {
-                const className = line.value.length >= 2 && index == 0 ? 'bold-text' : 'line-normal'
-                return (item.type && item.type === 'li') ? <li key={index} className={item.className}>{item.value}</li> :
-                  <div key={index} className={className}>{item.value}</div>
+                const className = line.value.length >= 2 && index === 0 ? 'bold-text' : 'line-normal'
+                return (item.type && item.type === 'li') ? <li key={index} className={item.className} dangerouslySetInnerHTML={{ __html: item.value }} /> :
+                  <div key={index} className={className} dangerouslySetInnerHTML={{ __html: item.value }} />
               })
             }
 
             {/* <div className={line.value[1].className}>{line.value[1].value}</div> */}
           </div>
         )
+      } else {
+        return <div></div>
       }
     })
   }
 
   return (
-    <div id="resume0-content">
-      <div className="header"></div>
+    <div id="resume0-content" contentEditable suppressContentEditableWarning>
+      {
+        isHeaderShow && <div className="header" />
+      }
       <div className="main">
         <div className="base-info">
-          <div className="school-logo">
-            {
-              baseInfo.schoolLogo && <img src={baseInfo.schoolLogo} alt="学校" style={{ height: '100%' }} />
-            }
-          </div>
-          <div className="personal-info">
+          {
+            !isLeft && <div className="school-logo">
+              {
+                baseInfo.schoolLogo && <img src={baseInfo.schoolLogo} alt="学校" style={{ height: '100%' }} />
+              }
+            </div>
+          }
+          <div className="personal-info" style={{
+            alignItems: isLeft ? 'stretch' : 'center'
+          }}>
             <div className="name">{baseInfo.name}</div>
             {
               baseInfo.infoList.map((item, index) => {
                 return (
-                  <div className="more" key={index}>{item}</div>
+                  <div className="more" key={index} dangerouslySetInnerHTML={{ __html: item }} />
                 )
               })
             }

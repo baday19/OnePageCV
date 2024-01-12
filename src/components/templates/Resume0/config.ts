@@ -309,7 +309,7 @@ const defaultConfig = {
   themeColor: '#4183FF',
   borderColor: '#F7FAFF',
   lineHeight: 5.2,
-  lineMargin: 1.4
+  lineMargin: 1.4,
 }
 
 const defaultCVInfo = {

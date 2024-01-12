@@ -249,6 +249,24 @@ export const ExperiencesEditor = ({
           </div>
         })
       }
+      <Button
+        type="primary"
+        size='large'
+        onClick={() => {
+          const temp = [...experiencesList]
+          temp.push({
+            title: '自定义',
+            isShow: false,
+            data: []
+          })
+          // setExperiencesList(temp)
+          onExperiencesSubmit(temp)
+        }}
+        style={{ width: '100%' }}
+        icon={<PlusOutlined />}
+      >
+        添加经历
+      </Button>
     </div>
   )
 }

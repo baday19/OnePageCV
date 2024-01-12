@@ -27,13 +27,13 @@ OPCV内置模板，高度可配置，你能通过简单的组合搭配构造各�
 
 # 界面截图
 
-![show1](C:\Users\想静静\Desktop\working\resume\OnePageCV\doc\show1.png)
+![show1](https://raw.githubusercontent.com/baday19/OnePageCV/main/doc/show1.png)
 
 
 
-![show2](C:\Users\想静静\Desktop\working\resume\OnePageCV\doc\show2.png)
+![show2](https://raw.githubusercontent.com/baday19/OnePageCV/main/doc/show2.png)
 
-![show3](C:\Users\想静静\Desktop\working\resume\OnePageCV\doc\show3.png)
+![show3](https://raw.githubusercontent.com/baday19/OnePageCV/main/doc/show3.png)
 
 # 使用说明
 

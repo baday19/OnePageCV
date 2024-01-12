@@ -24,12 +24,12 @@ export const ToolBox = ({
   const handleChooseTemplate = (e: number) => {
     console.log(e)
     const templateData = templatesArr.find((item: any) => item.value == e)
-    const docStyle = document.documentElement.style
-    const isEn = e === 1
-    docStyle.setProperty("font-family", isEn?'"Times New Roman", Times, serif':'')
-    docStyle.setProperty("--r-large-font-size", isEn?'6mm':'')
-    docStyle.setProperty("--r-medium-font-size", isEn?'5mm':'')
-    docStyle.setProperty("--r-small-font-size", isEn?'4mm':'')
+    // const docStyle = document.documentElement.style
+    // const isEn = e === 1
+    // docStyle.setProperty("font-family", isEn?'"Times New Roman", Times, serif':'')
+    // docStyle.setProperty("--r-large-font-size", isEn?'6mm':'')
+    // docStyle.setProperty("--r-medium-font-size", isEn?'5mm':'')
+    // docStyle.setProperty("--r-small-font-size", isEn?'4mm':'')
     if (templateData) {
       onImport(templateData.data)
       setCurrTemplate(e)

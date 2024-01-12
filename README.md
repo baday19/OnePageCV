@@ -1,4 +1,4 @@
-# 一页简历
+# 一页简历：免费开源在线的简历模板网站，高度自由可配置
 
 OnePageCV是一款用于快速生成简约美观简历的在线工具，仅需通过简单的信息填写和配置即可完成简历PDF的导出
 
@@ -24,6 +24,16 @@ OPCV内置模板，高度可配置，你能通过简单的组合搭配构造各�
 - 访问后可离线使用，不存储用户信息，安全可靠
 - 简历数据可随时导入导出，便捷实现信息存储
 - 支持html，允许高度自由改造
+
+# 界面截图
+
+![show1](C:\Users\想静静\Desktop\working\resume\OnePageCV\doc\show1.png)
+
+
+
+![show2](C:\Users\想静静\Desktop\working\resume\OnePageCV\doc\show2.png)
+
+![show3](C:\Users\想静静\Desktop\working\resume\OnePageCV\doc\show3.png)
 
 # 使用说明
 

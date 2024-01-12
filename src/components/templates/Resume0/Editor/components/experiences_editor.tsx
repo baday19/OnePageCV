@@ -19,7 +19,7 @@ const LineItem = ({
 
   const convertType = () => {
     if (info.value.length <= 1) {
-      return info.value[0].type == 'li'? 2: 0
+      return info.value[0].type === 'li' ? 2 : 0
     } else {
       return 1
     }
@@ -38,6 +38,7 @@ const LineItem = ({
       className: 'line-two-sides',
       value: value,
     }
+    console.log(res)
     onInput(res)
   }
 
@@ -112,30 +113,25 @@ const ExperienceEditor = ({
     setInfoList(temp)
   }
 
-  const removeInfoLine = (idx: number) => {
-    const temp = [...infoList]
-    temp.splice(idx, 1)
-    setInfoList(temp)
-  }
-
-  useEffect(()=>{
-    submit()
-  }, [title, infoList])
+  // const removeInfoLine = (idx: number) => {
+  //   const temp = [...infoList]
+  //   temp.splice(idx, 1)
+  //   setInfoList(temp)
+  // }
 
 
-
-  const submit = () => {
-    onSubmit({
-      title,
-      isShow,
-      data: infoList
-    })
-  }
+  // const submit = () => {
+  //   onSubmit({
+  //     title,
+  //     isShow,
+  //     data: infoList
+  //   }) 
+  // }
 
   return (
     <div className="general-info-editor">
       <div className="info-title">
-        <div className="title-name">{title||'经历信息'}</div>
+        <div className="title-name">{title || '经历信息'}</div>
         <div className="btn-containers">
           <Switch checked={isShow} onChange={() => {
             onSubmit({
@@ -157,22 +153,39 @@ const ExperienceEditor = ({
         <div className="form-item">
           <div className="item-name">标题:</div>
           <Input style={{ flex: '1' }} size='large' onChange={(e) => {
-            setTitle(e.target.value)
+            const tempTitle = e.target.value
+            setTitle(tempTitle)
+            onSubmit({
+              title: tempTitle,
+              isShow,
+              data: infoList
+            })
           }} placeholder="输入标题" value={title} />
         </div>
         {
           infoList.map((item: any, index: any) => {
             return (
               <div key={index}>
-                <LineItem onRemove={() => {
-                  const temp = [...infoList]
-                  temp.splice(index, 1)
-                  setInfoList(temp)
-                }}
+                <LineItem
+                  onRemove={() => {
+                    const temp = [...infoList]
+                    temp.splice(index, 1)
+                    setInfoList(temp)
+                    onSubmit({
+                      title,
+                      isShow,
+                      data: temp
+                    })
+                  }}
                   onInput={(e) => {
                     const temp = [...infoList]
                     temp[index] = e
                     setInfoList(temp)
+                    onSubmit({
+                      title,
+                      isShow,
+                      data: temp
+                    })
                   }}
                   info={item}
                 />

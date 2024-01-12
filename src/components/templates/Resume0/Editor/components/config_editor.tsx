@@ -111,7 +111,7 @@ export const ConfigEditor = ({
             </div>
             <div className="general-info-tips">
               <div>注：</div>
-              <li>导出时可通过页面顶部的配置<u>调整行高和行距</u></li>
+              <li>导出时可通过<u>调整行高和行距</u>保证一页简历</li>
               <li><u>左侧简历支持直接编辑</u>，可通过ctrl+b等指令实现局部加粗</li>
               <li><u>输入框支持html</u>，如使用{'<b></b>, <u></u>, <a></a>'}可实现加粗,下划线,超链接。</li>
               <li>{'<b>Hello</b>: 你好'} 会渲染为 <b>Hello</b>: 你好</li>

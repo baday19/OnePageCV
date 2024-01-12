@@ -57,7 +57,7 @@ const Index = ({
             type: 'div'
           },
         )
-        item.data.map(it => {
+        item.data.forEach(it => {
           res.push(it)
         })
       }

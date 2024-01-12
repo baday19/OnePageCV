@@ -1,27 +1,50 @@
-import { Button, Input, Modal } from "antd"
-import { useRef, useState } from "react";
-
+import { Button, Input, Modal, Select } from "antd"
+import { useState } from "react";
+import { templates } from "../../templates_data";
+const templatesArr = templates.map((item: any) => {
+  return {
+    value: item.id,
+    label: item.name,
+    data: item.data
+  }
+})
 
 export const ToolBox = ({
   onStore,
   onImport,
 }: {
   onStore: () => void;
-  onImport: (cv:any) => void;
+  onImport: (cv: any) => void;
 }) => {
 
   const [modalShow, setModalShow] = useState(false)
   const [cvContent, setCVContent] = useState('')
+  const [currTemplate, setCurrTemplate] = useState(0)
 
-  const aTest = useRef(null)
+  const handleChooseTemplate = (e: number) => {
+    console.log(e)
+    const templateData = templatesArr.find((item: any) => item.value == e)
+    if (templateData) {
+      onImport(templateData.data)
+      setCurrTemplate(e)
+    }
+  }
 
   return (
     <div className="tool-box">
-      <div>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <Button size="small" type="primary" onClick={onStore}>保存</Button>
-        <Button size="small" type="primary" onClick={()=>setModalShow(true)} style={{ marginLeft: 15 }}>导入</Button>
+        <Button size="small" type="primary" onClick={() => setModalShow(true)} style={{ marginLeft: 15 }}>导入</Button>
       </div>
-      <Button size="small" type="primary">更多模板...</Button>
+      <div>
+        <span style={{ fontSize: 14, marginRight: 20 }}>当前模板:</span>
+        <Select
+          value={currTemplate}
+          style={{ width: 180 }}
+          onChange={handleChooseTemplate}
+          options={templatesArr}
+        />
+      </div>
       <Modal
         title='导入'
         open={modalShow}
@@ -31,7 +54,6 @@ export const ToolBox = ({
           setModalShow(false)
         }}
         onOk={() => {
-          console.log(aTest)
           try {
             const cv = JSON.parse(cvContent)
             onImport(cv)
@@ -40,7 +62,7 @@ export const ToolBox = ({
             alert('非法配置字符串')
           }
         }}>
-        <Input.TextArea ref={aTest} onChange={(e)=>{
+        <Input.TextArea onChange={(e) => {
           setCVContent(e.target.value)
         }} placeholder="输入简历配置字符串（保存后生成的json）" />
       </Modal>

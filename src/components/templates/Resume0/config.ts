@@ -305,10 +305,32 @@ const defaultConfig = {
   isLeft: false,
   isHeaderShow: true,
   titleType: 0,
-  hasPhoto: true
+  hasPhoto: true,
+  themeColor: '#4183FF',
+  borderColor: '#F7FAFF',
+  lineHeight: 5.2,
+  lineMargin: 1.4
 }
+
+const defaultCVInfo = {
+  experiences: defaultExperiences,
+  baseInfo: defaultBaseInfo,
+  config: defaultConfig
+}
+
+type configType = {
+  isLeft: boolean;
+  isHeaderShow: boolean;
+  titleType: number;
+  hasPhoto: boolean;
+  themeColor: string;
+  borderColor: string;
+  lineHeight: number;
+  lineMargin: number;
+};
+
+
 export {
-  defaultExperiences,
-  defaultBaseInfo,
-  defaultConfig
-}
+  defaultCVInfo
+};
+export type { configType };

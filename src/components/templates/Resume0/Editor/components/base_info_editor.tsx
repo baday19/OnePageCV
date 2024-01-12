@@ -71,12 +71,12 @@ export const BaseInfoEditor = ({
       photo: photo,
       schoolLogo: schoolLogo,
     }
-    console.log(baseInfo)
+    // console.log(baseInfo)
     onBaseInfoSubmit(baseInfo)
   }
 
   return (
-    <div className="base-info-editor">
+    <div className="general-info-editor">
       <div className="info-title">
         <div className="title-name">基础信息</div>
         {/* <div className="store-btn">
@@ -143,7 +143,7 @@ export const BaseInfoEditor = ({
             </Button>
           </div>
         }
-        <div className="base-info-tips">
+        <div className="general-info-tips">
           <div className="tips-line">填写建议：</div>
           <div className="tips-line">信息行填写个人基本信息：如电话、邮箱、个人主页、求职状态等，如下：</div>
           <div className="tips-line">15966666666 | mail@zju.edu.cn</div>

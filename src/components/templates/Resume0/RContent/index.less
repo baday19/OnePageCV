@@ -102,11 +102,11 @@
 
   .line-title2 {
     display: flex;
-    align-items: center;
+    align-items: end;
     font-size: var(--r-medium-font-size);
     font-weight: bold;
     color: var(--r-theme-color);
-    border-bottom: 2px solid var(--r-border-color);
+    // border-bottom: 2px solid var(--r-border-color);
     // padding: 1mm 0;
     // background-color: var(--r-border-color);
     margin: calc(var(--r-line-margin) * 2) 0 var(--r-line-margin);
@@ -120,9 +120,15 @@
       display: flex;
       padding: 0 4mm;
       align-items: center;
-      border-bottom: 2px solid var(--r-theme-color);
+      // border-bottom: 2px solid var(--r-theme-color);
     }
 
+    .title-hr {
+      flex: 1;
+      height: 2px;
+      background-color: var(--r-border-color);
+      // margin-left: 4mm;
+    }
   }
   
   .line-title3 {

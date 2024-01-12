@@ -62,7 +62,7 @@ const LineItem = ({
       }}
         placeholder="信息行" />
       {
-        convertType() == 1 && <Input value={info.value[1].value} style={{ flex: '1', marginLeft: 10 }} onChange={e => {
+        convertType() === 1 && <Input value={info.value[1].value} style={{ flex: '1', marginLeft: 10 }} onChange={e => {
           // setInput1(value)
           const value = e.target.value
           const res = { ...info }
@@ -133,7 +133,7 @@ const ExperienceEditor = ({
   }
 
   return (
-    <div className="base-info-editor">
+    <div className="general-info-editor">
       <div className="info-title">
         <div className="title-name">{title||'经历信息'}</div>
         <div className="btn-containers">

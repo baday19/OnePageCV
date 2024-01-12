@@ -1,14 +1,45 @@
 import "./index.less"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Editor } from "@/components/templates/Resume0/Editor";
 import { RContent } from "@/components/templates/Resume0/RContent";
-import { defaultExperiences, defaultBaseInfo, defaultConfig } from "./config";
+import { configType, defaultCVInfo } from "./config";
+import { copyToClipboard } from "@/utils/utils";
 
-const Index = () => {
+const Index = ({
+  cvInfo = defaultCVInfo
+}: {
+  cvInfo?: {
+    config: configType;
+    baseInfo: any;
+    experiences: {
+      title: string;
+      isShow: boolean;
+      data: any[]
+    }[];
+  }
+}) => {
 
-  const [config, setConfig] = useState(defaultConfig)
+  const [config, setConfig] = useState(cvInfo.config)
 
-  const [experiences, setExperiences] = useState(defaultExperiences)
+  const [baseInfo, setBaseInfo] = useState(cvInfo.baseInfo)
+
+  const [experiences, setExperiences] = useState(cvInfo.experiences)
+
+  useEffect(() => {
+    const docStyle = document.documentElement.style
+    docStyle.setProperty(
+      "--r-line-height", config.lineHeight + 'mm'
+    )
+    docStyle.setProperty(
+      "--r-line-margin", config.lineMargin + 'mm'
+    )
+    docStyle.setProperty(
+      "--r-theme-color", config.themeColor
+    )
+    docStyle.setProperty(
+      "--r-border-color", config.borderColor
+    )
+  }, [config])
 
   const convertExperiences = () => {
     const res: any[] = []
@@ -34,7 +65,23 @@ const Index = () => {
     return res
   }
 
-  const [baseInfo, setBaseInfo] = useState(defaultBaseInfo)
+  const handleStore = () => {
+    const data = {
+      config,
+      baseInfo,
+      experiences
+    }
+    copyToClipboard(JSON.stringify(data))
+    alert('已保存至剪切板（用于导入），请及时备份')
+  }
+
+  const handleImport = (e:any) => {
+    setConfig(e.config)
+    setBaseInfo(e.baseInfo)
+    setExperiences(e.experiences)
+  }
+
+
 
   return (
     // when you print your resume, this dom will be print(except 'opcv-editor-container')
@@ -43,7 +90,7 @@ const Index = () => {
     <div id="resume0" className="opcv-main">
       {/* donot change 'id' */}
       <div id="opcv-paper-container">
-        <RContent experiences={convertExperiences()} baseInfo={baseInfo} isLeft={config.isLeft} isHeaderShow={config.isHeaderShow} titleType={config.titleType} hasPhoto={config.hasPhoto} />
+        <RContent experiences={convertExperiences()} baseInfo={baseInfo} config={config} />
       </div>
       {/* cannot change 'id', it will be none when print */}
       <div id="opcv-editor-container">
@@ -56,9 +103,11 @@ const Index = () => {
               // console.log(e)
               setExperiences(e)
             }}
-            onConfigChange={(e)=>{
+            onConfigChange={(e) => {
               setConfig(e)
             }}
+            onImport={handleImport}
+            onStore={handleStore}
             baseInfo={baseInfo}
             experiences={experiences}
             config={config}

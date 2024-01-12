@@ -1,3 +1,4 @@
+import { configType } from "../config";
 import "./index.less"
 
 interface RContentProps {
@@ -8,28 +9,22 @@ interface RContentProps {
     schoolLogo: string;
   };
   experiences: any[];
-  isLeft?: boolean;
-  isHeaderShow?: boolean;
-  titleType: number;
-  hasPhoto: boolean;
+  config: configType
 }
 
 
 export const RContent = ({
   baseInfo,
   experiences,
-  isLeft = false,
-  isHeaderShow = true,
-  titleType,
-  hasPhoto,
+  config
 }: RContentProps) => {
 
   const handleExperiences = (experiences: any) => {
-    console.log(experiences)
+    // console.log(experiences)
     return experiences.map((line: any) => {
       if (line.className === 'line-title') {
         return (
-          <div className={`line-title${titleType}`}>
+          <div className={`line-title${config.titleType}`}>
             <div className="title-main">{line.value[0].value}</div>
             <div className="title-hr" />
           </div>
@@ -58,19 +53,19 @@ export const RContent = ({
   return (
     <div id="resume0-content" contentEditable suppressContentEditableWarning>
       {
-        isHeaderShow && <div className="header" />
+        config.isHeaderShow && <div className="header" />
       }
       <div className="main">
         <div className="base-info">
           {
-            !isLeft && hasPhoto && <div className="school-logo">
+            !config.isLeft && config.hasPhoto && <div className="school-logo">
               {
                 baseInfo.schoolLogo && <img src={baseInfo.schoolLogo} alt="学校" style={{ height: '100%' }} />
               }
             </div>
           }
           <div className="personal-info" style={{
-            alignItems: isLeft ? 'stretch' : 'center'
+            alignItems: config.isLeft ? 'stretch' : 'center'
           }}>
             <div className="name">{baseInfo.name}</div>
             {
@@ -82,7 +77,7 @@ export const RContent = ({
             }
           </div>
           {
-            hasPhoto && <div className="photo">
+            config.hasPhoto && <div className="photo">
               {
                 baseInfo.photo ?
                   <img src={baseInfo.photo} alt="照片" style={{ width: '100%' }} /> :

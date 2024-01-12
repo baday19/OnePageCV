@@ -1,7 +1,8 @@
 import "./index.less"
-import { BaseInfoEditor } from "./base_info_editor";
-import { ExperiencesEditor } from "./experiences_editor";
-import { ConfigEditor } from "./config_editor";
+import { BaseInfoEditor } from "./components/base_info_editor";
+import { ExperiencesEditor } from "./components/experiences_editor";
+import { ConfigEditor } from "./components/config_editor";
+import { ToolBox } from "./components/tool_box";
 
 
 
@@ -16,7 +17,9 @@ interface EditorProps {
   };
   experiences: any[];
   config: any;
-  onConfigChange: (config:any) => void;
+  onConfigChange: (config: any) => void;
+  onStore: () => void;
+  onImport: (e:any) => void;
 }
 export const Editor = ({
   onBaseInfoChange,
@@ -25,11 +28,14 @@ export const Editor = ({
   experiences,
   onConfigChange,
   config,
+  onStore,
+  onImport
 }: EditorProps) => {
 
   return (
     <div id='resume0-editor'>
-      <ConfigEditor hasPhoto={config.hasPhoto} isLeft={config.isLeft} isHeaderShow={config.isHeaderShow} titleType={config.titleType} onSubmit={onConfigChange} />
+      <ToolBox onStore={onStore} onImport={onImport} />
+      <ConfigEditor config={config} onSubmit={onConfigChange} />
       <BaseInfoEditor onBaseInfoSubmit={onBaseInfoChange} baseInfo={baseInfo} />
       <ExperiencesEditor onExperiencesSubmit={onExperiencesChange} experiences={experiences} />
     </div>

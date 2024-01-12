@@ -3,7 +3,7 @@
   min-height: 2000px;
 
 
-  .base-info-editor {
+  .general-info-editor {
     background-color: #F7FAFF;
     // min-height: 200px;
     // 170mm
@@ -49,8 +49,8 @@
       }
     }
 
-    .base-info-tips {
-      line-height: var(--r-line-height);
+    .general-info-tips {
+      line-height: calc(var(--r-line-height) + .5mm);
       margin-top: 3mm;
       font-size: var(--r-small-font-size);
       color: #a9a9a9;
@@ -62,5 +62,11 @@
     display: flex;
     align-items: center;
     margin-top: 5mm;
+  }
+
+  .tool-box {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
   }
 }

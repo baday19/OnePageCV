@@ -1,4 +1,3 @@
-import Index from "@/pages/Index/index"
 import { Navigate } from "react-router-dom"
 import { Route, Routes } from 'react-router-dom'
 // import Auth from "@/components/Auth"
@@ -7,10 +6,6 @@ import Resume from "@/pages/Resume"
 export const routes = [
   {
     path: '/index',
-    element: <Index />,
-  },
-  {
-    path: '/resume',
     element: <Resume />,
   },
   {

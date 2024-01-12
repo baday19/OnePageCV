@@ -2,9 +2,11 @@ import "./index.less"
 import { useEffect, useState } from "react";
 import { Editor } from "@/components/templates/Resume0/Editor";
 import { RContent } from "@/components/templates/Resume0/RContent";
-import { configType, defaultCVInfo } from "./config";
+import { configType } from "./config";
+import { templates } from "./templates_data";
 import { copyToClipboard } from "@/utils/utils";
 
+const defaultCVInfo = templates[0].data
 const Index = ({
   cvInfo = defaultCVInfo
 }: {

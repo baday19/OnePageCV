@@ -12,7 +12,7 @@ export const ConfigEditor = ({
   onSubmit,
 }: ConfigEditorProps) => {
 
-  const [isShow, setIsShow] = useState(false)
+  const [isShow, setIsShow] = useState(true)
 
   return (
     <div className="general-info-editor">

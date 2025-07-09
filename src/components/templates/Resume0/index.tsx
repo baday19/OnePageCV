@@ -21,13 +21,38 @@ const Index = ({
   }
 }) => {
 
-  const [config, setConfig] = useState(cvInfo.config)
+  const [config, setConfig] = useState(() => {
+    try {
+      const saved = localStorage.getItem('config');
+      return saved ? JSON.parse(saved) : cvInfo.config;
+    } catch {
+      return cvInfo.config
+    }
+  })
 
-  const [baseInfo, setBaseInfo] = useState(cvInfo.baseInfo)
+  const [baseInfo, setBaseInfo] = useState(() => {
+    try {
+      const saved = localStorage.getItem('baseInfo');
+      return saved ? JSON.parse(saved) : cvInfo.baseInfo;
+    } catch {
+      return cvInfo.baseInfo
+    }
+  })
 
-  const [experiences, setExperiences] = useState(cvInfo.experiences)
+  const [experiences, setExperiences] = useState(() => {
+    try {
+      const saved = localStorage.getItem('experiences');
+      return saved ? JSON.parse(saved) : cvInfo.experiences;
+    } catch {
+      return cvInfo.experiences
+    }
+  })
 
   useEffect(() => {
+    localStorage.setItem('config', JSON.stringify(config))
+    localStorage.setItem('baseInfo', JSON.stringify(baseInfo))
+    localStorage.setItem('experiences', JSON.stringify(experiences))
+
     const docStyle = document.documentElement.style
     docStyle.setProperty(
       "--r-line-height", config.lineHeight + 'mm'
@@ -41,11 +66,11 @@ const Index = ({
     docStyle.setProperty(
       "--r-border-color", config.borderColor
     )
-  }, [config])
+  }, [config, baseInfo, experiences])
 
   const convertExperiences = () => {
     const res: any[] = []
-    experiences.forEach((item, index) => {
+    experiences.forEach((item: { isShow: boolean; title: string; data: any[]; }, index: number) => {
       if (item.isShow) {
         res.push(
           {

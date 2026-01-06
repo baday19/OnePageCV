@@ -1,0 +1,29 @@
+.header {
+  height: 50px;
+  background-color: white;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 99;
+  box-shadow: 0 2px 8px #f2f3f5;
+}
+
+.block {
+  height: 50px;
+}
+
+@media print {
+  .header {
+    display: none;
+  }
+  .block {
+    display: none;
+  }
+}
+

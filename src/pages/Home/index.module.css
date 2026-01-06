@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  padding: 8mm;
+  justify-content: center;
+}
+
+@media print {
+  .container {
+    display: block;
+    padding: 0;
+  }
+}

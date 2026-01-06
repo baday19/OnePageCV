@@ -1,0 +1,11 @@
+.preview {
+  height: var(--paper-height);
+  width: var(--paper-width);
+  background-color: white;
+  font-size: var(--small-font-size);
+  line-height: var(--paper-line-height);
+}
+
+.main {
+  padding: 8mm 8mm 2mm;
+}

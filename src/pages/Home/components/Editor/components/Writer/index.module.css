@@ -1,0 +1,57 @@
+.toolbar {
+  padding: 10px;
+  background-color: #F7FAFF;
+}
+
+.toolbar .btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.histories {
+  margin-top: 10px;
+}
+
+.history_item {
+  margin-bottom: 6px;
+}
+
+.config .form_item {
+  justify-content: space-between;
+}
+
+.config .item_label {
+  width: 200px !important;
+}
+
+.form_item {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  min-height: 30px;
+}
+
+.item_label {
+  width: 70px;
+  margin-right: 10px;
+}
+
+.input {
+  flex: 1;
+}
+
+.btn {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.tips {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #a9a9a9;
+}
+
+.tips ul {
+  list-style: inside;
+}

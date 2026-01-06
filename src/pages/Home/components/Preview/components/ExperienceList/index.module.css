@@ -1,0 +1,27 @@
+.title {
+  font-size: var(--medium-font-size);
+  font-weight: bold;
+  /* padding: 1mm 0; */
+  color: var(--theme-color);
+  margin: calc(var(--paper-line-spacing) + 1mm) 0 var(--paper-line-spacing);
+  height: calc(var(--paper-line-height) + 2mm);
+  line-height: calc(var(--paper-line-height) * 1.5);
+}
+
+.titleFirst {
+  padding-left: 4mm;
+  background-color: var(--border-color);
+  border-left: 2mm solid var(--theme-color);
+}
+
+.titleSecond {
+  border-bottom: 1px solid var(--theme-color);
+}
+
+.experienceContentLine {
+  display: flex;
+  justify-content: space-between;
+  list-style-position: inside;
+  margin-bottom: var(--paper-line-spacing);
+  /* word-break: break-all; */
+}

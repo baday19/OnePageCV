@@ -1,0 +1,58 @@
+/* 1mm ≈ 3.78px */
+:root {
+  --paper-height: 297mm;
+  --paper-width: 210mm;
+  --photo-height: 32mm;
+  --photo-width: 25mm;
+  --paper-line-height: 5.4mm;
+  --paper-line-spacing: 1.2mm;
+  --large-font-size: 5.5mm;
+  --medium-font-size: 4.675mm;
+  --small-font-size: 3.3mm;
+  --theme-color: #4183FF;
+  --border-color: #f7faff;
+}
+
+body {
+  background-color: #F2F3F5;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* @media (max-width: 504mm) {
+  body {
+    zoom: 1.2;
+  }
+} */
+
+@media (max-width: 420mm) {
+  body {
+    zoom: 0.9;
+  }
+}
+
+@media (max-width: 378mm) {
+  body {
+    zoom: 0.7;
+  }
+}
+
+@media (max-width: 294mm) {
+  body {
+    zoom: 0.5;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  body {
+    zoom: 1 !important;
+  }
+}

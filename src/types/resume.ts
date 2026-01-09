@@ -88,11 +88,11 @@ export const defaultResume: Resume = {
         { type: 'doubleColumn', value: ['NoCode-Bench: A Benchmark for Evaluating Natural Language-Driven Feature Addition', '2024年12⽉ - 2025年07⽉'] },
         { type: 'sequence', value: ['问题背景：现有benchmark主要评估⼤语⾔模型在软件开发中的错误修复任务，未涉及⽆代码开发场景或功能增加任务。'] },
         { type: 'sequence', value: ['研究内容：1）提出了专⻔设计⽤于评估⽆代码功能增强任务的NoCode-bench，填补了现有软件⼯程benchmark的重要空⽩;2）提供了⼀个系统的五阶段构建流程，确保基准测试的质量和可靠性，并提供了⼀个经过⼈⼯验证的⼦集，适⽤于有限资源下的轻量级评估; 3）对多个先进的⼤语⾔模型进⾏了全⾯评估，从定量和定性⻆度分析其性能，识别了影响模型表现的关键因素。'] },
-        { type: 'sequence', value: ['相关成果：作为第⼀作者，相关论⽂ACL (CCF-A) 在投。'] },
+        { type: 'sequence', value: ['相关成果：作为第⼀作者，相关论⽂xxx (CCF-A) 在投。'] },
         { type: 'doubleColumn', value: ['Enhancing Project-Specific Code Completion by Inferring Internal API Information', '2024年08⽉ - 2025年04⽉'] },
         { type: 'sequence', value: ['问题背景：现有的项⽬特定代码补全⽅法依赖语⾔模型和相似度匹配，难以准确理解项⽬内部复杂的API结构和上下⽂依赖。'] },
         { type: 'sequence', value: ['研究内容：1）提出了⼀种基于内部API推断的代码补全⽅法和框架，增强了代码补全模型的准确性; 2）构建了⼀个名为ProjBench的测试集，它包含了最新的⼤规模真实项⽬，并且通过静态分析⼿段尽可能对⻬了现实场景; 3）我们的⽅法在ProjBench和CrossCodeEval上的实验结果显⽰，代码和标识符精确匹配分别平均提⾼了22.72%和18.31%。'] },
-        { type: 'sequence', value: ['相关成果：作为第⼀作者，相关论⽂发表在TSE (CCF-A)。'] },
+        { type: 'sequence', value: ['相关成果：作为第⼀作者，相关论⽂发表在xxx (CCF-A)。'] },
       ]
     },
     {

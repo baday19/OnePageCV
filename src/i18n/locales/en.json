@@ -1,0 +1,20 @@
+{
+  "lang": "En",
+  "editor": {
+    "menu": {
+      "resume": "Resume Editor",
+      "assistant": "AI Assistant"
+    },
+    "toolbar": {
+      "save": "Save",
+      "export": "Export",
+      "saveAt": "Resume saved at {{time}}"
+    },
+    "configWriter": {
+      "title": "Resume Configuration"
+    },
+    "infoWriter": {
+      "title": "Basic Information"
+    }
+  }
+}

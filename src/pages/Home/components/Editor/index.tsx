@@ -3,20 +3,24 @@ import styles from './index.module.css'
 import classNames from 'classnames'
 import Writer from './components/Writer'
 import Assistant from './components/Assistant'
+import { useTranslation } from 'react-i18next'
 
-const menuList = [
-  {
-    title: '简历编辑',
-    component: <Writer />
-  },
-  {
-    title: '智能助手',
-    component: <Assistant />
-  }
-]
 
 const Editor = () => {
   const [menuIndex, setMenuIndex] = useState(0)
+  const { t } = useTranslation()
+
+  const menuList = [
+    {
+      title: t('editor.menu.resume'),
+      component: <Writer />
+    },
+    {
+      title: t('editor.menu.assistant'),
+      component: <Assistant />
+    }
+  ]
+
   return (
     <div className={styles.container}>
       {/* 菜单 */}
@@ -41,7 +45,7 @@ const Editor = () => {
             return (
               <div
                 key={index}
-                style={{display: index === menuIndex? 'block' : 'none'}}
+                style={{ display: index === menuIndex ? 'block' : 'none' }}
               >
                 {item.component}
               </div>

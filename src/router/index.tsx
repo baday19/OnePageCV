@@ -11,6 +11,8 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> }
     ]
   }
-])
+], {
+  basename: '/OnePageCV'
+})
 
 export default router

@@ -7,12 +7,14 @@ import type { RcFile } from 'antd/es/upload';
 import type { ExperienceContentItem } from '@/types/resume';
 import { changeRootStyle, copyToClipboard, formatTime, ResumeStorage, type ResumeHistoryType } from '@/utils/utils';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const ConfigWriter = () => {
   const { paperConfig, setPaperConfig } = useResume()
+  const { t } = useTranslation()
 
   return (
-    <EditCard title='简历配置' initExpand={false}>
+    <EditCard title={t('editor.configWriter.title')} initExpand={false}>
       <div className={styles.config}>
         {/* <div className={styles.form_item}>
           <div className={styles.item_label}>预设模板</div>
@@ -122,8 +124,10 @@ const ConfigWriter = () => {
 
 const InfoWriter = () => {
   const { baseInfo, setBaseInfo } = useResume()
+  const { t } = useTranslation()
+
   return (
-    <EditCard title='基础信息' initExpand={false}>
+    <EditCard title={t('editor.infoWriter.title')} initExpand={false}>
       <div className={styles.form_item}>
         <div className={styles.item_label}>姓名:</div>
         <Input className={styles.input} onChange={(e) => {
@@ -412,6 +416,8 @@ const Writer = () => {
 
   const [history, setHistory] = useState<ResumeHistoryType[]>(ResumeStorage.get())
 
+  const { t } = useTranslation()
+
   useEffect(() => {
     if (!paperConfig) return
     changeRootStyle("--paper-line-spacing", `${paperConfig.lineSpacing}mm`)
@@ -449,10 +455,10 @@ const Writer = () => {
       <div className={styles.toolbar}>
         <div className={styles.btns}>
           <div className={styles.left_area}>
-            <Button type="primary" size="middle" onClick={handleStore}>保存</Button>
+            <Button type="primary" size="middle" onClick={handleStore}>{t('editor.toolbar.save')}</Button>
           </div>
           <div className={styles.right_area}>
-            <Button onClick={handleExport}>导出</Button>
+            <Button onClick={handleExport}>{t('editor.toolbar.export')}</Button>
           </div>
         </div>
         {
@@ -463,7 +469,9 @@ const Writer = () => {
                   onClick={() => handleImport(item)}
                   className={styles.history_item} style={{
                     width: '100%'
-                  }}>保存于 {formatTime(item.timestamp)} 的简历</Button>
+                  }}>
+                  {t('editor.toolbar.saveAt', { time: formatTime(item.timestamp) })}
+                </Button>
               })
             }
           </div>

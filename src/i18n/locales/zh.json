@@ -1,0 +1,20 @@
+{
+  "lang": "中",
+  "editor": {
+    "menu": {
+      "resume": "简历编辑",
+      "assistant": "AI助手"
+    },
+    "toolbar": {
+      "save": "保存",
+      "export": "导出",
+      "saveAt": "保存于 {{time}} 的简历"
+    },
+    "configWriter": {
+      "title": "简历配置"
+    },
+    "infoWriter": {
+      "title": "基础信息"
+    }
+  }
+}

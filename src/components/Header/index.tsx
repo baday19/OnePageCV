@@ -7,7 +7,7 @@ export default function Header() {
 
   const changeLang = async () => {
     const newLang: string = i18n.language === 'zh' ? 'en' : 'zh'
-    i18n.changeLanguage(newLang).then();
+    i18n.changeLanguage(newLang);
     localStorage.setItem('lang', newLang)
   }
 

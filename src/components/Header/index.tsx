@@ -5,9 +5,10 @@ import { useTranslation } from 'react-i18next'
 export default function Header() {
   const { i18n, t } = useTranslation()
 
-  const changeLang = () => {
-    i18n.changeLanguage(i18n.language === 'zh' ? 'en' : 'zh')
-    localStorage.setItem('lang', i18n.language)
+  const changeLang = async () => {
+    const newLang: string = i18n.language === 'zh' ? 'en' : 'zh'
+    i18n.changeLanguage(newLang).then();
+    localStorage.setItem('lang', newLang)
   }
 
   return (

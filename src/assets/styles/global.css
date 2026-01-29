@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@source inline("text-red-600 text-orange-600 text-yellow-600 text-green-600 text-cyan-600 text-blue-600 text-purple-600 text-indigo-600 text-pink-600 text-shadow-md");
+@source inline("bg-red-100 bg-orange-100 bg-yellow-100 bg-green-100 bg-cyan-100 bg-blue-100 bg-purple-100 bg-indigo-100 bg-pink-100");
+
+/* 1mm ≈ 3.78px */
+:root {
+  --paper-height: 297mm;
+  --paper-width: 210mm;
+  --photo-height: 32mm;
+  --photo-width: 25mm;
+  --paper-line-height: 5.4mm;
+  --paper-line-spacing: 1.2mm;
+  --large-font-size: 5.5mm;
+  --medium-font-size: 4.675mm;
+  --small-font-size: 3.3mm;
+  --theme-color: #4183FF;
+  --border-color: #f7faff;
+}
+
+@media print {
+  .print-hidden {
+    display: none;
+  }
+
+  .print-reset {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  #preview {
+    display: block !important; /* 显示 Preview */
+    width: 210mm;   /* A4 宽度 */
+    height: 297mm;  /* A4 高度 */
+    margin: 0;
+  }
+}
+
+.a-reset a {
+  color: revert;
+}
+
+
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */

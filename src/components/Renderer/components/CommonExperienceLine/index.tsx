@@ -1,7 +1,7 @@
 
 
 interface CommonExperienceLineProps {
-    value: string[];
+  value: string[];
 }
 
 const CommonExperienceLine = ({ value }: CommonExperienceLineProps) => {
@@ -14,9 +14,11 @@ const CommonExperienceLine = ({ value }: CommonExperienceLineProps) => {
       }}
     >
       {
-        value.map((line, index) => (
-          <div key={index} dangerouslySetInnerHTML={{__html: line}} />
-        ))
+        value.map((line, index) => {
+          return (
+            <div key={index} dangerouslySetInnerHTML={{ __html: line }} />
+          )
+        })
       }
     </div>
   )

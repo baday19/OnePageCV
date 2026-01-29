@@ -1,10 +1,10 @@
 import { PreviewRenderer as Renderer } from "../Renderer"
-import type { NodeSchema } from "../Renderer/config"
+import type { ResumeSchema } from "../Renderer/config"
 
 const Preview = ({
   schema
 }: {
-  schema: NodeSchema
+  schema: ResumeSchema
 }) => {
   return (
     <div

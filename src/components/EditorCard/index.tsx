@@ -1,53 +1,106 @@
-import { PlusCircleIcon, ArrowsUpDownIcon, ArrowDownIcon, ArrowUpIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { UserIcon, AcademicCapIcon, BriefcaseIcon, BoltIcon, BeakerIcon, PlusCircleIcon, ArrowsUpDownIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { PencilSquareIcon } from "@heroicons/react/16/solid";
-import { useEffect, useState, type ComponentType } from "react";
+import { useEffect, useMemo, useState, type ComponentType } from "react";
 import type { CssNamedColor } from "@/utils/types";
 import { Dropdown, Modal } from "antd";
 import Input from "../Input";
-import type { ItemType } from "antd/es/menu/interface";
+
+// 预设一些logo+颜色,通过匹配title关键词来使用
+const logoPresets = {
+  basic: { keyword: ['基本信息', '个人信息'], icon: UserIcon, iconColor: 'blue' },
+  education: { keyword: ['教育经历', '教育背景', '在校经历', '校园经历', '学习经历'], icon: AcademicCapIcon, iconColor: 'green' },
+  work: { keyword: ['工作经历', '实习经历', '实践经历', '研究经历'], icon: BriefcaseIcon, iconColor: 'purple' },
+  skill: { keyword: ['专业技能'], icon: BoltIcon, iconColor: 'cyan' },
+  other: { keyword: [], icon: BeakerIcon, iconColor: 'yellow' },
+} as const;
+
+function matchLogoPreset(title: string) {
+  const titleLower = title.toLowerCase();
+  for (const key in logoPresets) {
+    const preset = logoPresets[key as LogoPresetKey];
+    if (preset.keyword.some(keyword => titleLower.includes(keyword))) {
+      return preset;
+    }
+  }
+  return logoPresets.other;
+}
+
+type LogoPresetKey = keyof typeof logoPresets;
+// 如果开启preset，则根据title关键词匹配对应的logo和颜色，没匹配到就用other
+
 
 interface EditorCardProps {
   title: string;
+  preset?: boolean;
   icon?: ComponentType<{ className?: string }>;
   iconColor?: CssNamedColor,
-  onMoveUp: () => void;
-  onMoveDown: () => void;
-  onDelete: () => void;
-  onChange: (newTitle: string) => void;
-  showUp: boolean;
-  showDown: boolean;
-  showDelete: boolean;
-  showEdit: boolean;
-  children: React.ReactNode;
-  items?: ItemType[];
-  onAddItem?: (item: any) => void;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
+  onDelete?: () => void;
+  onChange?: (newTitle: string) => void;
+  showUp?: boolean;
+  showDown?: boolean;
+  showDelete?: boolean;
+  showEdit?: boolean;
+  children?: React.ReactNode;
+  onAddLine?: (item: any) => void;
 }
+
 
 
 const EditorCard = ({
   title,
+  preset = false,
   icon: Icon,
   iconColor,
   onMoveUp,
   onMoveDown,
   onDelete,
   onChange = () => { },
-  showUp = true,
-  showDown = true,
+  showUp = false,
+  showDown = false,
   showDelete = true,
   showEdit = true,
   children,
-  items,
-  onAddItem,
+  onAddLine,
 }: EditorCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [titleValue, setTitleValue] = useState(title)
 
   const buttonClassName = "rounded-lg px-3 h-8 hover:bg-gray-100 transition-colors"
 
+  const presetData = useMemo(() => {
+    if (preset) {
+      return matchLogoPreset(title)
+    }
+    return null
+  }, [title, preset])
+
+  const IconFinal = presetData?.icon || Icon
+  const iconColorFinal = presetData?.iconColor || iconColor
+
+  const moveItems = [
+    {
+      key: '1',
+      label: '上移',
+    },
+    {
+      key: '2',
+      label: '下移',
+    },
+  ];
+
+  const handleMove = (e: any) => {
+    if (e.key === '1' && onMoveUp) {
+      onMoveUp();
+    } else if (e.key === '2' && onMoveDown) {
+      onMoveDown();
+    }
+  }
+
   useEffect(() => {
     if (isModalOpen) {
-      setTitleValue(title)
+      setTitleValue(title);
     }
   }, [isModalOpen])
 
@@ -55,6 +108,7 @@ const EditorCard = ({
     onChange(titleValue)
     setIsModalOpen(false)
   }
+
 
   return (
     <section
@@ -66,10 +120,10 @@ const EditorCard = ({
       >
         <div className="text-lg font-bold flex items-center">
           {
-            Icon && <div
-              className={`mr-2 w-8 h-8 bg-${iconColor}-100 text-${iconColor}-600 rounded-lg flex items-center justify-center`}
+            IconFinal && <div
+              className={`mr-2 w-8 h-8 bg-${iconColorFinal}-100 text-${iconColorFinal}-600 rounded-lg flex items-center justify-center`}
             >
-              <Icon className="w-4 h-4" />
+              <IconFinal className="w-4 h-4" />
             </div>
           }
           <div>{title}</div>
@@ -87,15 +141,13 @@ const EditorCard = ({
         <div
           className="flex items-center gap-1 h-full"
         >
-          {/* {
-            showUp && <button onClick={onMoveUp} className={buttonClassName}>
-              <ArrowUpIcon className="w-3 h-3" />
-            </button>
-          } */}
           {
-            showDown && <button onClick={onMoveDown} className={buttonClassName}>
-              <ArrowsUpDownIcon className="w-4 h-4" />
-            </button>
+            (!showUp && !showDown) ||
+            <Dropdown menu={{ items: moveItems, onClick: handleMove }} placement="bottom">
+              <button className={buttonClassName}>
+                <ArrowsUpDownIcon className="w-4 h-4" />
+              </button>
+            </Dropdown>
           }
           {
             showDelete && <button onClick={onDelete} className={`${buttonClassName} flex items-center`}>
@@ -107,12 +159,10 @@ const EditorCard = ({
       {/* 填写行 */}
       <div>
         {children}
-        <Dropdown menu={{ items, onClick: onAddItem }} placement="bottom">
-          <button className="mt-4 w-full flex items-center justify-center cursor-pointer py-1.5 border border-gray-300 rounded-md text-sm text-gray-800 hover:bg-gray-100 hover:text-black transition-colors">
-            <PlusCircleIcon className="w-4 h-4" />
-            <div className="ml-2.5">添加信息行</div>
-          </button>
-        </Dropdown>
+        <button onClick={onAddLine} className="mt-4 w-full flex items-center justify-center cursor-pointer py-1.5 border border-gray-300 rounded-md text-sm text-gray-800 hover:bg-gray-100 hover:text-black transition-colors">
+          <PlusCircleIcon className="w-4 h-4" />
+          <div className="ml-2.5">添加信息行</div>
+        </button>
 
       </div>
       <Modal

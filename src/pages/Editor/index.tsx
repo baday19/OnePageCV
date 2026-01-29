@@ -14,7 +14,7 @@ const index = () => {
     setConfigData(newConfig);
   }
   const handleResumeDataChange = (newSchema: typeof resumeData) => {
-    console.log(newSchema);
+    setResumeData(newSchema);
   }
 
   return (

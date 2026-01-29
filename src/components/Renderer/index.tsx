@@ -1,43 +1,44 @@
-import type { NodeSchema } from "./config"
+import type { NodeSchema, ResumeSchema } from "./config"
 import { previewComponentMap, editorComponentMap } from "./config"
 
-export const PreviewRenderer = ({ schema }: { schema: NodeSchema }) => {
+export const PreviewRenderer = ({ schema }: { schema: ResumeSchema }) => {
   if (!schema) {
     return null
   }
-  const Component = previewComponentMap[schema.componentType]
-  if (!Component) {
-    console.warn(`Unknown component type: ${schema.componentType}`)
-    return null
-  }
+
   return (
-    <Component {...schema.props}>
+    <>
       {
-        schema.children?.map(
-          child => <PreviewRenderer schema={child} />
-        )
+        schema.children?.map(child => {
+          const Component = previewComponentMap[child.componentType]
+          if (!Component) {
+            console.warn(`Unknown component type: ${child.componentType}`)
+            return null
+          }
+          return <Component key={child.id} {...child.props} />
+        })
       }
-    </Component>
+    </>
   )
 }
 
-export const EditorRenderer = ({ schema, onChange }: { schema: NodeSchema, onChange: (schema: NodeSchema) => void }) => {
+export const EditorRenderer = ({ schema, onNodeChange }: { schema: ResumeSchema, onNodeChange: (schema: NodeSchema) => void }) => {
   if (!schema) {
     return null
   }
 
-  const Component = editorComponentMap[schema.componentType]
-  if (!Component) {
-    console.warn(`Unknown component type: ${schema.componentType}`)
-    return null
-  }
   return (
-    <Component {...schema.props} onChange={onChange}>
+    <>
       {
-        schema.children?.map(
-          child => <EditorRenderer schema={child} onChange={onChange} />
-        )
+        schema.children?.map(child => {
+          const Component = editorComponentMap[child.componentType]
+          if (!Component) {
+            console.warn(`Unknown component type: ${child.componentType}`)
+            return null
+          }
+          return <Component key={child.id} schema={child} onChange={onNodeChange} />
+        })
       }
-    </Component>
+    </>
   )
 }

@@ -6,7 +6,7 @@ interface InputProps {
   className?: string;
   style?: React.CSSProperties;
   value: string;
-  placeholder: string;
+  placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -15,7 +15,7 @@ const Input = ({
   className,
   style,
   value,
-  placeholder,
+  placeholder='',
   onChange
 }: InputProps) => {
 

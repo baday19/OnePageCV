@@ -1,26 +1,8 @@
-import CommonExperienceLine from "./components/CommonExperienceLine"
 import {CommonProfileModule, CommonProfileModuleEditor} from "./components/CommonProfileModule"
 import {CommonExperienceModule, CommonExperienceModuleEditor} from "./components/CommonExperienceModule"
 
-const ResumeRoot = ({
-  children
-}: {
-  children?: React.ReactNode
-}) => {
-  return (
-    <div
-      id='resume-root'
-    >
-      {children}
-    </div>
-  )
-}
 
 const componentRegistry = {
-  resume: {
-    preview: ResumeRoot,
-    editor: ResumeRoot,
-  },
   commonProfileModule: {
     preview: CommonProfileModule,
     editor: CommonProfileModuleEditor,
@@ -39,7 +21,14 @@ interface NodeSchema {
   id: number;
   componentType: NodeType;
   props?: Record<string, any>;
-  children?: NodeSchema[];
+  __action?: 'delete' | 'up' | 'down';
+}
+
+// 暂时定义成列表结构，未来可能做成树形结构
+interface ResumeSchema {
+  id: number;
+  metadata?: Record<string, any>;
+  children: NodeSchema[];
 }
 
 const previewComponentMap = Object.fromEntries(
@@ -56,4 +45,4 @@ export {
   editorComponentMap
 }
 
-export type { NodeSchema, NodeType }
+export type { NodeSchema, ResumeSchema, NodeType }

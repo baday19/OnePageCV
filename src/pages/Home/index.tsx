@@ -1,7 +1,7 @@
 import Menu from "@/components/Menu"
 import Preview from "@/components/Preview"
 import PreviewHeader from "@/components/PreviewHeader"
-import type { NodeSchema } from "@/components/Renderer/config"
+import type { NodeSchema, ResumeSchema } from "@/components/Renderer/config"
 import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
 import Photo from "@/assets/images/22351053.jpg"
@@ -9,10 +9,9 @@ import SchoolIcon from "@/assets/images/logo.jpg"
 import { defaultConfigData, type ConfigDataProps } from "@/utils/types"
 import { changeRootStyle } from "@/utils/utils"
 
-// 能否编辑，再编辑组件渲染器里处理？
-const defaultSchema: NodeSchema = {
+
+const defaultSchema: ResumeSchema = {
   id: 0,
-  componentType: "resume",
   children: [
     {
       id: 1,
@@ -29,7 +28,15 @@ const defaultSchema: NodeSchema = {
       componentType: "commonExperienceModule",
       props: {
         title: "校园经历",
-        value: [['浙江大学'], ["<b>浙江大学</b>", "2023.09 - 2026.03", "1231"]]
+        value: [['浙江大学'], ["<b>浙江大学</b>", "2023.09 - 2026.03"]]
+      }
+    },
+    {
+      id: 3,
+      componentType: "commonExperienceModule",
+      props: {
+        title: "实习经历",
+        value: [['浙江大学'], ["<b>浙江大学</b>", "2023.09 - 2026.03"]]
       }
     }
   ]
@@ -38,13 +45,13 @@ const defaultSchema: NodeSchema = {
 export interface OutletContextProps {
   configData: ConfigDataProps;
   setConfigData: (data: ConfigDataProps) => void;
-  resumeData: NodeSchema;
-  setResumeData: (data: NodeSchema) => void;
+  resumeData: ResumeSchema;
+  setResumeData: (data: ResumeSchema) => void;
 }
 
 const Home = () => {
 
-  const [resumeData, setResumeData] = useState<NodeSchema>(defaultSchema)
+  const [resumeData, setResumeData] = useState<ResumeSchema>(defaultSchema)
   const [configData, setConfigData] = useState<ConfigDataProps>(defaultConfigData)
 
   useEffect(() => {

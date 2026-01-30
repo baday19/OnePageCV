@@ -1,3 +1,10 @@
+import EditorCard from "@/components/EditorCard";
+import type { NodeSchema } from "../../config";
+import { CommonEditorInput } from "../CommonExperienceLine";
+import Input from "@/components/Input";
+import { Upload } from "antd";
+import type { RcFile } from "antd/es/upload/interface";
+import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 
 interface OptionProps {
   photoPosition?: 'left' | 'right';
@@ -10,7 +17,7 @@ interface CommonProfileModuleProps {
   name?: string;
   schoolIcon?: string;
   photo?: string;
-  value?: string[][];
+  items?: { type: string, value: string[] }[];
   option: OptionProps;
 }
 
@@ -18,7 +25,7 @@ const CommonProfileModule = ({
   name,
   schoolIcon,
   photo,
-  value,
+  items,
   option = {
     photoPosition: 'right',
     valuePosition: 'center',
@@ -26,6 +33,8 @@ const CommonProfileModule = ({
     hasPhoto: true,
   }
 }: CommonProfileModuleProps) => {
+
+  const rows = items || [];
 
   const valuePositionClass = option.valuePosition === 'left' ? 'items-start' : (option.valuePosition === 'center' ? 'items-center' : 'items-end');
 
@@ -38,7 +47,7 @@ const CommonProfileModule = ({
             width: 'var(--photo-width)',
           }}
         >
-          {option.hasSchoolIcon && <img
+          {option.hasSchoolIcon && schoolIcon && <img
             className="h-full max-w-none"
             src={schoolIcon} alt="校徽" />}
         </div>
@@ -51,9 +60,9 @@ const CommonProfileModule = ({
             width: 'var(--photo-width)',
           }}
         >
-          <img
+          {schoolIcon && <img
             className="h-full max-w-none"
-            src={schoolIcon} alt="校徽" />
+            src={schoolIcon} alt="校徽" />}
         </div>
       )
     }
@@ -130,7 +139,7 @@ const CommonProfileModule = ({
             {name}
           </div>
           {
-            value?.map((item, index) => (
+            rows.map((item: Record<string, any>, index: number) => (
               <div
                 className="a-reset"
                 key={index}
@@ -138,7 +147,7 @@ const CommonProfileModule = ({
                   fontSize: 'var(--small-font-size)',
                   lineHeight: 'calc(var(--paper-line-height) - 1.2mm)',
                 }}
-                dangerouslySetInnerHTML={{ __html: item[0] }}
+                dangerouslySetInnerHTML={{ __html: item.value }}
               />
             ))
           }
@@ -151,8 +160,145 @@ const CommonProfileModule = ({
   )
 }
 
-const CommonProfileModuleEditor = () => {
-  return (<div>CommonProfileModuleEditor</div>)
+interface CommonProfileModuleEditorProps {
+  schema: NodeSchema;
+  onChange: (newNode: NodeSchema) => void;
+}
+
+const CommonProfileModuleEditor = ({
+  schema,
+  onChange
+}: CommonProfileModuleEditorProps) => {
+
+  const { name, option } = schema.props || {};
+
+  const changeProps = (key: string, value: string) => {
+    const newNode = {
+      ...schema,
+      props: {
+        ...schema.props,
+        [key]: value
+      }
+    };
+    onChange(newNode);
+  }
+
+
+  const { items: rows } = schema.props || { items: [] };
+
+  const changeItems = (newRows: string[][]) => {
+    const newNode = {
+      ...schema,
+      props: {
+        ...schema.props,
+        items: newRows
+      }
+    };
+    onChange(newNode);
+  }
+
+  const handleRowChange = (index: number, newItem: Record<string, any>) => {
+    const newRows = rows.map((row: string[], i: number) => {
+      if (i === index) {
+        return newItem;
+      }
+      return row;
+    });
+    changeItems(newRows);
+  }
+
+  const handleDeleteRow = (index: number) => {
+    const newRows = rows.filter((_: string[], i: number) => i !== index);
+    changeItems(newRows);
+  }
+
+  const handleMoveRow = (fromIndex: number, toIndex: number) => {
+    if (toIndex < 0 || toIndex >= rows.length) {
+      return;
+    }
+    const newRows = [...rows];
+    const [movedRow] = newRows.splice(fromIndex, 1);
+    newRows.splice(toIndex, 0, movedRow);
+    changeItems(newRows);
+  }
+
+  const handleAddRow = () => {
+    const newRows = [...rows, { type: 'single', value: [''] }];
+    changeItems(newRows);
+  }
+
+  const handleDelete = () => {
+    onChange({
+      ...schema,
+      __action: 'delete'
+    })
+  }
+
+  return (
+    <EditorCard
+      title={'基本信息'}
+      preset={true}
+      onAddLine={handleAddRow}
+      onDelete={handleDelete}
+      showEdit={false}
+    >
+      <div className="mt-3">
+        <Input className="h-8 w-full" value={name} onChange={(e) => changeProps('name', e.target.value)} />
+      </div>
+      {
+        option.hasSchoolIcon && <div className="mt-3">
+          <Upload name="file" beforeUpload={(file: RcFile) => {
+            const fileData = URL.createObjectURL(file);
+            changeProps('photo', fileData);
+            return false;
+          }}
+            listType="picture"
+            maxCount={1} onRemove={() => {
+              changeProps('photo', '')
+            }}>
+            <button className="flex items-center cursor-pointer px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-800 hover:bg-gray-100 hover:text-black transition-colors">
+              <ArrowUpTrayIcon className="w-4 h-4" />
+              <div className="ml-2.5">上传照片</div>
+            </button>
+          </Upload>
+        </div>
+      }
+      {
+        option.hasPhoto && <div className="mt-3">
+          <Upload name="file" beforeUpload={(file: RcFile) => {
+            const fileData = URL.createObjectURL(file);
+            changeProps('schoolIcon', fileData);
+            return false;
+          }}
+            listType="picture"
+            maxCount={1} onRemove={() => {
+              changeProps('schoolIcon', '')
+            }}>
+            <button className="flex items-center cursor-pointer px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-800 hover:bg-gray-100 hover:text-black transition-colors">
+              <ArrowUpTrayIcon className="w-4 h-4" />
+              <div className="ml-2.5">上传校徽</div>
+            </button>
+          </Upload>
+        </div>
+      }
+      {
+        rows.map((item: Record<string, any>, index: number) => {
+          return (
+            <div className="mt-3" key={index}>
+              <CommonEditorInput
+                data={item}
+                showTypeChange={false}
+                onChange={(newItem) => handleRowChange(index, newItem)}
+                onDelete={() => handleDeleteRow(index)}
+                onMoveUp={() => handleMoveRow(index, index - 1)}
+                onMoveDown={() => handleMoveRow(index, index + 1)}
+              />
+            </div>
+          )
+        })
+      }
+    </EditorCard>
+  )
 }
 
 export {

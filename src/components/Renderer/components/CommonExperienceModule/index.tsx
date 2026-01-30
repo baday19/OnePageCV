@@ -1,7 +1,7 @@
 import EditorCard from "@/components/EditorCard";
-import CommonExperienceLine from "../CommonExperienceLine";
+import { CommonExperienceLine, CommonEditorInput } from "../CommonExperienceLine";
 import type { NodeSchema } from "../../config";
-import CommonEditorInput from "../CommonEditorInput";
+// import CommonEditorInput from "../CommonEditorInput";
 
 interface OptionProps {
   type: 0 | 1;
@@ -10,10 +10,10 @@ interface OptionProps {
 interface CommonExperienceModuleProps {
   title: string;
   option: OptionProps;
-  value: string[][];
+  items: { type: string; value: string[] }[];
 }
 
-const CommonExperienceModule = ({ title, option = { type: 0 }, value }: CommonExperienceModuleProps) => {
+const CommonExperienceModule = ({ title, option = { type: 0 }, items }: CommonExperienceModuleProps) => {
   const { type } = option;
 
   const typeStyles = type === 0 ? {
@@ -40,9 +40,9 @@ const CommonExperienceModule = ({ title, option = { type: 0 }, value }: CommonEx
         }}
       >{title}</div>
       {
-        value.map((item: string[], index: number) => {
+        items.map((item: Record<string, any>, index: number) => {
           return (
-            <CommonExperienceLine key={index} value={item} />
+            <CommonExperienceLine key={index} value={item.value} type={item.type} />
           )
         })
       }
@@ -71,34 +71,34 @@ const CommonExperienceModuleEditor = ({
     };
     onChange(newNode);
   }
-  const { value: rows } = schema.props || { value: [] };
+  const { items: rows } = schema.props || { items: [] };
 
-  const changeValue = (newRows: string[][]) => {
+  const changeItems = (newRows: string[][]) => {
     const newNode = {
       ...schema,
       props: {
         ...schema.props,
-        value: newRows
+        items: newRows
       }
     };
     onChange(newNode);
   }
 
-  const handleRowChange = (index: number, newValues: string[]) => {
+  const handleRowChange = (index: number, newItem: Record<string, any>) => {
     const newRows = rows.map((row: string[], i: number) => {
       if (i === index) {
-        return newValues;
+        return newItem;
       }
       return row;
     });
-    changeValue(newRows);
+    changeItems(newRows);
   }
 
 
 
   const handleDeleteRow = (index: number) => {
     const newRows = rows.filter((_: string[], i: number) => i !== index);
-    changeValue(newRows);
+    changeItems(newRows);
   }
 
   const handleMoveRow = (fromIndex: number, toIndex: number) => {
@@ -108,12 +108,12 @@ const CommonExperienceModuleEditor = ({
     const newRows = [...rows];
     const [movedRow] = newRows.splice(fromIndex, 1);
     newRows.splice(toIndex, 0, movedRow);
-    changeValue(newRows);
+    changeItems(newRows);
   }
 
   const handleAddRow = () => {
-    const newRows = [...rows, ['']];
-    changeValue(newRows);
+    const newRows = [...rows, { type: 'single', value: [''] }];
+    changeItems(newRows);
   }
 
   const handleDelete = () => {
@@ -132,12 +132,12 @@ const CommonExperienceModuleEditor = ({
       onDelete={handleDelete}
     >
       {
-        rows.map((item: string[], index: number) => {
+        rows.map((item: Record<string, any>, index: number) => {
           return (
             <div className="mt-3" key={index}>
               <CommonEditorInput
-                values={item}
-                onChange={(newValues) => handleRowChange(index, newValues)}
+                data={item}
+                onChange={(newItem) => handleRowChange(index, newItem)}
                 onDelete={() => handleDeleteRow(index)}
                 onMoveUp={() => handleMoveRow(index, index - 1)}
                 onMoveDown={() => handleMoveRow(index, index + 1)}

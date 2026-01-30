@@ -8,7 +8,7 @@ import type { OutletContextProps } from "../Home"
 
 
 const index = () => {
-  const [activeMenu, setActiveMenu] = useState<number>(1);
+  const [activeMenu, setActiveMenu] = useState<number>(0);
   const { configData, setConfigData, resumeData, setResumeData } = useOutletContext<OutletContextProps>();
   const handleConfigChange = (newConfig: typeof configData) => {
     setConfigData(newConfig);

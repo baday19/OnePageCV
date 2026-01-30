@@ -20,7 +20,22 @@ const defaultSchema: ResumeSchema = {
         name: "邓乐",
         photo: Photo,
         schoolIcon: SchoolIcon,
-        value: [["15978018778 | dengle@zju.edu.cn"], ['<a href="https://github.com/baday19">github.com/baday19</a>']],
+        items: [
+          {
+            type: 'single',
+            value: ['15978018778 | dengle@zju.edu.cn']
+          },
+          {
+            type: 'single',
+            value: ['<a href="https://github.com/baday19">github.com/baday19</a>']
+          }
+        ],
+        option: {
+          hasSchoolIcon: true,
+          hasPhoto: true,
+          valuePosition: 'center',
+          photoPosition: 'right'
+        }
       },
     },
     {
@@ -28,7 +43,20 @@ const defaultSchema: ResumeSchema = {
       componentType: "commonExperienceModule",
       props: {
         title: "校园经历",
-        value: [['浙江大学'], ["<b>浙江大学</b>", "2023.09 - 2026.03"]]
+        items: [
+          {
+            type: 'single',
+            value: ['<b>浙江大学</b>']
+          },
+          {
+            type: 'double',
+            value: ['浙江大学', '2023.09 - 2026.03']
+          },
+          {
+            type: 'sequence',
+            value: ['浙江大学']
+          }
+        ]
       }
     },
     {
@@ -36,10 +64,56 @@ const defaultSchema: ResumeSchema = {
       componentType: "commonExperienceModule",
       props: {
         title: "实习经历",
-        value: [['浙江大学'], ["<b>浙江大学</b>", "2023.09 - 2026.03"]]
+        items: [
+          {
+            type: 'single',
+            value: ['<b>浙江大学</b>']
+          },
+          {
+            type: 'double',
+            value: ['浙江大学', '2023.09 - 2026.03']
+          },
+          {
+            type: 'sequence',
+            value: ['浙江大学']
+          }
+        ]
       }
     }
   ]
+}
+
+export const defaultUserInfo = {
+  name: '邓乐',
+  phone: '15978018778',
+  email: 'dengle@zju.edu.cn',
+  education: [
+    {
+      school: '浙江大学',
+      start: '2023.09',
+      end: '2025.04',
+      major: '软件工程',
+      degree: '硕士'
+    },
+    {
+      school: '西北工业大学',
+      start: '2019.09',
+      end: '2023.07',
+      major: '软件工程',
+      degree: '本科'
+    }
+  ],
+  work: [
+    {
+      company: '哈哈哈有限责任公司',
+      start: '',
+      end: '',
+      city: '杭州',
+      department: '',
+      position: ''
+    }
+  ],
+  skill: ['你好啊1', '你好啊2']
 }
 
 export interface OutletContextProps {
@@ -74,7 +148,7 @@ const Home = () => {
       {/* 左边区域 */}
       <div className="print-hidden flex-1 min-w-[210mm] border-r border-gray-300">
         <Menu />
-        <Outlet context={{configData, setConfigData, resumeData, setResumeData}} />
+        <Outlet context={{ configData, setConfigData, resumeData, setResumeData }} />
       </div>
       {/* 右边区域 */}
       <div className="flex-1 min-w-[210mm] bg-gray-100">

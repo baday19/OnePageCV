@@ -3,13 +3,11 @@ import { CommonExperienceLine, CommonEditorInput } from "../CommonExperienceLine
 import type { NodeSchema } from "../../config";
 // import CommonEditorInput from "../CommonEditorInput";
 
-interface OptionProps {
-  type: 0 | 1;
-}
-
 interface CommonExperienceModuleProps {
   title: string;
-  option: OptionProps;
+  option: {
+    type: 0 | 1;
+  };
   items: { type: string; value: string[] }[];
 }
 

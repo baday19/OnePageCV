@@ -1,6 +1,7 @@
 import Input from "@/components/Input";
 import { NumberedListIcon, EllipsisHorizontalCircleIcon } from "@heroicons/react/24/outline";
 import { Dropdown } from "antd";
+import RichInput from "@/components/RichInput";
 
 
 
@@ -14,14 +15,14 @@ export const CommonExperienceLine = ({ value, type }: CommonExperienceLineProps)
     <div
       className="flex justify-between"
       style={{
-        marginBottom: 'var(--paper-line-spacing)',
+        marginBottom: type === 'rich' ? 0 : 'var(--paper-line-spacing)',
         lineHeight: `var(--paper-line-height)`,
       }}
     >
       {
         value.map((line: string, index: number) => {
           return (
-            <li className={`${type === 'sequence' ? 'list-inside' : 'list-none'}`} key={index} dangerouslySetInnerHTML={{ __html: line }} />
+            <div key={index} dangerouslySetInnerHTML={{ __html: line }} />
           )
         })
       }
@@ -60,11 +61,17 @@ export const CommonEditorInput = ({
       count: 2,
       value: 'double'
     },
+    // {
+    //   key: '3',
+    //   label: '序列',
+    //   count: 1,
+    //   value: 'sequence'
+    // },
     {
-      key: '3',
-      label: '序列',
+      key: '4',
+      label: '富文本',
       count: 1,
-      value: 'sequence'
+      value: 'rich'
     },
   ];
   const handleTypeChange = (e: any) => {
@@ -123,16 +130,24 @@ export const CommonEditorInput = ({
     <div className="flex gap-1">
       <div className="flex-1 flex gap-3">
         {
-          data.value.map((value: string, index: number) => (
-            <Input className="flex-1" key={index} value={value} onChange={(e) => {
-              handleContentChange(index, e.target.value);
-            }} />
-          ))
+          data.type !== 'rich'
+            ? data.value.map((value: string, index: number) => (
+              <Input className="flex-1" key={index} value={value} onChange={(e) => {
+                handleContentChange(index, e.target.value);
+              }} />
+            ))
+            : <RichInput
+              className="w-full"
+              value={data.value[0]}
+              onChange={(val) => {
+                handleContentChange(0, val)
+              }}
+            />
         }
       </div>
-      <div className="flex gap-1 ml-2">
+      <div className={`flex gap-1 ml-2 ${data.type === 'rich' && 'flex-col'}`}>
         {
-          showTypeChange &&<Dropdown
+          showTypeChange && <Dropdown
             menu={{ items: typeItems, onClick: handleTypeChange }}
             placement="bottom"
           >

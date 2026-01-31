@@ -161,9 +161,8 @@ const EditorCard = ({
         {children}
         <button onClick={onAddLine} className="mt-4 w-full flex items-center justify-center cursor-pointer py-1.5 border border-gray-300 rounded-md text-sm text-gray-800 hover:bg-gray-100 hover:text-black transition-colors">
           <PlusCircleIcon className="w-4 h-4" />
-          <div className="ml-2.5">添加信息行</div>
+          <div className="ml-2.5">添加信息</div>
         </button>
-
       </div>
       <Modal
         title="修改模块名称"

@@ -3,11 +3,12 @@ import { defaultUserInfo } from "@/pages/Home"
 import { resolveValue } from "@/utils/utils"
 import { useState } from "react"
 
-const componentTypeList = ['信息模块', '经历模块']
+const componentTypeList = ['全部', '自定义',]
 
-const AddComponentPanel = () => {
+const TemplatePanel = () => {
   const [activeType, setActiveType] = useState(0)
   const activeButtonClass = 'bg-white rounded-full h-full'
+
 
   return (
     <div>
@@ -28,10 +29,13 @@ const AddComponentPanel = () => {
             )
           }
         </div>
-        <div>类型展示列表</div>
+        <div>
+          123123
+        </div>
+
       </div>
     </div>
   )
 }
 
-export default AddComponentPanel
+export default TemplatePanel

@@ -10,7 +10,9 @@ export function getValueByPath(obj: any, path: string) {
 }
 
 export function resolveValue(template: string, obj: any) {
-  return template.replace(/\{\{(.+?)\}\}/g, (_, path) => {
-    return getValueByPath(obj, path.trim()) ?? ''
+  return template.replace(/\{\{(.+?)\}\}/g, (_, expression) => {
+    const [path, defaultValue] = expression.split('||').map((s: string) => s.trim())
+    const value = getValueByPath(obj, path)
+    return (value !== undefined && value !== null) ? value : (defaultValue ?? '')
   })
 }

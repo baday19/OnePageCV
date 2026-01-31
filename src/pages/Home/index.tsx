@@ -1,7 +1,7 @@
 import Menu from "@/components/Menu"
 import Preview from "@/components/Preview"
 import PreviewHeader from "@/components/PreviewHeader"
-import type { NodeSchema, ResumeSchema } from "@/components/Renderer/config"
+import type { ResumeSchema } from "@/components/Renderer/config"
 import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
 import Photo from "@/assets/images/22351053.jpg"
@@ -52,10 +52,6 @@ const defaultSchema: ResumeSchema = {
             type: 'double',
             value: ['浙江大学', '2023.09 - 2026.03']
           },
-          {
-            type: 'sequence',
-            value: ['浙江大学']
-          }
         ]
       }
     },
@@ -74,9 +70,43 @@ const defaultSchema: ResumeSchema = {
             value: ['浙江大学', '2023.09 - 2026.03']
           },
           {
-            type: 'sequence',
+            type: 'rich',
             value: ['浙江大学']
           }
+        ]
+      }
+    },
+    {
+      id: 4,
+      componentType: "commonExperienceModule",
+      props: {
+        title: "项目经历",
+        items: [
+          {
+            type: 'single',
+            value: ['<b>浙江大学</b>']
+          },
+          {
+            type: 'double',
+            value: ['浙江大学', '2023.09 - 2026.03']
+          },
+          {
+            type: 'rich',
+            value: ['浙江大学']
+          }
+        ]
+      }
+    },
+    {
+      id: 5,
+      componentType: "commonExperienceModule",
+      props: {
+        title: "专业技能",
+        items: [
+          {
+            type: 'rich',
+            value: ['浙江大学']
+          },
         ]
       }
     }
@@ -84,36 +114,62 @@ const defaultSchema: ResumeSchema = {
 }
 
 export const defaultUserInfo = {
-  name: '邓乐',
-  phone: '15978018778',
+  name: 'OnePageCV',
+  phone: '19977883344',
   email: 'dengle@zju.edu.cn',
+  homepage: 'github.com/baday19',
   education: [
     {
       school: '浙江大学',
-      start: '2023.09',
-      end: '2025.04',
+      start: '2023年09月',
+      end: '2025年04月',
       major: '软件工程',
-      degree: '硕士'
+      degree: '硕士',
+      college: '软件学院',
+      content: '荣誉奖项: 优秀毕业研究生、好罡创新创业奖学金、一等学业优秀奖助金、优秀研究生、五好研究生'
     },
     {
       school: '西北工业大学',
-      start: '2019.09',
-      end: '2023.07',
+      start: '2019年09月',
+      end: '2023年07月',
       major: '软件工程',
-      degree: '本科'
+      degree: '本科',
+      college: '软件学院',
+      content: '荣誉奖项: 优秀毕业⽣、科为奖学⾦、⼀等奖学⾦、全国软件测试⼤赛⼆等奖、中国⼤学⽣计算机设计⼤赛省级⼀等奖'
     }
   ],
   work: [
     {
-      company: '哈哈哈有限责任公司',
-      start: '',
-      end: '',
+      company: 'XX计算机系统有限公司',
+      start: '2025年06月',
+      end: '2025年08月',
+      city: '深圳',
+      department: 'XXX产业事业群-XX部门',
+      position: '大模型应用',
+      content: '简短介绍公司与自己负责的任务，分条罗列在什么项目中，通过某些动作或技能达到可量化的结果。'
+    },
+    {
+      company: 'XX科技集团股份有限公司',
+      start: '2024年09月',
+      end: '2025年04月',
       city: '杭州',
-      department: '',
-      position: ''
+      department: 'XXX产业事业群-XX部门',
+      position: '学术研究',
+      content: '简短介绍公司与自己负责的任务，分条罗列在什么项目中，通过某些动作或技能达到可量化的结果'
     }
   ],
-  skill: ['你好啊1', '你好啊2']
+  project: [
+    {
+      name: '',
+      role: '',
+      department: '',
+      city: '',
+      start: '',
+      end: '',
+      content: '简短介绍公司与自己负责的任务，分条罗列在什么项目中，通过某些动作或技能达到可量化的结果'
+    }
+  ],
+  skill: ''
 }
 
 export interface OutletContextProps {
@@ -133,6 +189,7 @@ const Home = () => {
     changeRootStyle("--paper-line-height", `${configData.lineHeight}mm`)
     changeRootStyle("--theme-color", configData.themeColor)
     changeRootStyle("--border-color", configData.borderColor)
+    changeRootStyle("--paper-font-family", configData.fontFamily)
   }, [configData])
 
   const handleExport = () => {
@@ -155,7 +212,11 @@ const Home = () => {
         <PreviewHeader onExport={handleExport} onStore={handleStore} />
         <div className="print-reset h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="print-reset flex m-14 justify-center">
-            <div className="print-reset shadow">
+            <div className="print-reset shadow"
+              style={{
+                fontFamily: configData.fontFamily
+              }}
+            >
               <Preview schema={resumeData} />
             </div>
           </div>

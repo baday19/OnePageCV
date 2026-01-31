@@ -15,8 +15,49 @@
   --small-font-size: 3.3mm;
   --theme-color: #4183FF;
   --border-color: #f7faff;
+  --paper-font-familt: "PingFang SC", "Microsoft YaHei";
 }
 
+/* reset react-quill */
+.ql-toolbar {
+  border: none !important;
+  @apply !bg-gray-200;
+}
+
+.ql-container {
+  border: none !important;
+  @apply !text-sm;
+  min-height: 100px;
+  /* overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none; */
+}
+
+.ql-container ul,ol {
+  padding-left: 0 !important;
+}
+
+#resume {
+  white-space: pre-wrap;
+}
+
+#resume ol {
+  list-style: decimal inside;
+}
+
+#resume ul {
+  list-style: disc inside;
+}
+
+#resume p,li {
+  margin-bottom: var(--paper-line-spacing);
+}
+
+/* .ql-container::-webkit-scrollbar {
+  display: none;
+} */
+
+/* 打印相关 */
 @media print {
   .print-hidden {
     display: none;

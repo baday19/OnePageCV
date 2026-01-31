@@ -6,19 +6,18 @@ import { Upload } from "antd";
 import type { RcFile } from "antd/es/upload/interface";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 
-interface OptionProps {
-  photoPosition?: 'left' | 'right';
-  valuePosition?: 'left' | 'center' | 'right';
-  hasSchoolIcon?: boolean;
-  hasPhoto?: boolean;
-}
 
 interface CommonProfileModuleProps {
   name?: string;
   schoolIcon?: string;
   photo?: string;
   items?: { type: string, value: string[] }[];
-  option: OptionProps;
+  option: {
+    photoPosition?: 'left' | 'right';
+    valuePosition?: 'left' | 'center' | 'right';
+    hasSchoolIcon?: boolean;
+    hasPhoto?: boolean;
+  };
 }
 
 const CommonProfileModule = ({

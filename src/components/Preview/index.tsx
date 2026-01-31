@@ -8,6 +8,7 @@ const Preview = ({
 }) => {
   return (
     <div
+      id="resume"
       className="w-[210mm] bg-white h-[297mm]"
       contentEditable
     >

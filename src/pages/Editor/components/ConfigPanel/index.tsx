@@ -2,6 +2,7 @@ import PanelHeader from "@/components/PanelHeader"
 import Input from "@/components/Input";
 import type { ConfigDataProps } from "@/utils/types";
 import { ColorPicker, Select, Slider } from "antd"
+import BlockTitle from "@/components/BlockTitle";
 
 interface ConfigPanelProps {
   configData: ConfigDataProps;
@@ -90,8 +91,8 @@ const ConfigPanel = ({
       <PanelHeader title="简历参数配置" desc="配置您简历的字体和颜色等样式" />
       <div className="text-sm">
         {/* 字体 */}
-        <div className="mt-4">
-          <div className="mb-2">字体</div>
+        <div className="mt-5">
+          <BlockTitle text="字体" className="mb-4" iconClassName="bg-blue-500" />
           <div>
             <Select
               defaultValue={presetFonts[0].value}
@@ -102,27 +103,27 @@ const ConfigPanel = ({
           </div>
         </div>
         {/* 颜色选择 */}
-        <div className="flex mt-4 gap-3">
+        <div className="flex mt-5 gap-3">
           <div className="flex-1">
-            <div className="mb-2">主题色</div>
+            <BlockTitle text="主题色" className="mb-4" iconClassName="bg-cyan-500" />
             <div className="flex items-center">
               <ColorPicker defaultValue={'#4183FF'} value={themeColor} onChange={(value) => {
                 setThemeColor(value.toHexString())
               }} />
               <Input
                 className="flex-1 h-8 ml-2"
-                type="text" placeholder="输入主题色" value={themeColor} />
+                type="text" placeholder="输入主题色" value={themeColor} onChange={()=>{}} />
             </div>
           </div>
           <div className="flex-1">
-            <div className="mb-2">副色</div>
+            <BlockTitle text="副色" className="mb-4" iconClassName="bg-purple-500" />
             <div className="flex items-center">
               <ColorPicker defaultValue={'#4183FF'} value={borderColor} onChange={(value) => {
                 setBorderColor(value.toHexString())
               }} />
               <Input
                 className="h-8 ml-2 flex-1"
-                type="text" placeholder="输入副色" value={borderColor} />
+                type="text" placeholder="输入副色" value={borderColor} onChange={()=>{}} />
             </div>
           </div>
         </div>
@@ -142,9 +143,9 @@ const ConfigPanel = ({
           }
         </div>
         {/* 行设置 */}
-        <div className="flex mt-4 gap-3">
+        <div className="flex mt-5 gap-3">
           <div className="flex-1">
-            <div className="mb-2">行高</div>
+            <BlockTitle text="行高" className="mb-4" iconClassName="bg-yellow-500" />
             <Slider
               min={3}
               max={7}
@@ -155,7 +156,7 @@ const ConfigPanel = ({
           </div>
           {/* 行距设置 */}
           <div className="flex-1">
-            <div className="mb-2">行距</div>
+            <BlockTitle text="行距" className="mb-4" iconClassName="bg-pink-500" />
             <Slider
               min={0}
               max={4}

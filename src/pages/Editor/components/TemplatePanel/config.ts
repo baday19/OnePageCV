@@ -1,3 +1,81 @@
+export interface StyleProps {
+  id:number;
+  title: string;
+  componentType: string;
+  picture: string;
+  option: Record<string, any>;
+}
+
+export const profileStyleList: StyleProps[] = [
+  {
+    id: 1,
+    title: '校徽-信息-照片',
+    componentType: 'commonProfileModule',
+    picture: 'https://files.wondercv.com/APP/cv_editor/cdnImage/profile_show_attr_name/0.png',
+    option: {
+      hasSchoolIcon: true,
+      hasPhoto: true,
+      valuePosition: 'center',
+      photoPosition: 'right'
+    }
+  },
+  {
+    id: 2,
+    title: '信息',
+    componentType: 'commonProfileModule',
+    picture: 'https://files.wondercv.com/APP/cv_editor/cdnImage/profile_show_attr_name/0.png',
+    option: {
+      hasSchoolIcon: false,
+      hasPhoto: false,
+      valuePosition: 'center',
+      photoPosition: 'right'
+    }
+  },
+  {
+    id: 3,
+    title: '信息-照片',
+    componentType: 'commonProfileModule',
+    picture: 'https://files.wondercv.com/APP/cv_editor/cdnImage/profile_show_attr_name/0.png',
+    option: {
+      hasSchoolIcon: false,
+      hasPhoto: true,
+      valuePosition: 'left',
+      photoPosition: 'right'
+    }
+  }
+]
+
+
+export const experienceStyleList: StyleProps[] = [
+  {
+    id: 1,
+    title: '简约',
+    componentType: 'commonExperienceModule',
+    picture: 'https://files.wondercv.com/APP/cv_editor/cdnImage/module_format/default-stereo.png',
+    option: {
+      type: 0
+    }
+  },
+  {
+    id: 2,
+    title: '简约1',
+    componentType: 'commonExperienceModule',
+    picture: 'https://files.wondercv.com/APP/cv_editor/cdnImage/profile_show_attr_name/0.png',
+    option: {
+      type: 1
+    }
+  },
+  {
+    id: 3,
+    title: '简约1',
+    componentType: 'commonExperienceModule',
+    picture: 'https://files.wondercv.com/APP/cv_editor/cdnImage/module_format/default-stereo.png',
+    option: {
+      type: 1
+    }
+  },
+]
+
 const baseProfileModule = {
   componentType: "commonProfileModule",
   props: {
@@ -94,3 +172,5 @@ function applyVariant(base: any, variant: any) {
     }
   }
 }
+
+

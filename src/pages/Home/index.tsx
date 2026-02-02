@@ -1,6 +1,6 @@
-import Menu from "@/components/Menu"
-import Preview from "@/components/Preview"
-import PreviewHeader from "@/components/PreviewHeader"
+import Menu from "@/pages/Home/components/Menu"
+import Preview from "@/pages/Home/components/Preview"
+import PreviewHeader from "@/pages/Home/components/PreviewHeader"
 import type { ResumeSchema } from "@/components/Renderer/config"
 import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
@@ -8,7 +8,6 @@ import Photo from "@/assets/images/22351053.jpg"
 import SchoolIcon from "@/assets/images/logo.jpg"
 import { defaultConfigData, type ConfigDataProps } from "@/utils/types"
 import { changeRootStyle } from "@/utils/utils"
-
 
 const defaultSchema: ResumeSchema = {
   id: 0,
@@ -92,7 +91,7 @@ const defaultSchema: ResumeSchema = {
           },
           {
             type: 'rich',
-            value: ['浙江大学']
+            value: ['<p>浙江大学</p><p><strong>你好</strong></p>']
           }
         ]
       }
@@ -105,12 +104,18 @@ const defaultSchema: ResumeSchema = {
         items: [
           {
             type: 'rich',
-            value: ['浙江大学']
+            value: ['<p>浙江大学</p><p><strong>你好</strong></p>']
           },
         ]
       }
     }
-  ]
+  ],
+  metadata: {
+    default: {
+      profile: { componentType: 'commonProfileModule', option: {} },
+      experience: { componentType: 'commonExperienceModule', option: {} }
+    }
+  }
 }
 
 export const defaultUserInfo = {
@@ -183,6 +188,7 @@ const Home = () => {
 
   const [resumeData, setResumeData] = useState<ResumeSchema>(defaultSchema)
   const [configData, setConfigData] = useState<ConfigDataProps>(defaultConfigData)
+  // 记录正在使用的各种模块的样式
 
   useEffect(() => {
     changeRootStyle("--paper-line-spacing", `${configData.lineSpacing}mm`)
@@ -191,6 +197,7 @@ const Home = () => {
     changeRootStyle("--border-color", configData.borderColor)
     changeRootStyle("--paper-font-family", configData.fontFamily)
   }, [configData])
+  
 
   const handleExport = () => {
     window.print()

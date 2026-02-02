@@ -15,7 +15,7 @@ export const CommonExperienceLine = ({ value, type }: CommonExperienceLineProps)
     <div
       className="flex justify-between"
       style={{
-        marginBottom: type === 'rich' ? 0 : 'var(--paper-line-spacing)',
+        marginTop: type === 'rich' ? 0 : 'var(--paper-line-spacing)',
         lineHeight: `var(--paper-line-height)`,
       }}
     >

@@ -7,16 +7,16 @@ interface InputProps {
   style?: React.CSSProperties;
   value: string;
   placeholder?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const Input = ({
-  type='text',
+  type = 'text',
   className,
   style,
   value,
-  placeholder='',
-  onChange
+  placeholder = '',
+  onChange = (_) => { }
 }: InputProps) => {
 
   return (

@@ -50,7 +50,7 @@
 }
 
 #resume p,li {
-  margin-bottom: var(--paper-line-spacing);
+  margin-top: var(--paper-line-spacing);
 }
 
 /* .ql-container::-webkit-scrollbar {

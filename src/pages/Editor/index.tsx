@@ -8,8 +8,10 @@ import type { OutletContextProps } from "../Home"
 
 
 const index = () => {
-  const [activeMenu, setActiveMenu] = useState<number>(1);
+  const [activeMenu, setActiveMenu] = useState<number>(2);
   const { configData, setConfigData, resumeData, setResumeData } = useOutletContext<OutletContextProps>();
+  
+  
   const handleConfigChange = (newConfig: typeof configData) => {
     setConfigData(newConfig);
   }
@@ -20,7 +22,7 @@ const index = () => {
   const components = [
     {
       name: '简历模板',
-      component: <TemplatePanel />
+      component: <TemplatePanel resumeData={resumeData} onChange={handleResumeDataChange} />
     },
     {
       name: '简历结构',
@@ -41,7 +43,7 @@ const index = () => {
         {
           components.map((item, index) => {
             return (
-              <div className={activeMenu === index ? "block" : "hidden"}>
+              <div key={index} className={activeMenu === index ? "block" : "hidden"}>
                 {item.component}
               </div>
             )

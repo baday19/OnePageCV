@@ -1,38 +1,130 @@
 import PanelHeader from "@/components/PanelHeader"
 import { defaultUserInfo } from "@/pages/Home"
 import { resolveValue } from "@/utils/utils"
+import { profileStyleList, experienceStyleList, type StyleProps } from "./config"
 import { useState } from "react"
+import type { ResumeSchema } from "@/components/Renderer/config"
+import RoundedMenu from "@/components/RoundedMenu"
+import { SparklesIcon, PaintBrushIcon } from "@heroicons/react/24/outline"
+import BlockTitle from "@/components/BlockTitle"
 
-const componentTypeList = ['全部', '自定义',]
+// const componentTypeList = ['全部', '自定义',]
 
-const TemplatePanel = () => {
-  const [activeType, setActiveType] = useState(0)
-  const activeButtonClass = 'bg-white rounded-full h-full'
+interface TemplatePanelProps {
+  resumeData: ResumeSchema;
+  onChange: (e: ResumeSchema) => void;
+}
 
+const CustomPanel = ({
+  profile = -1,
+  experience = -1,
+  onChangeProfile = (id: number) => { },
+  onChangeExperience = (id: number) => { },
+}) => {
+  return (
+    <div>
+      <div className="mb-4">
+        {/* 基本信息 */}
+        <BlockTitle text="基本信息" className="mb-3" iconClassName="bg-blue-500" />
+        <div
+          className="flex gap-3"
+        >
+          {
+            profileStyleList.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className=""
+                  onClick={() => {
+                    onChangeProfile(item.id)
+                  }}
+                >
+                  <img
+                    className={`rounded-md border ${profile === index ? 'border-blue-400' : 'border-gray-200'}`}
+                    src={item.picture} alt={item.title} />
+                  <div className="mt-2 text-center">{item.title}</div>
+                </div>
+              )
+            })
+          }
+        </div>
+      </div>
+      <div className="mb-4">
+        {/* 模块样式 */}
+        <BlockTitle text="经历模块" className="mb-3" iconClassName="bg-purple-500" />
+        <div
+          className="flex gap-3"
+        >
+          {
+            experienceStyleList.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className="flex-1"
+                  onClick={() => {
+                    onChangeExperience(item.id)
+                  }}
+                >
+                  <img
+                    className={`rounded-md border ${experience === index ? 'border-blue-400' : 'border-gray-200'}`}
+                    src={item.picture} alt={item.title} />
+                  <div className="mt-2 text-center">{item.title}</div>
+                </div>
+              )
+            })
+          }
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const TemplatePanel = ({
+  resumeData,
+  onChange
+}: TemplatePanelProps) => {
+  const [activeType, setActiveType] = useState(1)
+
+
+  // const {profile, experience} = resumeData.metadata.default || {pro}
+
+  const componentTypeList = [
+    {
+      label: '全部',
+      value: (<div></div>),
+      icon: SparklesIcon
+    },
+    {
+      label: '自定义',
+      value: <CustomPanel profile={resumeData.metadata.default} />,
+      icon: PaintBrushIcon
+    },
+  ]
+
+  // 这一层需要把整个新的resumeData onChange
 
   return (
     <div>
-      <PanelHeader title="添加简历组件" desc="选择组件类型并选择您喜欢的风格后添加到简历中" />
+      <PanelHeader title="简历模板选择" desc="选择预设的简历模板或者自定义组装出您喜欢的模板样式" />
       <div className="text-sm">
-        <div
-          className="my-4 flex bg-gray-200 h-9 items-center rounded-full w-full p-[3px] gap-2"
-        >
-          {
-            componentTypeList.map(
-              (item, index) =>
-                <button
-                  className={`flex-1 ${activeType === index && activeButtonClass}`}
-                  onClick={() => setActiveType(index)}
-                >
-                  {item}
-                </button>
+        {/* 全部 or 自定义切换栏 */}
+        <RoundedMenu
+        className="my-6"
+          active={activeType}
+          items={componentTypeList}
+          onChange={(_, index) => {
+            setActiveType(index)
+          }} />
+        {/* 展示区 */}
+        {
+          componentTypeList.map((item, index) => {
+            return (
+              <div key={index} className={activeType === index ? "block" : "hidden"}>
+                {item.value}
+              </div>
             )
-          }
-        </div>
-        <div>
-          123123
-        </div>
-
+          })
+        }
       </div>
     </div>
   )

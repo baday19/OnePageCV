@@ -31,9 +31,15 @@ const RichInput = ({
       theme="snow"
       value={value}
       modules={modules}
-      onChange={onChange}
+      onChange={(val, _, source)=>{
+        if (source !== 'user') return;
+        onChange(val);
+      }}
     />
   )
 }
 
 export default RichInput
+
+
+

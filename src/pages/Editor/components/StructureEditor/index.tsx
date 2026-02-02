@@ -18,12 +18,12 @@ const StructureEditor = ({
     if (newNode.__action === 'delete') {
       newResumeData = {
         ...resumeData,
-        children: resumeData.children.filter(section => section.id !== newNode.id)
+        children: resumeData!.children.filter(section => section.id !== newNode.id)
       }
     } else {
       newResumeData = {
         ...resumeData,
-        children: resumeData.children.map(section => {
+        children: resumeData!.children.map(section => {
           if (section.id === newNode.id) {
             return newNode
           }

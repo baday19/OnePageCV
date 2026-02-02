@@ -27,7 +27,7 @@ interface NodeSchema {
 // 暂时定义成列表结构，未来可能做成树形结构
 interface ResumeSchema {
   id: number;
-  metadata?: Record<string, any>;
+  metadata: Record<string, any>;
   children: NodeSchema[];
 }
 

@@ -210,18 +210,20 @@ const Home = () => {
   return (
     <main className="print-reset flex h-screen">
       {/* 左边区域 */}
-      <div className="print-hidden flex-1 min-w-[210mm] border-r border-gray-300">
+      <div className="print-hidden flex-1 border-r border-gray-300">
         <Menu />
         <Outlet context={{ configData, setConfigData, resumeData, setResumeData }} />
       </div>
       {/* 右边区域 */}
-      <div className="flex-1 min-w-[210mm] bg-gray-100">
+      <div className="print-reset flex-1 min-w-[220mm] bg-gray-100">
         <PreviewHeader onExport={handleExport} onStore={handleStore} />
         <div className="print-reset h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="print-reset flex m-14 justify-center">
             <div className="print-reset shadow"
               style={{
-                fontFamily: configData.fontFamily
+                fontFamily: configData.fontFamily,
+                transformOrigin: "top center",
+                // transform: "scale(0.8)"
               }}
             >
               <Preview schema={resumeData} />

@@ -65,7 +65,9 @@
 
   .print-reset {
     height: 100%;
-    width: 100%;
+    min-width: auto !important;
+    width: var(--paper-width) !important;
+    box-shadow: none;
     margin: 0;
     padding: 0;
   }

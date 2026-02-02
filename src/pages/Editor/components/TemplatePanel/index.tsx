@@ -40,7 +40,7 @@ const CustomPanel = ({
                   }}
                 >
                   <img
-                    className={`rounded-md border ${profile === index ? 'border-blue-400' : 'border-gray-200'}`}
+                    className={`rounded-md border ${profile === item.id ? 'border-blue-400' : 'border-gray-200'}`}
                     src={item.picture} alt={item.title} />
                   <div className="mt-2 text-center">{item.title}</div>
                 </div>
@@ -66,7 +66,7 @@ const CustomPanel = ({
                   }}
                 >
                   <img
-                    className={`rounded-md border ${experience === index ? 'border-blue-400' : 'border-gray-200'}`}
+                    className={`rounded-md border ${experience === item.id ? 'border-blue-400' : 'border-gray-200'}`}
                     src={item.picture} alt={item.title} />
                   <div className="mt-2 text-center">{item.title}</div>
                 </div>
@@ -85,8 +85,21 @@ const TemplatePanel = ({
 }: TemplatePanelProps) => {
   const [activeType, setActiveType] = useState(1)
 
+  const profileId = resumeData.metadata?.default?.profile?.id ?? -1
+  const experienceId = resumeData.metadata?.default?.experience?.id ?? -1
 
-  // const {profile, experience} = resumeData.metadata.default || {pro}
+  const handleProfileChange = (val: number) => {
+    
+  }
+
+  const handleExperienceChange = (val: number) => {
+
+  }
+
+  // 这一层需要把整个新的resumeData onChange
+  const handleTemplateChange = (newResume: ResumeSchema) => {
+    onChange(newResume)
+  }
 
   const componentTypeList = [
     {
@@ -96,12 +109,12 @@ const TemplatePanel = ({
     },
     {
       label: '自定义',
-      value: <CustomPanel profile={resumeData.metadata.default} />,
+      value: <CustomPanel profile={profileId} experience={experienceId} onChangeExperience={handleExperienceChange} onChangeProfile={handleProfileChange} />,
       icon: PaintBrushIcon
     },
   ]
 
-  // 这一层需要把整个新的resumeData onChange
+
 
   return (
     <div>
@@ -109,7 +122,7 @@ const TemplatePanel = ({
       <div className="text-sm">
         {/* 全部 or 自定义切换栏 */}
         <RoundedMenu
-        className="my-6"
+          className="my-6"
           active={activeType}
           items={componentTypeList}
           onChange={(_, index) => {

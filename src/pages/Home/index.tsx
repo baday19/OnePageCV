@@ -112,8 +112,8 @@ const defaultSchema: ResumeSchema = {
   ],
   metadata: {
     default: {
-      profile: { componentType: 'commonProfileModule', option: {} },
-      experience: { componentType: 'commonExperienceModule', option: {} }
+      profile: { id:1, componentType: 'commonProfileModule', option: {} },
+      experience: { id:1, componentType: 'commonExperienceModule', option: {} }
     }
   }
 }

@@ -1,7 +1,7 @@
 import Menu from "@/pages/Home/components/Menu"
 import Preview from "@/pages/Home/components/Preview"
 import PreviewHeader from "@/pages/Home/components/PreviewHeader"
-import type { ResumeSchema } from "@/components/Renderer/config"
+import type { ResumeData, ResumeSchema } from "@/components/Renderer/config"
 import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
 import Photo from "@/assets/images/22351053.jpg"
@@ -180,13 +180,13 @@ export const defaultUserInfo = {
 export interface OutletContextProps {
   configData: ConfigDataProps;
   setConfigData: (data: ConfigDataProps) => void;
-  resumeData: ResumeSchema;
-  setResumeData: (data: ResumeSchema) => void;
+  resumeData: ResumeData;
+  setResumeData: (data: ResumeData) => void;
 }
 
 const Home = () => {
 
-  const [resumeData, setResumeData] = useState<ResumeSchema>(defaultSchema)
+  const [resumeData, setResumeData] = useState<ResumeData>(defaultSchema)
   const [configData, setConfigData] = useState<ConfigDataProps>(defaultConfigData)
   // 记录正在使用的各种模块的样式
 

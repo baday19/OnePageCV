@@ -31,6 +31,8 @@ interface ResumeSchema {
   children: NodeSchema[];
 }
 
+type ResumeData = ResumeSchema | null
+
 const previewComponentMap = Object.fromEntries(
   Object.entries(componentRegistry).map(([key, value]) => [key, value.preview])
 ) as Record<NodeType, React.ComponentType<any>>
@@ -45,4 +47,4 @@ export {
   editorComponentMap
 }
 
-export type { NodeSchema, ResumeSchema, NodeType }
+export type { NodeSchema, ResumeSchema, NodeType, ResumeData }

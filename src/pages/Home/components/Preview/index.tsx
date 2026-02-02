@@ -1,10 +1,10 @@
 import { PreviewRenderer as Renderer } from "../../../../components/Renderer"
-import type { ResumeSchema } from "../../../../components/Renderer/config"
+import type { ResumeData } from "../../../../components/Renderer/config"
 
 const Preview = ({
   schema
 }: {
-  schema: ResumeSchema
+  schema: ResumeData
 }) => {
   return (
     <div
@@ -14,7 +14,7 @@ const Preview = ({
       suppressContentEditableWarning
     >
       {
-        schema.metadata.default
+        schema
           ? <Renderer schema={schema} />
           : <div className="w-full h-full flex items-center justify-center">待创建简历...</div>
       }

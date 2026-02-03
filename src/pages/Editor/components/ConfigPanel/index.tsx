@@ -99,6 +99,7 @@ const ConfigPanel = ({
               style={{ width: '100%' }}
               onChange={setFontFamily}
               options={presetFonts}
+              value={fontFamily}
             />
           </div>
         </div>
@@ -111,7 +112,7 @@ const ConfigPanel = ({
                 setThemeColor(value.toHexString())
               }} />
               <Input
-                className="flex-1 h-8 ml-2"
+                className="h-8 ml-2 w-full"
                 type="text" placeholder="输入主题色" value={themeColor} onChange={()=>{}} />
             </div>
           </div>
@@ -122,7 +123,7 @@ const ConfigPanel = ({
                 setBorderColor(value.toHexString())
               }} />
               <Input
-                className="h-8 ml-2 flex-1"
+                className="h-8 ml-2 w-full"
                 type="text" placeholder="输入副色" value={borderColor} onChange={()=>{}} />
             </div>
           </div>

@@ -1,6 +1,6 @@
 import EditorCard from "@/components/EditorCard";
 import { CommonExperienceLine, CommonEditorInput } from "../CommonExperienceLine";
-import type { NodeSchema } from "../../config";
+import type { NodeChangeAction, NodeSchema } from "../../core";
 // import CommonEditorInput from "../CommonEditorInput";
 
 interface CommonExperienceModuleProps {
@@ -51,7 +51,7 @@ const CommonExperienceModule = ({ title, option = { type: 0 }, items }: CommonEx
 
 interface CommonExperienceModuleEditorProps {
   schema: NodeSchema;
-  onChange: (newNode: NodeSchema | null) => void;
+  onChange: (newNode: NodeSchema | null, action: NodeChangeAction) => void;
 }
 
 const CommonExperienceModuleEditor = ({
@@ -67,7 +67,7 @@ const CommonExperienceModuleEditor = ({
         title: newTitle
       }
     };
-    onChange(newNode);
+    onChange(newNode, 'update');
   }
   const { items: rows } = schema.props || { items: [] };
 
@@ -79,7 +79,7 @@ const CommonExperienceModuleEditor = ({
         items: newRows
       }
     };
-    onChange(newNode);
+    onChange(newNode, 'update');
   }
 
   const handleRowChange = (index: number, newItem: Record<string, any>) => {
@@ -117,8 +117,7 @@ const CommonExperienceModuleEditor = ({
   const handleDelete = () => {
     onChange({
       ...schema,
-      __action: 'delete'
-    })
+    }, 'delete')
   }
 
   return (
@@ -148,7 +147,16 @@ const CommonExperienceModuleEditor = ({
   )
 }
 
+const CommonExperienceModule0 = (props: Omit<CommonExperienceModuleProps, 'option'>) => {
+  return <CommonExperienceModule {...props} option={{ type: 0 }} />
+}
+const CommonExperienceModule1 = (props: Omit<CommonExperienceModuleProps, 'option'>) => {
+  return <CommonExperienceModule {...props} option={{ type: 1 }} />
+}
+
 export {
-  CommonExperienceModule,
-  CommonExperienceModuleEditor
+  CommonExperienceModule0,
+  CommonExperienceModuleEditor as CommonExperienceModule0Editor,
+  CommonExperienceModule1,
+  CommonExperienceModuleEditor as CommonExperienceModule1Editor,
 };

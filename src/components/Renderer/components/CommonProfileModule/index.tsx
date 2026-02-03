@@ -1,23 +1,25 @@
 import EditorCard from "@/components/EditorCard";
-import type { NodeSchema } from "../../config";
+import type { NodeChangeAction, NodeSchema } from "../../core";
 import { CommonEditorInput } from "../CommonExperienceLine";
 import Input from "@/components/Input";
 import { Upload } from "antd";
 import type { RcFile } from "antd/es/upload/interface";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 
+interface OptionProps {
+  photoPosition?: 'left' | 'right';
+  valuePosition?: 'left' | 'center' | 'right';
+  hasSchoolIcon?: boolean;
+  hasPhoto?: boolean;
+  hasLine?: boolean;
+};
 
 interface CommonProfileModuleProps {
   name?: string;
   schoolIcon?: string;
   photo?: string;
   items?: { type: string, value: string[] }[];
-  option: {
-    photoPosition?: 'left' | 'right';
-    valuePosition?: 'left' | 'center' | 'right';
-    hasSchoolIcon?: boolean;
-    hasPhoto?: boolean;
-  };
+  option: OptionProps;
 }
 
 const CommonProfileModule = ({
@@ -30,6 +32,7 @@ const CommonProfileModule = ({
     valuePosition: 'center',
     hasSchoolIcon: false,
     hasPhoto: true,
+    hasLine: true,
   }
 }: CommonProfileModuleProps) => {
 
@@ -111,12 +114,14 @@ const CommonProfileModule = ({
       className="mb-[3mm]"
     >
       {/* 顶部线 */}
-      <div
-        className="h-[5mm] w-full"
-        style={{
-          backgroundColor: 'var(--theme-color)'
-        }}
-      />
+      {
+        option.hasLine && <div
+          className="h-[5mm] w-full"
+          style={{
+            backgroundColor: 'var(--theme-color)'
+          }}
+        />
+      }
       {/* 个人信息区域 */}
       <div
         className={`pt-[8mm] px-[8mm] gap-[8mm] flex ${option.photoPosition === 'left' ? 'flex-row-reverse' : 'flex-row'}`}
@@ -161,15 +166,17 @@ const CommonProfileModule = ({
 
 interface CommonProfileModuleEditorProps {
   schema: NodeSchema;
-  onChange: (newNode: NodeSchema) => void;
+  option: OptionProps;
+  onChange: (newNode: NodeSchema, action: NodeChangeAction) => void;
 }
 
 const CommonProfileModuleEditor = ({
   schema,
+  option,
   onChange
 }: CommonProfileModuleEditorProps) => {
 
-  const { name, option } = schema.props || {};
+  const { name } = schema.props || {};
 
   const changeProps = (key: string, value: string) => {
     const newNode = {
@@ -179,7 +186,7 @@ const CommonProfileModuleEditor = ({
         [key]: value
       }
     };
-    onChange(newNode);
+    onChange(newNode, 'update');
   }
 
 
@@ -193,7 +200,7 @@ const CommonProfileModuleEditor = ({
         items: newRows
       }
     };
-    onChange(newNode);
+    onChange(newNode, 'update');
   }
 
   const handleRowChange = (index: number, newItem: Record<string, any>) => {
@@ -229,8 +236,7 @@ const CommonProfileModuleEditor = ({
   const handleDelete = () => {
     onChange({
       ...schema,
-      __action: 'delete'
-    })
+    }, 'delete')
   }
 
   return (
@@ -245,7 +251,7 @@ const CommonProfileModuleEditor = ({
         <Input className="h-8 w-full" value={name} onChange={(e) => changeProps('name', e.target.value)} />
       </div>
       {
-        option.hasSchoolIcon && <div className="mt-3">
+        option.hasPhoto && <div className="mt-3">
           <Upload name="file" beforeUpload={(file: RcFile) => {
             const fileData = URL.createObjectURL(file);
             changeProps('photo', fileData);
@@ -263,7 +269,7 @@ const CommonProfileModuleEditor = ({
         </div>
       }
       {
-        option.hasPhoto && <div className="mt-3">
+        option.hasSchoolIcon && <div className="mt-3">
           <Upload name="file" beforeUpload={(file: RcFile) => {
             const fileData = URL.createObjectURL(file);
             changeProps('schoolIcon', fileData);
@@ -300,7 +306,138 @@ const CommonProfileModuleEditor = ({
   )
 }
 
+
+const createCommonProfileModule = (option: OptionProps) => {
+  const Module = (props: Omit<CommonProfileModuleProps, 'option'>) => (
+    <CommonProfileModule {...props} option={option} />
+  )
+
+  const Editor = (props: Omit<CommonProfileModuleEditorProps, 'option'>) => (
+    <CommonProfileModuleEditor {...props} option={option} />
+  )
+
+  return { Module, Editor }
+}
+
+const option0: OptionProps = {
+  hasSchoolIcon: true,
+  hasPhoto: true,
+  valuePosition: 'center',
+  photoPosition: 'right',
+  hasLine: true
+}
+
+const option1: OptionProps = {
+  hasSchoolIcon: false,
+  hasPhoto: false,
+  valuePosition: 'center',
+  photoPosition: 'right',
+  hasLine: true
+}
+
+const option2: OptionProps = {
+  hasSchoolIcon: false,
+  hasPhoto: true,
+  valuePosition: 'left',
+  photoPosition: 'right',
+  hasLine: true
+}
+
+const option3: OptionProps = {
+  hasSchoolIcon: false,
+  hasPhoto: true,
+  valuePosition: 'left',
+  photoPosition: 'left',
+  hasLine: true
+}
+
+const option4: OptionProps = {
+  hasSchoolIcon: true,
+  hasPhoto: true,
+  valuePosition: 'center',
+  photoPosition: 'right',
+  hasLine: false
+}
+
+const option5: OptionProps = {
+  hasSchoolIcon: false,
+  hasPhoto: false,
+  valuePosition: 'center',
+  photoPosition: 'right',
+  hasLine: false
+}
+
+const option6: OptionProps = {
+  hasSchoolIcon: false,
+  hasPhoto: true,
+  valuePosition: 'left',
+  photoPosition: 'right',
+  hasLine: false
+}
+
+const option7: OptionProps = {
+  hasSchoolIcon: false,
+  hasPhoto: true,
+  valuePosition: 'left',
+  photoPosition: 'left',
+  hasLine: false
+}
+
+const {
+  Module: CommonProfileModule0,
+  Editor: CommonProfileModule0Editor,
+} = createCommonProfileModule(option0)
+
+const {
+  Module: CommonProfileModule1,
+  Editor: CommonProfileModule1Editor,
+} = createCommonProfileModule(option1)
+
+const {
+  Module: CommonProfileModule2,
+  Editor: CommonProfileModule2Editor,
+} = createCommonProfileModule(option2)
+
+const {
+  Module: CommonProfileModule3,
+  Editor: CommonProfileModule3Editor,
+} = createCommonProfileModule(option3)
+
+const {
+  Module: CommonProfileModule4,
+  Editor: CommonProfileModule4Editor,
+} = createCommonProfileModule(option4)
+
+const {
+  Module: CommonProfileModule5,
+  Editor: CommonProfileModule5Editor,
+} = createCommonProfileModule(option5)
+
+const {
+  Module: CommonProfileModule6,
+  Editor: CommonProfileModule6Editor,
+} = createCommonProfileModule(option6)
+
+const {
+  Module: CommonProfileModule7,
+  Editor: CommonProfileModule7Editor,
+} = createCommonProfileModule(option7)
+
 export {
-  CommonProfileModule,
-  CommonProfileModuleEditor
+  CommonProfileModule0,
+  CommonProfileModule1,
+  CommonProfileModule0Editor,
+  CommonProfileModule1Editor,
+  CommonProfileModule2,
+  CommonProfileModule2Editor,
+  CommonProfileModule3,
+  CommonProfileModule3Editor,
+  CommonProfileModule4,
+  CommonProfileModule4Editor,
+  CommonProfileModule5,
+  CommonProfileModule5Editor,
+  CommonProfileModule6,
+  CommonProfileModule6Editor,
+  CommonProfileModule7,
+  CommonProfileModule7Editor,
 };

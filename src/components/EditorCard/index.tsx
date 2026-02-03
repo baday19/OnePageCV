@@ -1,32 +1,32 @@
 import { UserIcon, AcademicCapIcon, BriefcaseIcon, BoltIcon, BeakerIcon, PlusCircleIcon, ArrowsUpDownIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { PencilSquareIcon } from "@heroicons/react/16/solid";
-import { useEffect, useMemo, useState, type ComponentType } from "react";
+import { useMemo, useState, type ComponentType } from "react";
 import type { CssNamedColor } from "@/utils/types";
 import { Dropdown, Modal } from "antd";
 import Input from "../Input";
+import type { ModuleType } from "@/config/template";
 
 // 预设一些logo+颜色,通过匹配title关键词来使用
-const logoPresets = {
-  basic: { keyword: ['基本信息', '个人信息'], icon: UserIcon, iconColor: 'blue' },
+const logoPresets: Record<ModuleType, any> = {
+  profile: { keyword: ['基本信息', '个人信息'], icon: UserIcon, iconColor: 'blue' },
   education: { keyword: ['教育经历', '教育背景', '在校经历', '校园经历', '学习经历'], icon: AcademicCapIcon, iconColor: 'green' },
   work: { keyword: ['工作经历', '实习经历', '实践经历', '研究经历'], icon: BriefcaseIcon, iconColor: 'purple' },
   skill: { keyword: ['专业技能'], icon: BoltIcon, iconColor: 'cyan' },
-  other: { keyword: [], icon: BeakerIcon, iconColor: 'yellow' },
-} as const;
+  project: { keyword: ['项目经历'], icon: BeakerIcon, iconColor: 'pink' },
+  custom: { keyword: [], icon: BeakerIcon, iconColor: 'yellow' },
+};
 
 function matchLogoPreset(title: string) {
   const titleLower = title.toLowerCase();
   for (const key in logoPresets) {
-    const preset = logoPresets[key as LogoPresetKey];
-    if (preset.keyword.some(keyword => titleLower.includes(keyword))) {
+    const preset = logoPresets[key as ModuleType];
+    if (preset.keyword.some((keyword: string) => titleLower.includes(keyword))) {
       return preset;
     }
   }
-  return logoPresets.other;
+  return logoPresets.custom;
 }
 
-type LogoPresetKey = keyof typeof logoPresets;
-// 如果开启preset，则根据title关键词匹配对应的logo和颜色，没匹配到就用other
 
 
 interface EditorCardProps {
@@ -98,11 +98,6 @@ const EditorCard = ({
     }
   }
 
-  useEffect(() => {
-    if (isModalOpen) {
-      setTitleValue(title);
-    }
-  }, [isModalOpen])
 
   const handleOk = () => {
     onChange(titleValue)
@@ -132,6 +127,7 @@ const EditorCard = ({
               className="rounded text-gray-300 ml-1 w-5 h-5 flex justify-center items-center cursor-pointer hover:bg-gray-100 transition-colors"
               onClick={() => {
                 setIsModalOpen(true)
+                setTitleValue(title)
               }}
             >
               <PencilSquareIcon className="w-4 h-4" />

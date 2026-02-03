@@ -1,7 +1,7 @@
 import Menu from "@/pages/Home/components/Menu"
 import Preview from "@/pages/Home/components/Preview"
 import PreviewHeader from "@/pages/Home/components/PreviewHeader"
-import type { ResumeData, ResumeSchema } from "@/components/Renderer/config"
+import type { ResumeData, ResumeSchema } from "@/components/Renderer/core"
 import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
 import Photo from "@/assets/images/22351053.jpg"
@@ -14,7 +14,7 @@ const defaultSchema: ResumeSchema = {
   children: [
     {
       id: 1,
-      componentType: "commonProfileModule",
+      componentType: "commonProfileModule0",
       props: {
         name: "邓乐",
         photo: Photo,
@@ -29,17 +29,11 @@ const defaultSchema: ResumeSchema = {
             value: ['<a href="https://github.com/baday19">github.com/baday19</a>']
           }
         ],
-        option: {
-          hasSchoolIcon: true,
-          hasPhoto: true,
-          valuePosition: 'center',
-          photoPosition: 'right'
-        }
       },
     },
     {
       id: 2,
-      componentType: "commonExperienceModule",
+      componentType: "commonExperienceModule0",
       props: {
         title: "校园经历",
         items: [
@@ -56,7 +50,7 @@ const defaultSchema: ResumeSchema = {
     },
     {
       id: 3,
-      componentType: "commonExperienceModule",
+      componentType: "commonExperienceModule0",
       props: {
         title: "实习经历",
         items: [
@@ -77,7 +71,7 @@ const defaultSchema: ResumeSchema = {
     },
     {
       id: 4,
-      componentType: "commonExperienceModule",
+      componentType: "commonExperienceModule1",
       props: {
         title: "项目经历",
         items: [
@@ -98,7 +92,7 @@ const defaultSchema: ResumeSchema = {
     },
     {
       id: 5,
-      componentType: "commonExperienceModule",
+      componentType: "commonExperienceModule0",
       props: {
         title: "专业技能",
         items: [
@@ -112,8 +106,8 @@ const defaultSchema: ResumeSchema = {
   ],
   metadata: {
     default: {
-      profile: { id:1, componentType: 'commonProfileModule', option: {} },
-      experience: { id:1, componentType: 'commonExperienceModule', option: {} }
+      profile: 'commonProfileModule0',
+      experience: 'commonExperienceModule1',
     }
   }
 }
@@ -186,10 +180,10 @@ export interface OutletContextProps {
 
 const Home = () => {
 
-  const [resumeData, setResumeData] = useState<ResumeData>(defaultSchema)
+  const [resumeData, setResumeData] = useState<ResumeData>(null)
   const [configData, setConfigData] = useState<ConfigDataProps>(defaultConfigData)
-  // 记录正在使用的各种模块的样式
 
+  // 记录正在使用的各种模块的样式
   useEffect(() => {
     changeRootStyle("--paper-line-spacing", `${configData.lineSpacing}mm`)
     changeRootStyle("--paper-line-height", `${configData.lineHeight}mm`)
@@ -207,6 +201,10 @@ const Home = () => {
 
   }
 
+  const handleClear = () => {
+    setResumeData(null)
+  }
+
   return (
     <main className="print-reset flex h-screen">
       {/* 左边区域 */}
@@ -216,7 +214,7 @@ const Home = () => {
       </div>
       {/* 右边区域 */}
       <div className="print-reset flex-1 min-w-[220mm] bg-gray-100">
-        <PreviewHeader onExport={handleExport} onStore={handleStore} />
+        <PreviewHeader onExport={handleExport} onStore={handleStore} onClear={handleClear} />
         <div className="print-reset h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="print-reset flex m-14 justify-center">
             <div className="print-reset shadow"

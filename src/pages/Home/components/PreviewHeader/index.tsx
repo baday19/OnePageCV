@@ -1,13 +1,15 @@
-import { ArchiveBoxIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import { ArchiveBoxIcon, ArrowDownTrayIcon, ArchiveBoxXMarkIcon } from "@heroicons/react/24/outline";
 
 interface PreviewHeaderProps {
   onExport: () => void;
   onStore: () => void;
+  onClear: () => void;
 }
 
 const PreviewHeader = ({
   onExport,
   onStore,
+  onClear,
 }: PreviewHeaderProps) => {
   return (
     <div className="print-hidden px-4 shadow flex bg-white h-16 items-center gap-1 justify-between">
@@ -20,6 +22,10 @@ const PreviewHeader = ({
         <button onClick={onExport} className="flex items-center cursor-pointer px-2 py-1 border border-blue-500 rounded-md text-sm bg-blue-500 text-white hover:bg-blue-400 hover:border-blue-400 transition-colors">
           <ArrowDownTrayIcon className="w-4 h-4" />
           <div className="ml-2.5">导出PDF</div>
+        </button>
+        <button onClick={onClear} className="flex items-center cursor-pointer px-2 py-1 border border-red-500 rounded-md text-sm bg-red-500 text-white hover:bg-red-400 hover:border-red-400 transition-colors">
+          <ArchiveBoxXMarkIcon className="w-4 h-4" />
+          <div className="ml-2.5">清空简历</div>
         </button>
       </div>
     </div>

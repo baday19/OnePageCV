@@ -1,83 +1,18 @@
 import PanelHeader from "@/components/PanelHeader"
-import { defaultUserInfo } from "@/pages/Home"
-import { resolveValue } from "@/utils/utils"
-import { profileStyleList, experienceStyleList, type StyleProps } from "./config"
 import { useState } from "react"
-import type { ResumeSchema } from "@/components/Renderer/config"
+import type { NodeType, ResumeData, ResumeSchema } from "@/components/Renderer/core"
 import RoundedMenu from "@/components/RoundedMenu"
 import { SparklesIcon, PaintBrushIcon } from "@heroicons/react/24/outline"
-import BlockTitle from "@/components/BlockTitle"
+import CustomPanel from "./components/CustomPanel"
 
-// const componentTypeList = ['全部', '自定义',]
+
 
 interface TemplatePanelProps {
-  resumeData: ResumeSchema;
+  resumeData: ResumeData;
   onChange: (e: ResumeSchema) => void;
 }
 
-const CustomPanel = ({
-  profile = -1,
-  experience = -1,
-  onChangeProfile = (id: number) => { },
-  onChangeExperience = (id: number) => { },
-}) => {
-  return (
-    <div>
-      <div className="mb-4">
-        {/* 基本信息 */}
-        <BlockTitle text="基本信息" className="mb-3" iconClassName="bg-blue-500" />
-        <div
-          className="flex gap-3"
-        >
-          {
-            profileStyleList.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className=""
-                  onClick={() => {
-                    onChangeProfile(item.id)
-                  }}
-                >
-                  <img
-                    className={`rounded-md border ${profile === item.id ? 'border-blue-400' : 'border-gray-200'}`}
-                    src={item.picture} alt={item.title} />
-                  <div className="mt-2 text-center">{item.title}</div>
-                </div>
-              )
-            })
-          }
-        </div>
-      </div>
-      <div className="mb-4">
-        {/* 模块样式 */}
-        <BlockTitle text="经历模块" className="mb-3" iconClassName="bg-purple-500" />
-        <div
-          className="flex gap-3"
-        >
-          {
-            experienceStyleList.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className="flex-1"
-                  onClick={() => {
-                    onChangeExperience(item.id)
-                  }}
-                >
-                  <img
-                    className={`rounded-md border ${experience === item.id ? 'border-blue-400' : 'border-gray-200'}`}
-                    src={item.picture} alt={item.title} />
-                  <div className="mt-2 text-center">{item.title}</div>
-                </div>
-              )
-            })
-          }
-        </div>
-      </div>
-    </div>
-  )
-}
+
 
 const TemplatePanel = ({
   resumeData,
@@ -85,35 +20,50 @@ const TemplatePanel = ({
 }: TemplatePanelProps) => {
   const [activeType, setActiveType] = useState(1)
 
-  const profileId = resumeData.metadata?.default?.profile?.id ?? -1
-  const experienceId = resumeData.metadata?.default?.experience?.id ?? -1
+  const profileType = resumeData?.metadata.default.profile ?? null
+  const experienceType = resumeData?.metadata.default.experience ?? null
 
-  const handleProfileChange = (val: number) => {
-    
-  }
-
-  const handleExperienceChange = (val: number) => {
-
-  }
-
-  // 这一层需要把整个新的resumeData onChange
-  const handleTemplateChange = (newResume: ResumeSchema) => {
+  const handleComponentTypeChange = (type: NodeType, key: string = 'profile') => {
+    const oldType = [profileType, experienceType][key === 'profile' ? 0 : 1];
+    const newType = type;
+    if (oldType === newType) return;
+    const newResume = {
+      ...resumeData,
+      id: resumeData?.id ?? Date.now(),
+      children: resumeData?.children.map((item) => {
+        if (item.componentType === oldType) {
+          return {
+            ...item,
+            componentType: newType
+          }
+        }
+        return item
+      }) ?? [],
+      metadata: {
+        ...resumeData?.metadata,
+        default: {
+          ...resumeData?.metadata.default,
+          [key]: newType
+        }
+      }
+    }
     onChange(newResume)
   }
 
+
+
   const componentTypeList = [
     {
-      label: '全部',
+      label: '预设模板',
       value: (<div></div>),
       icon: SparklesIcon
     },
     {
-      label: '自定义',
-      value: <CustomPanel profile={profileId} experience={experienceId} onChangeExperience={handleExperienceChange} onChangeProfile={handleProfileChange} />,
+      label: '自定义模板',
+      value: <CustomPanel profileType={profileType} experienceType={experienceType} onChangeExperience={(type) => handleComponentTypeChange(type, 'experience')} onChangeProfile={(type) => handleComponentTypeChange(type, 'profile')} />,
       icon: PaintBrushIcon
     },
   ]
-
 
 
   return (

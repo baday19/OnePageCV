@@ -7,8 +7,8 @@ import ConfigPanel from "./components/ConfigPanel"
 import type { OutletContextProps } from "../Home"
 
 
-const index = () => {
-  const [activeMenu, setActiveMenu] = useState<number>(0);
+const Index = () => {
+  const [activeMenu, setActiveMenu] = useState<number>(1);
   const { configData, setConfigData, resumeData, setResumeData } = useOutletContext<OutletContextProps>();
   
   
@@ -54,4 +54,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index

@@ -42,7 +42,6 @@ export function buildPresetPropsByUserInfo(moduleType: ModuleType, userInfo: Use
     return data;
   } else if (moduleType === 'education') {
     const education = userInfo.education;
-    console.log('education', education);
     const items = education.flatMap((item) => {
       return [
         {

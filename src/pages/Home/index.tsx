@@ -8,6 +8,88 @@ import { defaultConfigData, type ConfigDataProps } from "@/types/config"
 import { changeRootStyle } from "@/utils/utils"
 import type { UserInfoProps } from "@/types/user"
 
+const defaultResume: ResumeData = {
+  "id": 1770195230793,
+  "children": [
+    {
+      "id": 1770195233655,
+      "componentType": "commonProfileModule1",
+      "props": {
+        "name": "OnePageCV",
+        "photo": "",
+        "schoolIcon": "",
+        "items": [
+          {
+            "type": "single",
+            "value": [
+              "19977883344 | dengle@zju.edu.cn"
+            ]
+          },
+          {
+            "type": "single",
+            "value": [
+              "<a href=\"github.com/baday19\" target=\"_blank\">github.com/baday19</a>"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 1770195235551,
+      "componentType": "commonExperienceModule1",
+      "props": {
+        "title": "教育经历",
+        "items": [
+          {
+            "type": "double",
+            "value": [
+              "<b>浙江大学</b>",
+              "2023年09月 - 2025年04月"
+            ]
+          },
+          {
+            "type": "single",
+            "value": [
+              "软件工程 硕士"
+            ]
+          },
+          {
+            "type": "rich",
+            "value": [
+              "<p>荣誉奖项: 优秀毕业研究生、好罡创新创业奖学金、一等学业优秀奖助金、优秀研究生、五好研究生</p>"
+            ]
+          },
+          {
+            "type": "double",
+            "value": [
+              "<b>西北工业大学</b>",
+              "2019年09月 - 2023年07月"
+            ]
+          },
+          {
+            "type": "single",
+            "value": [
+              "软件工程 本科"
+            ]
+          },
+          {
+            "type": "rich",
+            "value": [
+              "<p>荣誉奖项: 优秀毕业⽣、科为奖学⾦、⼀等奖学⾦、全国软件测试⼤赛⼆等奖、中国⼤学⽣计算机设计⼤赛省级⼀等奖</p>"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "default": {
+      "profile": "commonProfileModule1",
+      "experience": "commonExperienceModule1"
+    }
+  }
+}
+
 const defaultUserInfo: UserInfoProps = {
   profile: {
     name: 'OnePageCV',
@@ -80,7 +162,7 @@ export interface OutletContextProps {
 
 const Home = () => {
 
-  const [resumeData, setResumeData] = useState<ResumeData>(null)
+  const [resumeData, setResumeData] = useState<ResumeData>(defaultResume)
   const [configData, setConfigData] = useState<ConfigDataProps>(defaultConfigData)
   const [userInfo, setUserInfo] = useState<UserInfoProps>(defaultUserInfo)
 
@@ -99,7 +181,8 @@ const Home = () => {
   }
 
   const handleStore = () => {
-
+    if (resumeData == null) return;
+    console.log(resumeData)
   }
 
   const handleClear = () => {

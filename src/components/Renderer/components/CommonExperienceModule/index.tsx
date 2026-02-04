@@ -108,10 +108,19 @@ const CommonExperienceModuleEditor = ({
     changeItems(newRows);
   }
 
-  const handleAddRow = () => {
-    const newRows = [...rows, { type: 'single', value: [''] }];
-    changeItems(newRows);
+  const handleAddRow = (index?: number) => {
+    const newRow = { type: 'single', value: [''] }
+    const newRows = [...rows]
+
+    if (typeof index === 'number') {
+      newRows.splice(index, 0, newRow)
+    } else {
+      newRows.push(newRow)
+    }
+
+    changeItems(newRows)
   }
+
 
   const handleDelete = () => {
     onChange({
@@ -133,6 +142,7 @@ const CommonExperienceModuleEditor = ({
             <div className="mt-3" key={index}>
               <CommonEditorInput
                 data={item}
+                onAdd={() => handleAddRow(index)}
                 onChange={(newItem) => handleRowChange(index, newItem)}
                 onDelete={() => handleDeleteRow(index)}
                 onMoveUp={() => handleMoveRow(index, index - 1)}

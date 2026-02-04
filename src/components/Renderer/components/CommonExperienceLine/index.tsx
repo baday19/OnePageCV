@@ -34,6 +34,7 @@ export const CommonExperienceLine = ({ value, type }: CommonExperienceLineProps)
 interface CommonEditorInputProps {
   data: Record<string, any>;
   showTypeChange?: boolean;
+  onAdd: () => void;
   onChange: (newData: Record<string, any>) => void;
   onMoveUp: () => void;
   onMoveDown: () => void;
@@ -43,6 +44,7 @@ interface CommonEditorInputProps {
 export const CommonEditorInput = ({
   data,
   showTypeChange = true,
+  onAdd,
   onChange,
   onMoveUp,
   onMoveDown,
@@ -94,26 +96,32 @@ export const CommonEditorInput = ({
 
   const menuItems = [
     {
-      key: '1',
+      key: 'up',
       label: '上移',
     },
     {
-      key: '2',
+      key: 'down',
       label: '下移',
     },
     {
-      key: '3',
+      key: 'add',
+      label: '上增',
+    },
+    {
+      key: 'delete',
       label: '删除',
     },
   ];
 
-  const handleMove = (e: any) => {
-    if (e.key === '1') {
+  const handleMenuClick = (e: any) => {
+    if (e.key === 'up') {
       onMoveUp();
-    } else if (e.key === '2') {
+    } else if (e.key === 'down') {
       onMoveDown();
-    } else if (e.key === '3') {
+    } else if (e.key === 'delete') {
       onDelete();
+    } else if (e.key === 'add') {
+      onAdd();
     }
   }
 
@@ -159,7 +167,7 @@ export const CommonEditorInput = ({
         }
         {
           <Dropdown
-            menu={{ items: menuItems, onClick: handleMove }}
+            menu={{ items: menuItems, onClick: handleMenuClick }}
             placement="bottom"
           >
             <button className={buttonClassName}>

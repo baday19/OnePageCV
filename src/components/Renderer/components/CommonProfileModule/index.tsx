@@ -230,8 +230,14 @@ const CommonProfileModuleEditor = ({
     changeItems(newRows);
   }
 
-  const handleAddRow = () => {
-    const newRows = [...rows, { type: 'single', value: [''] }];
+  const handleAddRow = (index: number) => {
+    const newRow = { type: 'single', value: [''] }
+    const newRows = [...rows];
+    if (typeof index === 'number') {
+      newRows.splice(index, 0, newRow);
+    } else {
+      newRows.push(newRow);
+    }
     changeItems(newRows);
   }
 
@@ -295,6 +301,7 @@ const CommonProfileModuleEditor = ({
               <CommonEditorInput
                 data={item}
                 showTypeChange={false}
+                onAdd={() => handleAddRow(index)}
                 onChange={(newItem) => handleRowChange(index, newItem)}
                 onDelete={() => handleDeleteRow(index)}
                 onMoveUp={() => handleMoveRow(index, index - 1)}

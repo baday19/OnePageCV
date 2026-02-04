@@ -5,6 +5,8 @@ import Input from "@/components/Input";
 import { Upload } from "antd";
 import type { RcFile } from "antd/es/upload/interface";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
+import Photo from '@/assets/images/photo.png';
+import SchoolIcon from '@/assets/images/logo.jpg'
 
 interface OptionProps {
   photoPosition?: 'left' | 'right';
@@ -24,8 +26,8 @@ interface CommonProfileModuleProps {
 
 const CommonProfileModule = ({
   name,
-  schoolIcon,
-  photo,
+  schoolIcon = SchoolIcon,
+  photo = Photo,
   items,
   option = {
     photoPosition: 'right',

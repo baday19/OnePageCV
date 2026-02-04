@@ -15,13 +15,13 @@ const CustomPanel = ({
   onChangeProfile,
   onChangeExperience,
 }: CustomPanelProps) => {
-  const containerClassName = "grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4";
-  const imgCardClassName = "w-full overflow-hidden rounded-md border aspect-[5/2]";
+  const containerClassName = "grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4";
+  const imgCardClassName = "w-full overflow-hidden rounded-md aspect-[5/2]";
   return (
     <div>
       <div className="mb-4">
         {/* 基本信息 */}
-        <BlockTitle text="基本信息" className="mb-3" iconClassName="bg-blue-500" />
+        <BlockTitle text="基本信息" className="mb-3" iconClassName="bg-yellow-500" />
         <div
           className={containerClassName}
         >
@@ -34,7 +34,7 @@ const CustomPanel = ({
                     onChangeProfile(item.componentType)
                   }}
                 >
-                  <div className={`${imgCardClassName} ${profileType === item.componentType ? 'border-blue-400' : 'border-gray-200'}`}>
+                  <div className={`${imgCardClassName} ${profileType === item.componentType ? 'border-2 border-yellow-400' : 'border border-gray-200'}`}>
                     <img
                       className="w-full h-full object-cover"
                       src={item.picture} alt={item.title} />
@@ -61,7 +61,7 @@ const CustomPanel = ({
                     onChangeExperience(item.componentType)
                   }}
                 >
-                  <div className={`${imgCardClassName} ${experienceType === item.componentType ? 'border-purple-400' : 'border-gray-200'}`}>
+                  <div className={`${imgCardClassName} ${experienceType === item.componentType ? 'border-purple-400 border-2' : 'border-gray-200 border'}`}>
                     <img
                       className="w-full h-full object-cover"
                       src={item.picture} alt={item.title} />

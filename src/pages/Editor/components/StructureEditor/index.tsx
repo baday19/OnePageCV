@@ -1,6 +1,6 @@
-import PanelHeader from "@/components/PanelHeader"
-import { EditorRenderer as Renderer } from "@/components/Renderer"
-import type { NodeSchema, ResumeData, ResumeSchema } from "@/components/Renderer/core"
+import PanelHeader from "@/components/PanelHeader";
+import { EditorRenderer as Renderer } from "@/components/Renderer";
+import type { NodeChangeAction, NodeSchema, ResumeData, ResumeSchema } from "@/components/Renderer/core";
 import AddButton from "./components/AddButton";
 import type { UserInfoProps } from "@/types/user";
 
@@ -18,32 +18,53 @@ const StructureEditor = ({
 
   const defaultStyle = resumeData?.metadata?.default || {};
 
-  const handleNodeChange = (newNode: NodeSchema, action: 'add' | 'delete' | 'update' = 'update') => {
+  const handleNodeChange = (newNode: NodeSchema, action: NodeChangeAction = 'update') => {
     let newResumeData: ResumeData;
     if (action === 'delete') {
       newResumeData = {
         ...resumeData!,
         children: resumeData!.children.filter(section => section.id !== newNode.id)
-      }
+      };
     } else if (action === 'add') {
       newResumeData = {
         ...resumeData!,
         children: [...resumeData!.children, newNode]
-      }
+      };
+    } else if (action === 'up') {
+      const index = resumeData!.children.findIndex(section => section.id === newNode.id);
+      if (index <= 0) return;
+      const newChildren = [...resumeData!.children];
+      [newChildren[index - 1], newChildren[index]] = [newChildren[index], newChildren[index - 1]];
+      newResumeData = {
+        ...resumeData!,
+        children: newChildren
+      };
+    } else if (action === 'down') {
+      const index = resumeData!.children.findIndex(section => section.id === newNode.id);
+
+      if (index === -1 || index >= resumeData!.children.length - 1) return;
+
+      const newChildren = [...resumeData!.children];
+      [newChildren[index], newChildren[index + 1]] = [newChildren[index + 1], newChildren[index]];
+
+      newResumeData = {
+        ...resumeData!,
+        children: newChildren,
+      };
     } else {
       newResumeData = {
         ...resumeData!,
         children: resumeData!.children.map(section => {
           if (section.id === newNode.id) {
-            return newNode
+            return newNode;
           }
-          return section
+          return section;
         })
-      }
+      };
     }
 
-    onChange(newResumeData)
-  }
+    onChange(newResumeData);
+  };
 
   return (
     <div>
@@ -58,11 +79,11 @@ const StructureEditor = ({
       <AddButton
         defaultStyle={defaultStyle}
         onAddItem={(node) => {
-          handleNodeChange(node, 'add')
+          handleNodeChange(node, 'add');
         }}
         userInfo={userInfo} />
     </div>
-  )
-}
+  );
+};
 
-export default StructureEditor
+export default StructureEditor;

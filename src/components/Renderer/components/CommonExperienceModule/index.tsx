@@ -135,6 +135,10 @@ const CommonExperienceModuleEditor = ({
       onChange={handleTitleChange}
       onAddLine={handleAddRow}
       onDelete={handleDelete}
+      showUp={true}
+      onMoveUp={() => onChange(schema, 'up')}
+      showDown={true}
+      onMoveDown={() => onChange(schema, 'down')}
     >
       {
         rows.map((item: Record<string, any>, index: number) => {

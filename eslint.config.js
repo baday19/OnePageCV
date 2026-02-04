@@ -22,6 +22,7 @@ export default defineConfig([
     rules: {
       // 关闭 TS 中 any 报错
       '@typescript-eslint/no-explicit-any': 'off',
+      'semi': ['warn', 'always']
     },
   },
 ])

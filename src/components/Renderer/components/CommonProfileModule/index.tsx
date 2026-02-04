@@ -6,7 +6,7 @@ import { Upload } from "antd";
 import type { RcFile } from "antd/es/upload/interface";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import Photo from '@/assets/images/photo.png';
-import SchoolIcon from '@/assets/images/logo.jpg'
+import SchoolIcon from '@/assets/images/logo.jpg';
 
 interface OptionProps {
   photoPosition?: 'left' | 'right';
@@ -55,7 +55,7 @@ const CommonProfileModule = ({
             className="h-full max-w-none"
             src={schoolIcon} alt="校徽" />}
         </div>
-      )
+      );
     } else if (option.hasSchoolIcon) {
       return (
         <div
@@ -68,9 +68,9 @@ const CommonProfileModule = ({
             className="h-full max-w-none"
             src={schoolIcon} alt="校徽" />}
         </div>
-      )
+      );
     }
-  }
+  };
 
   const photoElement = () => {
     // value center时 需要校徽的div，不显示img
@@ -91,7 +91,7 @@ const CommonProfileModule = ({
             )
           }
         </div>
-      )
+      );
     } else if (option.hasPhoto) {
       return (
         <div
@@ -107,9 +107,9 @@ const CommonProfileModule = ({
               : <div className="w-full h-full flex items-center justify-center text-white" style={{ backgroundColor: 'var(--theme-color)' }}>照片</div>
           }
         </div>
-      )
+      );
     }
-  }
+  };
   
   return (
     <div
@@ -163,8 +163,8 @@ const CommonProfileModule = ({
       </div>
 
     </div>
-  )
-}
+  );
+};
 
 interface CommonProfileModuleEditorProps {
   schema: NodeSchema;
@@ -189,7 +189,7 @@ const CommonProfileModuleEditor = ({
       }
     };
     onChange(newNode, 'update');
-  }
+  };
 
 
   const { items: rows } = schema.props || { items: [] };
@@ -203,7 +203,7 @@ const CommonProfileModuleEditor = ({
       }
     };
     onChange(newNode, 'update');
-  }
+  };
 
   const handleRowChange = (index: number, newItem: Record<string, any>) => {
     const newRows = rows.map((row: string[], i: number) => {
@@ -213,12 +213,12 @@ const CommonProfileModuleEditor = ({
       return row;
     });
     changeItems(newRows);
-  }
+  };
 
   const handleDeleteRow = (index: number) => {
     const newRows = rows.filter((_: string[], i: number) => i !== index);
     changeItems(newRows);
-  }
+  };
 
   const handleMoveRow = (fromIndex: number, toIndex: number) => {
     if (toIndex < 0 || toIndex >= rows.length) {
@@ -228,10 +228,10 @@ const CommonProfileModuleEditor = ({
     const [movedRow] = newRows.splice(fromIndex, 1);
     newRows.splice(toIndex, 0, movedRow);
     changeItems(newRows);
-  }
+  };
 
   const handleAddRow = (index: number) => {
-    const newRow = { type: 'single', value: [''] }
+    const newRow = { type: 'single', value: [''] };
     const newRows = [...rows];
     if (typeof index === 'number') {
       newRows.splice(index, 0, newRow);
@@ -239,13 +239,13 @@ const CommonProfileModuleEditor = ({
       newRows.push(newRow);
     }
     changeItems(newRows);
-  }
+  };
 
   const handleDelete = () => {
     onChange({
       ...schema,
-    }, 'delete')
-  }
+    }, 'delete');
+  };
 
   return (
     <EditorCard
@@ -254,6 +254,10 @@ const CommonProfileModuleEditor = ({
       onAddLine={handleAddRow}
       onDelete={handleDelete}
       showEdit={false}
+      showUp={true}
+      onMoveUp={() => onChange(schema, 'up')}
+      showDown={true}
+      onMoveDown={() => onChange(schema, 'down')}
     >
       <div className="mt-3">
         <Input className="h-8 w-full" value={name} onChange={(e) => changeProps('name', e.target.value)} />
@@ -267,7 +271,7 @@ const CommonProfileModuleEditor = ({
           }}
             listType="picture"
             maxCount={1} onRemove={() => {
-              changeProps('photo', '')
+              changeProps('photo', '');
             }}>
             <button className="flex items-center cursor-pointer px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-800 hover:bg-gray-100 hover:text-black transition-colors">
               <ArrowUpTrayIcon className="w-4 h-4" />
@@ -285,7 +289,7 @@ const CommonProfileModuleEditor = ({
           }}
             listType="picture"
             maxCount={1} onRemove={() => {
-              changeProps('schoolIcon', '')
+              changeProps('schoolIcon', '');
             }}>
             <button className="flex items-center cursor-pointer px-3 py-1 border border-gray-300 rounded-md text-sm text-gray-800 hover:bg-gray-100 hover:text-black transition-colors">
               <ArrowUpTrayIcon className="w-4 h-4" />
@@ -308,25 +312,25 @@ const CommonProfileModuleEditor = ({
                 onMoveDown={() => handleMoveRow(index, index + 1)}
               />
             </div>
-          )
+          );
         })
       }
     </EditorCard>
-  )
-}
+  );
+};
 
 
 const createCommonProfileModule = (option: OptionProps) => {
   const Module = (props: Omit<CommonProfileModuleProps, 'option'>) => (
     <CommonProfileModule {...props} option={option} />
-  )
+  );
 
   const Editor = (props: Omit<CommonProfileModuleEditorProps, 'option'>) => (
     <CommonProfileModuleEditor {...props} option={option} />
-  )
+  );
 
-  return { Module, Editor }
-}
+  return { Module, Editor };
+};
 
 const option0: OptionProps = {
   hasSchoolIcon: true,
@@ -334,7 +338,7 @@ const option0: OptionProps = {
   valuePosition: 'center',
   photoPosition: 'right',
   hasLine: true
-}
+};
 
 const option1: OptionProps = {
   hasSchoolIcon: false,
@@ -342,7 +346,7 @@ const option1: OptionProps = {
   valuePosition: 'center',
   photoPosition: 'right',
   hasLine: true
-}
+};
 
 const option2: OptionProps = {
   hasSchoolIcon: false,
@@ -350,7 +354,7 @@ const option2: OptionProps = {
   valuePosition: 'left',
   photoPosition: 'right',
   hasLine: true
-}
+};
 
 const option3: OptionProps = {
   hasSchoolIcon: false,
@@ -358,7 +362,7 @@ const option3: OptionProps = {
   valuePosition: 'left',
   photoPosition: 'left',
   hasLine: true
-}
+};
 
 const option4: OptionProps = {
   hasSchoolIcon: true,
@@ -366,7 +370,7 @@ const option4: OptionProps = {
   valuePosition: 'center',
   photoPosition: 'right',
   hasLine: false
-}
+};
 
 const option5: OptionProps = {
   hasSchoolIcon: false,
@@ -374,7 +378,7 @@ const option5: OptionProps = {
   valuePosition: 'center',
   photoPosition: 'right',
   hasLine: false
-}
+};
 
 const option6: OptionProps = {
   hasSchoolIcon: false,
@@ -382,7 +386,7 @@ const option6: OptionProps = {
   valuePosition: 'left',
   photoPosition: 'right',
   hasLine: false
-}
+};
 
 const option7: OptionProps = {
   hasSchoolIcon: false,
@@ -390,47 +394,47 @@ const option7: OptionProps = {
   valuePosition: 'left',
   photoPosition: 'left',
   hasLine: false
-}
+};
 
 const {
   Module: CommonProfileModule0,
   Editor: CommonProfileModule0Editor,
-} = createCommonProfileModule(option0)
+} = createCommonProfileModule(option0);
 
 const {
   Module: CommonProfileModule1,
   Editor: CommonProfileModule1Editor,
-} = createCommonProfileModule(option1)
+} = createCommonProfileModule(option1);
 
 const {
   Module: CommonProfileModule2,
   Editor: CommonProfileModule2Editor,
-} = createCommonProfileModule(option2)
+} = createCommonProfileModule(option2);
 
 const {
   Module: CommonProfileModule3,
   Editor: CommonProfileModule3Editor,
-} = createCommonProfileModule(option3)
+} = createCommonProfileModule(option3);
 
 const {
   Module: CommonProfileModule4,
   Editor: CommonProfileModule4Editor,
-} = createCommonProfileModule(option4)
+} = createCommonProfileModule(option4);
 
 const {
   Module: CommonProfileModule5,
   Editor: CommonProfileModule5Editor,
-} = createCommonProfileModule(option5)
+} = createCommonProfileModule(option5);
 
 const {
   Module: CommonProfileModule6,
   Editor: CommonProfileModule6Editor,
-} = createCommonProfileModule(option6)
+} = createCommonProfileModule(option6);
 
 const {
   Module: CommonProfileModule7,
   Editor: CommonProfileModule7Editor,
-} = createCommonProfileModule(option7)
+} = createCommonProfileModule(option7);
 
 export {
   CommonProfileModule0,

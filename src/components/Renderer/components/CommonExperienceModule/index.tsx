@@ -25,7 +25,7 @@ const CommonExperienceModule = ({ title, option = { type: 0 }, items }: CommonEx
   return (
     <div
       className="px-[8mm]"
-      style={{ marginTop: 'calc(var(--paper-line-spacing) + 1mm)' }}
+      style={{ marginTop: 'calc(var(--paper-line-spacing) + .5mm)' }}
     >
       <div
         className="font-bold flex items-center"
@@ -33,7 +33,6 @@ const CommonExperienceModule = ({ title, option = { type: 0 }, items }: CommonEx
           fontSize: 'var(--medium-font-size)',
           height: 'calc(var(--paper-line-height) + 3mm)',
           color: 'var(--theme-color)',
-          marginBottom: 'var(--paper-line-spacing)',
           ...typeStyles
         }}
       >{title}</div>

@@ -108,10 +108,10 @@ const CommonProfileModule = ({
       )
     }
   }
-
+  
   return (
     <div
-      className="mb-[3mm]"
+      className="mb-[8mm]"
     >
       {/* 顶部线 */}
       {

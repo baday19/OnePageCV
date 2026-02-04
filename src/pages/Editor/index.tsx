@@ -9,15 +9,17 @@ import type { OutletContextProps } from "../Home"
 
 const Index = () => {
   const [activeMenu, setActiveMenu] = useState<number>(1);
-  const { configData, setConfigData, resumeData, setResumeData } = useOutletContext<OutletContextProps>();
+  const { configData, setConfigData, resumeData, setResumeData, userInfo } = useOutletContext<OutletContextProps>();
   
   
   const handleConfigChange = (newConfig: typeof configData) => {
     setConfigData(newConfig);
   }
+
   const handleResumeDataChange = (newSchema: typeof resumeData) => {
     setResumeData(newSchema);
   }
+
 
   const components = [
     {
@@ -26,7 +28,7 @@ const Index = () => {
     },
     {
       name: '简历结构',
-      component: <StructureEditor resumeData={resumeData} onChange={handleResumeDataChange} />
+      component: <StructureEditor userInfo={userInfo} resumeData={resumeData} onChange={handleResumeDataChange} />
     },
     {
       name: '简历配置',

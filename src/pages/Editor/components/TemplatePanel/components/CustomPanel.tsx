@@ -1,6 +1,6 @@
 import BlockTitle from "@/components/BlockTitle"
 import type { NodeType } from "@/components/Renderer/core"
-import { experienceStyleList, profileStyleList } from "../../../../../config/template"
+import { experienceStyleList, profileStyleList } from "../../../template"
 
 interface CustomPanelProps {
   profileType: NodeType | null;

@@ -1,122 +1,20 @@
 import Menu from "@/pages/Home/components/Menu"
 import Preview from "@/pages/Home/components/Preview"
 import PreviewHeader from "@/pages/Home/components/PreviewHeader"
-import type { ResumeData, ResumeSchema } from "@/components/Renderer/core"
+import type { ResumeData } from "@/components/Renderer/core"
 import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
-import Photo from "@/assets/images/22351053.jpg"
-import SchoolIcon from "@/assets/images/logo.jpg"
-import { defaultConfigData, type ConfigDataProps } from "@/utils/types"
+import { defaultConfigData, type ConfigDataProps } from "@/types/config"
 import { changeRootStyle } from "@/utils/utils"
+import type { UserInfoProps } from "@/types/user"
 
-const defaultSchema: ResumeSchema = {
-  id: 0,
-  children: [
-    {
-      id: 1,
-      componentType: "commonProfileModule0",
-      props: {
-        name: "邓乐",
-        photo: Photo,
-        schoolIcon: SchoolIcon,
-        items: [
-          {
-            type: 'single',
-            value: ['15978018778 | dengle@zju.edu.cn']
-          },
-          {
-            type: 'single',
-            value: ['<a href="https://github.com/baday19">github.com/baday19</a>']
-          }
-        ],
-      },
-    },
-    {
-      id: 2,
-      componentType: "commonExperienceModule0",
-      props: {
-        title: "校园经历",
-        items: [
-          {
-            type: 'single',
-            value: ['<b>浙江大学</b>']
-          },
-          {
-            type: 'double',
-            value: ['浙江大学', '2023.09 - 2026.03']
-          },
-        ]
-      }
-    },
-    {
-      id: 3,
-      componentType: "commonExperienceModule0",
-      props: {
-        title: "实习经历",
-        items: [
-          {
-            type: 'single',
-            value: ['<b>浙江大学</b>']
-          },
-          {
-            type: 'double',
-            value: ['浙江大学', '2023.09 - 2026.03']
-          },
-          {
-            type: 'rich',
-            value: ['浙江大学']
-          }
-        ]
-      }
-    },
-    {
-      id: 4,
-      componentType: "commonExperienceModule1",
-      props: {
-        title: "项目经历",
-        items: [
-          {
-            type: 'single',
-            value: ['<b>浙江大学</b>']
-          },
-          {
-            type: 'double',
-            value: ['浙江大学', '2023.09 - 2026.03']
-          },
-          {
-            type: 'rich',
-            value: ['<p>浙江大学</p><p><strong>你好</strong></p>']
-          }
-        ]
-      }
-    },
-    {
-      id: 5,
-      componentType: "commonExperienceModule0",
-      props: {
-        title: "专业技能",
-        items: [
-          {
-            type: 'rich',
-            value: ['<p>浙江大学</p><p><strong>你好</strong></p>']
-          },
-        ]
-      }
-    }
-  ],
-  metadata: {
-    default: {
-      profile: 'commonProfileModule0',
-      experience: 'commonExperienceModule1',
-    }
-  }
-}
-
-export const defaultUserInfo = {
-  name: 'OnePageCV',
-  phone: '19977883344',
-  email: 'dengle@zju.edu.cn',
-  homepage: 'github.com/baday19',
+const defaultUserInfo: UserInfoProps = {
+  profile: {
+    name: 'OnePageCV',
+    phone: '19977883344',
+    email: 'dengle@zju.edu.cn',
+    homepage: 'github.com/baday19',
+  },
   education: [
     {
       school: '浙江大学',
@@ -125,7 +23,7 @@ export const defaultUserInfo = {
       major: '软件工程',
       degree: '硕士',
       college: '软件学院',
-      content: '荣誉奖项: 优秀毕业研究生、好罡创新创业奖学金、一等学业优秀奖助金、优秀研究生、五好研究生'
+      content: '<p>荣誉奖项: 优秀毕业研究生、好罡创新创业奖学金、一等学业优秀奖助金、优秀研究生、五好研究生</p>'
     },
     {
       school: '西北工业大学',
@@ -134,7 +32,7 @@ export const defaultUserInfo = {
       major: '软件工程',
       degree: '本科',
       college: '软件学院',
-      content: '荣誉奖项: 优秀毕业⽣、科为奖学⾦、⼀等奖学⾦、全国软件测试⼤赛⼆等奖、中国⼤学⽣计算机设计⼤赛省级⼀等奖'
+      content: '<p>荣誉奖项: 优秀毕业⽣、科为奖学⾦、⼀等奖学⾦、全国软件测试⼤赛⼆等奖、中国⼤学⽣计算机设计⼤赛省级⼀等奖</p>'
     }
   ],
   work: [
@@ -145,7 +43,7 @@ export const defaultUserInfo = {
       city: '深圳',
       department: 'XXX产业事业群-XX部门',
       position: '大模型应用',
-      content: '简短介绍公司与自己负责的任务，分条罗列在什么项目中，通过某些动作或技能达到可量化的结果。'
+      content: '<p>简短介绍公司与自己负责的任务，分条罗列在什么项目中，通过某些动作或技能达到可量化的结果。</p>'
     },
     {
       company: 'XX科技集团股份有限公司',
@@ -154,21 +52,21 @@ export const defaultUserInfo = {
       city: '杭州',
       department: 'XXX产业事业群-XX部门',
       position: '学术研究',
-      content: '简短介绍公司与自己负责的任务，分条罗列在什么项目中，通过某些动作或技能达到可量化的结果'
+      content: '<p>简短介绍公司与自己负责的任务，分条罗列在什么项目中，通过某些动作或技能达到可量化的结果</p>'
     }
   ],
   project: [
     {
-      name: '',
-      role: '',
+      name: 'XX项目',
+      role: '算法工程师',
       department: '',
-      city: '',
-      start: '',
-      end: '',
-      content: '简短介绍公司与自己负责的任务，分条罗列在什么项目中，通过某些动作或技能达到可量化的结果'
+      city: '杭州',
+      start: '2024年09月',
+      end: '2025年04月',
+      content: '<p>简短介绍公司与自己负责的任务，分条罗列在什么项目中，通过某些动作或技能达到可量化的结果</p>'
     }
   ],
-  skill: ''
+  skill: "<ul><li>技能1</li><li>技能2</li></ul>"
 }
 
 export interface OutletContextProps {
@@ -176,12 +74,15 @@ export interface OutletContextProps {
   setConfigData: (data: ConfigDataProps) => void;
   resumeData: ResumeData;
   setResumeData: (data: ResumeData) => void;
+  userInfo: UserInfoProps;
+  setUserInfo: (data: UserInfoProps) => void;
 }
 
 const Home = () => {
 
   const [resumeData, setResumeData] = useState<ResumeData>(null)
   const [configData, setConfigData] = useState<ConfigDataProps>(defaultConfigData)
+  const [userInfo, setUserInfo] = useState<UserInfoProps>(defaultUserInfo)
 
   // 记录正在使用的各种模块的样式
   useEffect(() => {
@@ -191,7 +92,7 @@ const Home = () => {
     changeRootStyle("--border-color", configData.borderColor)
     changeRootStyle("--paper-font-family", configData.fontFamily)
   }, [configData])
-  
+
 
   const handleExport = () => {
     window.print()
@@ -210,7 +111,7 @@ const Home = () => {
       {/* 左边区域 */}
       <div className="print-hidden flex-1 border-r border-gray-300">
         <Menu />
-        <Outlet context={{ configData, setConfigData, resumeData, setResumeData }} />
+        <Outlet context={{ configData, setConfigData, resumeData, setResumeData, userInfo, setUserInfo }} />
       </div>
       {/* 右边区域 */}
       <div className="print-reset flex-1 min-w-[220mm] bg-gray-100">

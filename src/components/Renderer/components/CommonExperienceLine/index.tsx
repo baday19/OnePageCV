@@ -17,6 +17,7 @@ export const CommonExperienceLine = ({ value, type }: CommonExperienceLineProps)
       style={{
         marginTop: type === 'rich' ? 0 : 'var(--paper-line-spacing)',
         lineHeight: `var(--paper-line-height)`,
+        fontSize: 'var(--small-font-size)',
       }}
     >
       {

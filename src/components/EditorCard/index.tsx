@@ -1,10 +1,11 @@
 import { UserIcon, AcademicCapIcon, BriefcaseIcon, BoltIcon, BeakerIcon, PlusCircleIcon, ArrowsUpDownIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { PencilSquareIcon } from "@heroicons/react/16/solid";
 import { useMemo, useState, type ComponentType } from "react";
-import type { CssNamedColor } from "@/utils/types";
 import { Dropdown, Modal } from "antd";
 import Input from "../Input";
-import type { ModuleType } from "@/config/template";
+import type { ModuleType } from "@/pages/Editor/template";
+
+export type CssNamedColor = 'red' | 'orange' | 'yellow' | 'green' | 'cyan' | 'blue' | 'purple' | 'indigo' | 'pink'
 
 // 预设一些logo+颜色,通过匹配title关键词来使用
 const logoPresets: Record<ModuleType, any> = {

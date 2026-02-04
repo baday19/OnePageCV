@@ -14,7 +14,7 @@ const defaultConfigData: ConfigDataProps = {
   fontFamily: `"PingFang SC", "Microsoft YaHei", sans-serif`
 }
 
-type CssNamedColor = 'red' | 'orange' | 'yellow' | 'green' | 'cyan' | 'blue' | 'purple' | 'indigo' | 'pink'
 
-export type { ConfigDataProps, CssNamedColor }
+
+export type { ConfigDataProps }
 export { defaultConfigData }

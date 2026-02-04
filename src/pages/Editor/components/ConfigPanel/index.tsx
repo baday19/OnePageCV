@@ -1,6 +1,6 @@
 import PanelHeader from "@/components/PanelHeader"
 import Input from "@/components/Input";
-import type { ConfigDataProps } from "@/utils/types";
+import type { ConfigDataProps } from "@/types/config";
 import { ColorPicker, Select, Slider } from "antd"
 import BlockTitle from "@/components/BlockTitle";
 

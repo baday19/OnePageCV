@@ -4,6 +4,7 @@ import type { NodeType, ResumeData, ResumeSchema } from "@/components/Renderer/c
 import RoundedMenu from "@/components/RoundedMenu"
 import { SparklesIcon, PaintBrushIcon } from "@heroicons/react/24/outline"
 import CustomPanel from "./components/CustomPanel"
+import PresetPanel from "./components/PresetPanel"
 
 
 
@@ -55,7 +56,7 @@ const TemplatePanel = ({
   const componentTypeList = [
     {
       label: '预设模板',
-      value: (<div></div>),
+      value: <PresetPanel />,
       icon: SparklesIcon
     },
     {

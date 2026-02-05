@@ -18,7 +18,7 @@ const LabeledInput = ({
   type = 'text',
   onChange,
 }: LabeledInputProps) => {
-  console.log('LabeledInput', label, value, initValue);
+
   const changed = initValue !== value;
   return (
     <div

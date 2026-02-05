@@ -8,9 +8,9 @@ import type { OutletContextProps } from "../Home";
 
 
 const Index = () => {
-  const [activeMenu, setActiveMenu] = useState<number>(1);
+
   const { configData, setConfigData, resumeData, setResumeData, userInfo } = useOutletContext<OutletContextProps>();
-  
+  const [activeMenu, setActiveMenu] = useState<string>("template");
   
   const handleConfigChange = (newConfig: typeof configData) => {
     setConfigData(newConfig);
@@ -23,15 +23,18 @@ const Index = () => {
 
   const components = [
     {
-      name: '简历模板',
+      key: 'template',
+      label: '简历模板',
       component: <TemplatePanel resumeData={resumeData} onChange={handleResumeDataChange} />
     },
     {
-      name: '简历结构',
+      key: 'structure',
+      label: '简历结构',
       component: <StructureEditor userInfo={userInfo} resumeData={resumeData} onChange={handleResumeDataChange} />
     },
     {
-      name: '简历配置',
+      key: 'config',
+      label: '简历配置',
       component: <ConfigPanel configData={configData} onChange={handleConfigChange} />
     },
   ];
@@ -39,13 +42,13 @@ const Index = () => {
   return (
     <div>
       {/* 二级菜单 */}
-      <Menu items={components.map(item => item.name)} active={activeMenu} onChange={setActiveMenu} />
+      <Menu items={components} active={activeMenu} onChange={setActiveMenu} />
       {/* 操作区域 */}
       <div className="overflow-y-auto h-[calc(100vh-7.5rem)] p-4">
         {
           components.map((item, index) => {
             return (
-              <div key={index} className={activeMenu === index ? "block" : "hidden"}>
+              <div key={index} className={activeMenu === item.key ? "block" : "hidden"}>
                 {item.component}
               </div>
             );

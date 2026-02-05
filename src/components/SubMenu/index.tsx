@@ -1,8 +1,12 @@
 
 interface MenuProps {
-  items: any[];
-  active: number;
-  onChange: (val:number) => void;
+  items: {
+    label: string;
+    key: string;
+    [other: string]: any;
+  }[];
+  active: string;
+  onChange: (val: string) => void;
 }
 
 const Menu = ({
@@ -16,13 +20,13 @@ const Menu = ({
         items.map((item, idx) => {
           return (
             <button
-              className={`${active === idx ? "bg-white shadow text-blue-600" : "text-gray-600 hover:text-gray-900"} text-sm px-3 py-1.5 rounded transition-colors`}
+              className={`${active === item.key ? "bg-white shadow text-blue-600" : "text-gray-600 hover:text-gray-900"} text-sm px-3 py-1.5 rounded transition-colors`}
               key={idx}
               onClick={() => {
-                onChange(idx);
+                onChange(item.key);
               }}
             >
-              {item}
+              {item.label}
             </button>
           );
         })

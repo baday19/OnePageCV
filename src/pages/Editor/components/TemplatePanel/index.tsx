@@ -1,10 +1,10 @@
-import PanelHeader from "@/components/PanelHeader"
-import { useState } from "react"
-import type { NodeType, ResumeData, ResumeSchema } from "@/components/Renderer/core"
-import RoundedMenu from "@/components/RoundedMenu"
-import { SparklesIcon, PaintBrushIcon } from "@heroicons/react/24/outline"
-import CustomPanel from "./components/CustomPanel"
-import PresetPanel from "./components/PresetPanel"
+import PanelHeader from "@/components/PanelHeader";
+import { useState } from "react";
+import type { NodeType, ResumeData, ResumeSchema } from "@/components/Renderer/core";
+import RoundedMenu from "@/components/RoundedMenu";
+import { SparklesIcon, PaintBrushIcon } from "@heroicons/react/24/outline";
+import CustomPanel from "./components/CustomPanel";
+import PresetPanel from "./components/PresetPanel";
 
 
 
@@ -19,10 +19,10 @@ const TemplatePanel = ({
   resumeData,
   onChange
 }: TemplatePanelProps) => {
-  const [activeType, setActiveType] = useState(1)
+  const [activeType, setActiveType] = useState<string>('preset');
 
-  const profileType = resumeData?.metadata.default.profile ?? null
-  const experienceType = resumeData?.metadata.default.experience ?? null
+  const profileType = resumeData?.metadata.default.profile ?? null;
+  const experienceType = resumeData?.metadata.default.experience ?? null;
 
   const handleComponentTypeChange = (type: NodeType, key: string = 'profile') => {
     const oldType = [profileType, experienceType][key === 'profile' ? 0 : 1];
@@ -36,9 +36,9 @@ const TemplatePanel = ({
           return {
             ...item,
             componentType: newType
-          }
+          };
         }
-        return item
+        return item;
       }) ?? [],
       metadata: {
         ...resumeData?.metadata,
@@ -47,24 +47,26 @@ const TemplatePanel = ({
           [key]: newType
         }
       }
-    }
-    onChange(newResume)
-  }
+    };
+    onChange(newResume);
+  };
 
 
 
   const componentTypeList = [
     {
+      key: 'preset',
       label: '预设模板',
       value: <PresetPanel />,
       icon: SparklesIcon
     },
     {
+      key: 'custom',
       label: '自定义模板',
       value: <CustomPanel profileType={profileType} experienceType={experienceType} onChangeExperience={(type) => handleComponentTypeChange(type, 'experience')} onChangeProfile={(type) => handleComponentTypeChange(type, 'profile')} />,
       icon: PaintBrushIcon
     },
-  ]
+  ];
 
 
   return (
@@ -76,22 +78,20 @@ const TemplatePanel = ({
           className="my-6"
           active={activeType}
           items={componentTypeList}
-          onChange={(_, index) => {
-            setActiveType(index)
-          }} />
+          onChange={setActiveType} />
         {/* 展示区 */}
         {
           componentTypeList.map((item, index) => {
             return (
-              <div key={index} className={activeType === index ? "block" : "hidden"}>
+              <div key={index} className={activeType === item.key ? "block" : "hidden"}>
                 {item.value}
               </div>
-            )
+            );
           })
         }
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TemplatePanel
+export default TemplatePanel;

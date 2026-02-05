@@ -35,7 +35,7 @@ export function buildPresetPropsByUserInfo(moduleType: ModuleType, userInfo: Use
         },
         {
           type: 'single',
-          value: [`<a href="${homepage}" target="_blank">${homepage}</a>`]
+          value: [`<a href="${homepage}" target="_blank">homepage</a>`]
         }
       ],
     };

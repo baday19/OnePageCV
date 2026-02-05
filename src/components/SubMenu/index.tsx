@@ -19,16 +19,16 @@ const Menu = ({
               className={`${active === idx ? "bg-white shadow text-blue-600" : "text-gray-600 hover:text-gray-900"} text-sm px-3 py-1.5 rounded transition-colors`}
               key={idx}
               onClick={() => {
-                onChange(idx)
+                onChange(idx);
               }}
             >
               {item}
             </button>
-          )
+          );
         })
       }
     </div>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;

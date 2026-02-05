@@ -1,10 +1,10 @@
-import { useState } from "react"
-import { useOutletContext } from "react-router-dom"
-import Menu from "./components/Menu"
-import TemplatePanel from "./components/TemplatePanel"
-import StructureEditor from "./components/StructureEditor"
-import ConfigPanel from "./components/ConfigPanel"
-import type { OutletContextProps } from "../Home"
+import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
+import Menu from "../../components/SubMenu";
+import TemplatePanel from "./components/TemplatePanel";
+import StructureEditor from "./components/StructureEditor";
+import ConfigPanel from "./components/ConfigPanel";
+import type { OutletContextProps } from "../Home";
 
 
 const Index = () => {
@@ -14,11 +14,11 @@ const Index = () => {
   
   const handleConfigChange = (newConfig: typeof configData) => {
     setConfigData(newConfig);
-  }
+  };
 
   const handleResumeDataChange = (newSchema: typeof resumeData) => {
     setResumeData(newSchema);
-  }
+  };
 
 
   const components = [
@@ -34,7 +34,7 @@ const Index = () => {
       name: '简历配置',
       component: <ConfigPanel configData={configData} onChange={handleConfigChange} />
     },
-  ]
+  ];
 
   return (
     <div>
@@ -48,12 +48,12 @@ const Index = () => {
               <div key={index} className={activeMenu === index ? "block" : "hidden"}>
                 {item.component}
               </div>
-            )
+            );
           })
         }
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

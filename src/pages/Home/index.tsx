@@ -1,12 +1,12 @@
-import Menu from "@/pages/Home/components/Menu"
-import Preview from "@/pages/Home/components/Preview"
-import PreviewHeader from "@/pages/Home/components/PreviewHeader"
-import type { ResumeData } from "@/components/Renderer/core"
-import { useEffect, useState } from "react"
-import { Outlet } from "react-router-dom"
-import { defaultConfigData, type ConfigDataProps } from "@/types/config"
-import { changeRootStyle } from "@/utils/utils"
-import type { UserInfoProps } from "@/types/user"
+import Menu from "@/pages/Home/components/Menu";
+import Preview from "@/pages/Home/components/Preview";
+import PreviewHeader from "@/pages/Home/components/PreviewHeader";
+import type { ResumeData } from "@/components/Renderer/core";
+import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import { defaultConfigData, type ConfigDataProps } from "@/types/config";
+import { changeRootStyle } from "@/utils/utils";
+import type { UserInfoProps } from "@/types/user";
 
 const defaultResume: ResumeData = {
   "id": 1770195230793,
@@ -28,7 +28,7 @@ const defaultResume: ResumeData = {
           {
             "type": "single",
             "value": [
-              "<a href=\"github.com/baday19\" target=\"_blank\">github.com/baday19</a>"
+              "<a href=\"https://github.com/baday19\" target=\"_blank\">homepage</a>"
             ]
           }
         ]
@@ -88,14 +88,14 @@ const defaultResume: ResumeData = {
       "experience": "commonExperienceModule1"
     }
   }
-}
+};
 
 const defaultUserInfo: UserInfoProps = {
   profile: {
     name: 'OnePageCV',
     phone: '19977883344',
     email: 'dengle@zju.edu.cn',
-    homepage: 'github.com/baday19',
+    homepage: 'https://github.com/baday19',
   },
   education: [
     {
@@ -149,7 +149,7 @@ const defaultUserInfo: UserInfoProps = {
     }
   ],
   skill: "<ul><li>技能1</li><li>技能2</li></ul>"
-}
+};
 
 export interface OutletContextProps {
   configData: ConfigDataProps;
@@ -162,32 +162,32 @@ export interface OutletContextProps {
 
 const Home = () => {
 
-  const [resumeData, setResumeData] = useState<ResumeData>(defaultResume)
-  const [configData, setConfigData] = useState<ConfigDataProps>(defaultConfigData)
-  const [userInfo, setUserInfo] = useState<UserInfoProps>(defaultUserInfo)
+  const [resumeData, setResumeData] = useState<ResumeData>(defaultResume);
+  const [configData, setConfigData] = useState<ConfigDataProps>(defaultConfigData);
+  const [userInfo, setUserInfo] = useState<UserInfoProps>(defaultUserInfo);
 
   // 记录正在使用的各种模块的样式
   useEffect(() => {
-    changeRootStyle("--paper-line-spacing", `${configData.lineSpacing}mm`)
-    changeRootStyle("--paper-line-height", `${configData.lineHeight}mm`)
-    changeRootStyle("--theme-color", configData.themeColor)
-    changeRootStyle("--border-color", configData.borderColor)
-    changeRootStyle("--paper-font-family", configData.fontFamily)
-  }, [configData])
+    changeRootStyle("--paper-line-spacing", `${configData.lineSpacing}mm`);
+    changeRootStyle("--paper-line-height", `${configData.lineHeight}mm`);
+    changeRootStyle("--theme-color", configData.themeColor);
+    changeRootStyle("--border-color", configData.borderColor);
+    changeRootStyle("--paper-font-family", configData.fontFamily);
+  }, [configData]);
 
 
   const handleExport = () => {
-    window.print()
-  }
+    window.print();
+  };
 
   const handleStore = () => {
     if (resumeData == null) return;
-    console.log(resumeData)
-  }
+    console.log(resumeData);
+  };
 
   const handleClear = () => {
-    setResumeData(null)
-  }
+    setResumeData(null);
+  };
 
   return (
     <main className="print-reset flex h-screen">
@@ -214,7 +214,7 @@ const Home = () => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

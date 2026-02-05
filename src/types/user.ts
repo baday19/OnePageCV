@@ -15,14 +15,14 @@ export interface Education {
   content: string;
 }
 
-export interface Wrok {
+export interface Work {
   company: string;
   position: string;
   start: string;
   end: string;
-  content: string;
   city: string;
   department: string;
+  content: string;
 }
 
 export interface Project {
@@ -35,10 +35,12 @@ export interface Project {
   content: string;
 }
 
+export type Skill = string;
+
 export interface UserInfoProps {
   profile: Profile;
   education: Education[];
-  work: Wrok[];
+  work: Work[];
   project: Project[];
   skill: string;
 }

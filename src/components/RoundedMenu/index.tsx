@@ -3,12 +3,12 @@ import type React from "react";
 interface RoundedMenuProps {
   items: {
     label: string;
-    icon: React.ComponentType<{ className?: string; }>;
-    [key: string]: any;
+    icon?: React.ComponentType<{ className?: string; }>;
+    key: string;
   }[];
-  active: number;
+  active: string;
   className: string;
-  onChange: (item: Record<string, any>, index: number) => void;
+  onChange: (key: string) => void;
 }
 
 const RoundedMenu = ({
@@ -21,15 +21,15 @@ const RoundedMenu = ({
 
   return (
     <div
-      className={`${className} flex bg-gray-200 h-9 items-center rounded-full w-full p-[3px] gap-2`}
+      className={`${className} flex bg-gray-200 h-9 items-center rounded-full w-full p-[3px] gap-2 text-sm`}
     >
       {
         items.map(
           (item, index: number) =>
             <button
               key={index}
-              className={`flex gap-2 justify-center items-center flex-1 ${active === index && activeButtonClass}`}
-              onClick={() => onChange(item, index)}
+              className={`flex gap-2 justify-center items-center flex-1 ${active === item.key && activeButtonClass}`}
+              onClick={() => onChange(item.key)}
             >
               {item.icon && <item.icon className="w-3.5 h-3.5" />}
               <div>{item.label}</div>

@@ -36,10 +36,10 @@ const RichInput = ({
         onChange(val);
       }}
     />
-  )
-}
+  );
+};
 
-export default RichInput
+export default RichInput;
 
 
 

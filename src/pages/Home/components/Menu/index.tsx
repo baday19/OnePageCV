@@ -4,7 +4,7 @@ import { DocumentCurrencyRupeeIcon, FolderIcon, UserIcon } from '@heroicons/reac
 const menuItems = [
   { icon: <DocumentCurrencyRupeeIcon className="w-4 h-4" />, name: "简历编辑", path: "/editor" },
   { icon: <FolderIcon className="w-4 h-4" />, name: "简历管理", path: "/manage" },
-  { icon: <UserIcon className="w-4 h-4" />, name: "个人信息", path: "/profile" },
+  { icon: <UserIcon className="w-4 h-4" />, name: "个人信息", path: "/user" },
 ];
 
 const Menu = () => {

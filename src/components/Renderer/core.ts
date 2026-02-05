@@ -1,5 +1,5 @@
-import * as CommonProfileModules from "./components/CommonProfileModule"
-import { CommonExperienceModule0, CommonExperienceModule1, CommonExperienceModule0Editor, CommonExperienceModule1Editor } from "./components/CommonExperienceModule"
+import * as CommonProfileModules from "./components/CommonProfileModule";
+import { CommonExperienceModule0, CommonExperienceModule1, CommonExperienceModule0Editor, CommonExperienceModule1Editor } from "./components/CommonExperienceModule";
 
 
 const componentRegistry = {
@@ -43,7 +43,7 @@ const componentRegistry = {
     preview: CommonExperienceModule1,
     editor: CommonExperienceModule1Editor,
   },
-} as const
+} as const;
 
 
 
@@ -71,16 +71,16 @@ type ResumeData = ResumeSchema | null
 
 const previewComponentMap = Object.fromEntries(
   Object.entries(componentRegistry).map(([key, value]) => [key, value.preview])
-) as Record<NodeType, React.ComponentType<any>>
+) as Record<NodeType, React.ComponentType<any>>;
 
 const editorComponentMap = Object.fromEntries(
   Object.entries(componentRegistry).map(([key, value]) => [key, value.editor])
-) as Record<NodeType, React.ComponentType<any>>
+) as Record<NodeType, React.ComponentType<any>>;
 
 
 export {
   previewComponentMap,
   editorComponentMap
-}
+};
 
-export type { NodeSchema, ResumeSchema, NodeType, ResumeData, NodeChangeAction }
+export type { NodeSchema, ResumeSchema, NodeType, ResumeData, NodeChangeAction };

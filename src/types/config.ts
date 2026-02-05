@@ -12,9 +12,9 @@ const defaultConfigData: ConfigDataProps = {
   lineHeight: 5.4,
   lineSpacing: 1.2,
   fontFamily: `"PingFang SC", "Microsoft YaHei", sans-serif`
-}
+};
 
 
 
-export type { ConfigDataProps }
-export { defaultConfigData }
+export type { ConfigDataProps };
+export { defaultConfigData };

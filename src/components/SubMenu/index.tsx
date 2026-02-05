@@ -1,5 +1,5 @@
 
-interface MenuProps {
+interface SubMenuProps {
   items: {
     label: string;
     key: string;
@@ -9,11 +9,11 @@ interface MenuProps {
   onChange: (val: string) => void;
 }
 
-const Menu = ({
+const SubMenu = ({
   items,
   active,
   onChange
-}: MenuProps) => {
+}: SubMenuProps) => {
   return (
     <div className="h-14 border-b border-t border-gray-200 px-4 bg-gray-50 flex items-center gap-2">
       {
@@ -35,4 +35,4 @@ const Menu = ({
   );
 };
 
-export default Menu;
+export default SubMenu;

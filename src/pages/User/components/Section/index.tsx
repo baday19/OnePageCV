@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { matchLogoPreset } from "@/components/EditorCard/preset";
 
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { PlusCircleIcon, ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
 
 interface SectionTitleProps {
   title: string;
@@ -34,14 +34,14 @@ const SectionTitle = ({
       <div className="flex gap-2 ml-auto">
         {
           onCancel && <button onClick={onCancel} className="flex items-center cursor-pointer px-2 py-1 border border-gray-300 rounded-md text-sm text-gray-800 hover:bg-gray-100 hover:text-black transition-colors">
-            {/* <PlusCircleIcon className="w-4 h-4" /> */}
+            <ArrowUturnLeftIcon className="w-4 h-4 mr-2.5" />
             <div>{cancelText}</div>
           </button>
         }
         {
           onOk && <button onClick={onOk} className="flex items-center cursor-pointer px-2 py-1 border border-blue-500 rounded-md text-sm bg-blue-500 text-white hover:bg-blue-400 hover:border-blue-400 transition-colors">
-            <PlusCircleIcon className="w-4 h-4" />
-            <div className="ml-2.5">{okText}</div>
+            <PlusCircleIcon className="w-4 h-4 mr-2.5" />
+            <div>{okText}</div>
           </button>
         }
       </div>

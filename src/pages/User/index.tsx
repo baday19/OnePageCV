@@ -12,16 +12,21 @@ const Index = () => {
 
   const [activeMenu, setActiveMenu] = useState('information');
 
+  const handleSave = () => {
+    setUserInfo(editingUserInfo);
+    setUserInfo(editingUserInfo);
+  };
+
   const components = [
     {
       key: 'information',
       label: '信息维护',
-      component: <InfoPanel onSave={() => setUserInfo(editingUserInfo)} userInfo={userInfo} editingUserInfo={editingUserInfo} onChangeEditingUserInfo={setEditingUserInfo} />,
+      component: <InfoPanel onSave={handleSave} userInfo={userInfo} editingUserInfo={editingUserInfo} onChangeEditingUserInfo={setEditingUserInfo} />,
     },
     {
       key: 'ai',
       label: '接口配置',
-      component: <div></div>
+      component: <div>1</div>
     },
   ];
 

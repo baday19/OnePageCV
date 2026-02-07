@@ -8,8 +8,7 @@ import { defaultConfigData, type ConfigDataProps } from "@/types/config";
 import { changeRootStyle } from "@/utils/utils";
 import type { UserInfoProps } from "@/types/user";
 import { getUserInfo } from "@/api/user";
-import { addResumeStorage, getResumeStorageList, saveResumeStorageList, type ResumeStorage } from "@/utils/resume";
-import { updateUserInfo } from "@/api/user";
+import { getResumeList, updateResume, type ResumeStorage } from "@/api/resume";
 import Empty from "./components/Empty";
 
 export interface OutletContextProps {
@@ -21,6 +20,7 @@ export interface OutletContextProps {
   setUserInfo: (data: UserInfoProps) => void;
   resumeList: ResumeStorage[];
   setResumeList: (data: ResumeStorage[]) => void;
+  updateResumeState: (data: ResumeStorage) => void;
 }
 
 const Home = () => {
@@ -32,7 +32,7 @@ const Home = () => {
   const [configData, setConfigData] = useState<ConfigDataProps>(defaultConfigData);
 
   const [userInfo, setUserInfo] = useState<UserInfoProps>(getUserInfo());
-  const [resumeList, setResumeList] = useState<ResumeStorage[]>(getResumeStorageList());
+  const [resumeList, setResumeList] = useState<ResumeStorage[]>(getResumeList());
 
   const hasResume = resumeId !== 0;
 
@@ -46,16 +46,12 @@ const Home = () => {
     changeRootStyle("--paper-font-family", configData.fontFamily);
   }, [configData]);
 
-  // 缓存简历列表
-  useEffect(() => {
-    saveResumeStorageList(resumeList);
-  }, [resumeList]);
-
-  // 缓存用户信息
-  useEffect(() => {
-    updateUserInfo(userInfo);
-  }, [userInfo]);
-
+  const updateResumeState = (resume: ResumeStorage) => {
+    setResumeId(resume.id);
+    setResumeName(resume.name);
+    setResumeData(resume.resume);
+    setConfigData(resume.config);
+  };
 
   const handleCreateResume = () => {
     setResumeId(Date.now());
@@ -81,7 +77,7 @@ const Home = () => {
       resume: resumeData,
       config: configData,
     };
-    setResumeList(addResumeStorage(storedResume, resumeList));
+    setResumeList(updateResume(storedResume));
   };
 
   const handleClear = () => {
@@ -95,7 +91,7 @@ const Home = () => {
       {/* 左边区域 */}
       <div className="print-hidden flex-1 border-r border-gray-300">
         <Menu />
-        <Outlet context={{ configData, setConfigData, resumeData, setResumeData, userInfo, setUserInfo, resumeList, setResumeList }} />
+        <Outlet context={{ configData, setConfigData, resumeData, setResumeData, userInfo, setUserInfo, resumeList, setResumeList, updateResumeState }} />
       </div>
       {/* 右边区域 */}
       <div className="print-reset flex-1 min-w-[220mm] bg-gray-100">

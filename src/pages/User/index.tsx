@@ -4,6 +4,7 @@ import type { OutletContextProps } from "../Home";
 import type { UserInfoProps } from "@/types/user";
 import InfoPanel from "./components/InfoPanel";
 import Menu from "@/components/SubMenu";
+import { updateUserInfo } from "@/api/user";
 
 
 const Index = () => {
@@ -14,6 +15,7 @@ const Index = () => {
 
   const handleSave = () => {
     setUserInfo(editingUserInfo);
+    updateUserInfo(editingUserInfo);
   };
 
   const components = [

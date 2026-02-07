@@ -1,20 +1,21 @@
-import PanelHeader from "@/components/PanelHeader"
+import PanelHeader from "@/components/PanelHeader";
 import { useOutletContext } from "react-router-dom";
 import type { OutletContextProps } from "../Home";
 import ResumeCard from "./components/ResumeCard";
-import { removeResumeStorage } from "@/utils/resume";
+import { removeResume } from "@/api/resume";
 
 const Index = () => {
-  const { resumeList, setResumeList } = useOutletContext<OutletContextProps>();
+  const { resumeList, setResumeList, updateResumeState } = useOutletContext<OutletContextProps>();
 
   const handleDeleteResume = (idx: number) => {
     const removedId = resumeList[idx].id;
-    setResumeList(removeResumeStorage(removedId, resumeList));
+    setResumeList(removeResume(removedId));
   };
 
   const handleEditResume = (idx: number) => {
     const resume = resumeList[idx];
-
+    // 应用到数据上
+    updateResumeState(resume);
   };
 
   return (
@@ -35,6 +36,6 @@ const Index = () => {
 
     </div>
   );
-}
+};
 
 export default Index;

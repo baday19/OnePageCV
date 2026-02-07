@@ -1,9 +1,9 @@
 import type { NodeSchema } from "@/components/Renderer/core";
-import type { ModuleType } from "@/pages/Editor/template"
+import type { ModuleType } from "@/pages/Editor/template";
 import type { UserInfoProps } from "@/types/user";
 import { buildPresetPropsByUserInfo } from "@/utils/utils";
-import { PlusCircleIcon } from "@heroicons/react/24/outline"
-import { Dropdown, type MenuProps } from "antd"
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { Dropdown, type MenuProps } from "antd";
 
 interface AddButtonProps {
   userInfo: UserInfoProps;
@@ -31,7 +31,7 @@ const AddButton = ({
         label: <div className="text-center">{item.name}</div>,
         key: item.key,
         disabled: !defaultStyle.experience,
-      }
+      };
     })
 
   ];
@@ -39,14 +39,14 @@ const AddButton = ({
   const handleMenuClick = (key: ModuleType) => {
     // 构建对应的node，然后调用onAddItem
     // 根据profile构建不用模块的presetProps
-    const presetProps = buildPresetPropsByUserInfo(key, userInfo)
+    const presetProps = buildPresetPropsByUserInfo(key, userInfo);
     const node: NodeSchema = {
       id: Date.now(),
       componentType: key === 'profile' ? defaultStyle.profile : defaultStyle.experience,
       props: presetProps,
-    }
-    onAddItem(node)
-  }
+    };
+    onAddItem(node);
+  };
   return (
     <>
       <Dropdown menu={{ items: addItems, onClick: (e) => handleMenuClick(e.key as ModuleType) }} trigger={['click']}>
@@ -59,7 +59,7 @@ const AddButton = ({
       </Dropdown>
       <div className="text-xs text-center mt-2 text-gray-500">点击查看所有可用组件</div>
     </>
-  )
-}
+  );
+};
 
-export default AddButton
+export default AddButton;

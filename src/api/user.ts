@@ -61,18 +61,13 @@ const defaultUserInfo: UserInfoProps = {
   skill: "<ul><li>技能1</li><li>技能2</li></ul>"
 };
 
-const getUserInfo = () => {
+export const getUserInfo = () => {
   // 从localStorage中获取用户信息，如果没有则返回默认信息
   const userInfo = localStorage.getItem('userInfo');
   return userInfo ? JSON.parse(userInfo) : defaultUserInfo;
 };
 
-const setUserInfo = (userInfo: UserInfoProps) => {
+export const updateUserInfo = (data: UserInfoProps) => {
   // 将用户信息保存到localStorage中
-  localStorage.setItem('userInfo', JSON.stringify(userInfo));
-};
-
-export {
-  getUserInfo,
-  setUserInfo
+  localStorage.setItem('userInfo', JSON.stringify(data));
 };

@@ -43,7 +43,7 @@ const EditorCard = ({
 }: EditorCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [titleValue, setTitleValue] = useState(title);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const buttonClassName = "rounded-lg px-3 h-8 hover:bg-gray-100 transition-colors";
 

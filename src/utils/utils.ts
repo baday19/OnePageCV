@@ -1,6 +1,19 @@
 import type { ModuleType } from "@/pages/Editor/template";
 import type { UserInfoProps } from "@/types/user";
 
+export function formatTimestamp(timestamp: number): string {
+  const date = new Date(timestamp);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');  // 月份从0开始，所以要加1
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
+}
+
+
 export function changeRootStyle(name: string, value: string) {
   document.documentElement.style.setProperty(name, value);
 }
@@ -9,21 +22,21 @@ export function getValueByPath(obj: any, path: string) {
   return path
     .replace(/\[(\w+)\]/g, '.$1')
     .split('.')
-    .reduce((acc, key) => acc?.[key], obj)
+    .reduce((acc, key) => acc?.[key], obj);
 }
 
 export function resolveValue(template: string, obj: any) {
   return template.replace(/\{\{(.+?)\}\}/g, (_, expression) => {
-    const [path, defaultValue] = expression.split('||').map((s: string) => s.trim())
-    const value = getValueByPath(obj, path)
-    return (value !== undefined && value !== null) ? value : (defaultValue ?? '')
-  })
+    const [path, defaultValue] = expression.split('||').map((s: string) => s.trim());
+    const value = getValueByPath(obj, path);
+    return (value !== undefined && value !== null) ? value : (defaultValue ?? '');
+  });
 }
 
 
 export function buildPresetPropsByUserInfo(moduleType: ModuleType, userInfo: UserInfoProps) {
   if (moduleType === 'profile') {
-    const { name, phone, email, homepage } = userInfo.profile
+    const { name, phone, email, homepage } = userInfo.profile;
     const data = {
       name: name,
       photo: '',
@@ -56,8 +69,8 @@ export function buildPresetPropsByUserInfo(moduleType: ModuleType, userInfo: Use
           type: 'rich',
           value: [item.content]
         },
-      ]
-    })
+      ];
+    });
     return {
       title: '教育经历',
       items: items
@@ -78,12 +91,12 @@ export function buildPresetPropsByUserInfo(moduleType: ModuleType, userInfo: Use
           type: 'rich',
           value: [item.content]
         }
-      ]
-    })
+      ];
+    });
     return {
       title: '工作经历',
       items: items
-    }
+    };
   } else if (moduleType === 'project') {
     const project = userInfo.project;
     const items = project.flatMap((item) => {
@@ -100,12 +113,12 @@ export function buildPresetPropsByUserInfo(moduleType: ModuleType, userInfo: Use
           type: 'rich',
           value: [item.content]
         }
-      ]
-    })
+      ];
+    });
     return {
       title: '项目经历',
       items: items
-    }
+    };
   } else if (moduleType === 'skill') {
     const skill = userInfo.skill;
     return {
@@ -116,11 +129,11 @@ export function buildPresetPropsByUserInfo(moduleType: ModuleType, userInfo: Use
           value: [skill]
         }
       ]
-    }
+    };
   } else {
     return {
       title: '自定义',
       items: []
-    }
+    };
   }
 }

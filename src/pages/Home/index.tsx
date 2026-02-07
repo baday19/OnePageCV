@@ -1,97 +1,16 @@
 import Menu from "@/pages/Home/components/Menu";
 import Preview from "@/pages/Home/components/Preview";
 import PreviewHeader from "@/pages/Home/components/PreviewHeader";
-import type { ResumeData } from "@/components/Renderer/core";
+import type { ResumeData, ResumeSchema } from "@/components/Renderer/core";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { defaultConfigData, type ConfigDataProps } from "@/types/config";
 import { changeRootStyle } from "@/utils/utils";
 import type { UserInfoProps } from "@/types/user";
-import { getUserInfo } from "@/utils/user";
-
-const defaultResume: ResumeData = {
-  "id": 1770195230793,
-  "children": [
-    {
-      "id": 1770195233655,
-      "componentType": "commonProfileModule1",
-      "props": {
-        "name": "OnePageCV",
-        "photo": "",
-        "schoolIcon": "",
-        "items": [
-          {
-            "type": "single",
-            "value": [
-              "19977883344 | dengle@zju.edu.cn"
-            ]
-          },
-          {
-            "type": "single",
-            "value": [
-              "<a href=\"https://github.com/baday19\" target=\"_blank\">homepage</a>"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": 1770195235551,
-      "componentType": "commonExperienceModule1",
-      "props": {
-        "title": "教育经历",
-        "items": [
-          {
-            "type": "double",
-            "value": [
-              "<b>浙江大学</b>",
-              "2023年09月 - 2025年04月"
-            ]
-          },
-          {
-            "type": "single",
-            "value": [
-              "软件工程 硕士"
-            ]
-          },
-          {
-            "type": "rich",
-            "value": [
-              "<p>荣誉奖项: 优秀毕业研究生、好罡创新创业奖学金、一等学业优秀奖助金、优秀研究生、五好研究生</p>"
-            ]
-          },
-          {
-            "type": "double",
-            "value": [
-              "<b>西北工业大学</b>",
-              "2019年09月 - 2023年07月"
-            ]
-          },
-          {
-            "type": "single",
-            "value": [
-              "软件工程 本科"
-            ]
-          },
-          {
-            "type": "rich",
-            "value": [
-              "<p>荣誉奖项: 优秀毕业⽣、科为奖学⾦、⼀等奖学⾦、全国软件测试⼤赛⼆等奖、中国⼤学⽣计算机设计⼤赛省级⼀等奖</p>"
-            ]
-          }
-        ]
-      }
-    }
-  ],
-  "metadata": {
-    "default": {
-      "profile": "commonProfileModule1",
-      "experience": "commonExperienceModule1"
-    }
-  }
-};
-
-
+import { getUserInfo } from "@/api/user";
+import { addResumeStorage, getResumeStorageList, saveResumeStorageList, type ResumeStorage } from "@/utils/resume";
+import { updateUserInfo } from "@/api/user";
+import Empty from "./components/Empty";
 
 export interface OutletContextProps {
   configData: ConfigDataProps;
@@ -100,13 +19,23 @@ export interface OutletContextProps {
   setResumeData: (data: ResumeData) => void;
   userInfo: UserInfoProps;
   setUserInfo: (data: UserInfoProps) => void;
+  resumeList: ResumeStorage[];
+  setResumeList: (data: ResumeStorage[]) => void;
 }
 
 const Home = () => {
 
-  const [resumeData, setResumeData] = useState<ResumeData>(defaultResume);
+  // 简历编辑涉及的数据, 0代表未创建简历
+  const [resumeId, setResumeId] = useState<number>(0);
+  const [resumeName, setResumeName] = useState<string>("");
+  const [resumeData, setResumeData] = useState<ResumeSchema | null>(null);
   const [configData, setConfigData] = useState<ConfigDataProps>(defaultConfigData);
+
   const [userInfo, setUserInfo] = useState<UserInfoProps>(getUserInfo());
+  const [resumeList, setResumeList] = useState<ResumeStorage[]>(getResumeStorageList());
+
+  const hasResume = resumeId !== 0;
+
 
   // 记录正在使用的各种模块的样式
   useEffect(() => {
@@ -117,6 +46,27 @@ const Home = () => {
     changeRootStyle("--paper-font-family", configData.fontFamily);
   }, [configData]);
 
+  // 缓存简历列表
+  useEffect(() => {
+    saveResumeStorageList(resumeList);
+  }, [resumeList]);
+
+  // 缓存用户信息
+  useEffect(() => {
+    updateUserInfo(userInfo);
+  }, [userInfo]);
+
+
+  const handleCreateResume = () => {
+    setResumeId(Date.now());
+    setResumeName("未命名简历");
+    setResumeData(null);
+    setConfigData(defaultConfigData);
+  };
+
+  const handleResumeNameChange = (name: string) => {
+    setResumeName(name);
+  };
 
   const handleExport = () => {
     window.print();
@@ -124,10 +74,19 @@ const Home = () => {
 
   const handleStore = () => {
     if (resumeData == null) return;
-    console.log(resumeData);
+    const storedResume: ResumeStorage = {
+      id: resumeId,
+      name: resumeName,
+      updateTime: Date.now(),
+      resume: resumeData,
+      config: configData,
+    };
+    setResumeList(addResumeStorage(storedResume, resumeList));
   };
 
   const handleClear = () => {
+    setResumeId(0);
+    setResumeName("");
     setResumeData(null);
   };
 
@@ -136,22 +95,35 @@ const Home = () => {
       {/* 左边区域 */}
       <div className="print-hidden flex-1 border-r border-gray-300">
         <Menu />
-        <Outlet context={{ configData, setConfigData, resumeData, setResumeData, userInfo, setUserInfo }} />
+        <Outlet context={{ configData, setConfigData, resumeData, setResumeData, userInfo, setUserInfo, resumeList, setResumeList }} />
       </div>
       {/* 右边区域 */}
       <div className="print-reset flex-1 min-w-[220mm] bg-gray-100">
-        <PreviewHeader onExport={handleExport} onStore={handleStore} onClear={handleClear} />
+        <PreviewHeader
+          active={hasResume}
+          onCreate={handleCreateResume}
+          title={resumeName}
+          onTitleChange={handleResumeNameChange}
+          onExport={handleExport}
+          onStore={handleStore}
+          onClear={handleClear}
+        />
         <div className="print-reset h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="print-reset flex m-14 justify-center">
-            <div className="print-reset shadow"
-              style={{
-                fontFamily: configData.fontFamily,
-                transformOrigin: "top center",
-                // transform: "scale(0.8)"
-              }}
-            >
-              <Preview schema={resumeData} />
-            </div>
+            {
+              hasResume
+                ? (
+                  <div className="print-reset shadow"
+                    style={{
+                      fontFamily: configData.fontFamily,
+                      transformOrigin: "top center",
+                    }}
+                  >
+                    <Preview schema={resumeData as ResumeSchema} />
+                  </div>
+                )
+                : <Empty />
+            }
           </div>
         </div>
       </div>

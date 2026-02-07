@@ -1,45 +1,45 @@
-import type { NodeSchema, ResumeData } from "./core"
-import { previewComponentMap, editorComponentMap } from "./core"
+import type { NodeSchema, ResumeData, ResumeSchema } from "./core";
+import { previewComponentMap, editorComponentMap } from "./core";
 
-export const PreviewRenderer = ({ schema }: { schema: ResumeData }) => {
+export const PreviewRenderer = ({ schema }: { schema: ResumeSchema }) => {
   if (!schema) {
-    return null
+    return null;
   }
 
   return (
     <>
       {
         schema.children?.map(child => {
-          const Component = previewComponentMap[child.componentType]
+          const Component = previewComponentMap[child.componentType];
           if (!Component) {
-            console.warn(`Unknown component type: ${child.componentType}`)
-            return null
+            console.warn(`Unknown component type: ${child.componentType}`);
+            return null;
           }
-          return <Component key={child.id} {...child.props} />
+          return <Component key={child.id} {...child.props} />;
         })
       }
     </>
-  )
-}
+  );
+};
 
-export const EditorRenderer = ({ schema, onNodeChange }: { schema: ResumeData, onNodeChange: (schema: NodeSchema) => void }) => {
+export const EditorRenderer = ({ schema, onNodeChange }: { schema: ResumeSchema, onNodeChange: (schema: NodeSchema) => void }) => {
 
   if (!schema) {
-    return null
+    return null;
   }
 
   return (
     <>
       {
         schema.children?.map(child => {
-          const Component = editorComponentMap[child.componentType]
+          const Component = editorComponentMap[child.componentType];
           if (!Component) {
-            console.warn(`Unknown component type: ${child.componentType}`)
-            return null
+            console.warn(`Unknown component type: ${child.componentType}`);
+            return null;
           }
-          return <Component key={child.id} schema={child} onChange={onNodeChange} />
+          return <Component key={child.id} schema={child} onChange={onNodeChange} />;
         })
       }
     </>
-  )
-}
+  );
+};

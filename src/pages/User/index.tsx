@@ -4,7 +4,6 @@ import type { OutletContextProps } from "../Home";
 import type { UserInfoProps } from "@/types/user";
 import InfoPanel from "./components/InfoPanel";
 import Menu from "@/components/SubMenu";
-import { setUserInfo as saveUserInfo } from "@/utils/user";
 
 
 const Index = () => {
@@ -15,7 +14,6 @@ const Index = () => {
 
   const handleSave = () => {
     setUserInfo(editingUserInfo);
-    saveUserInfo(editingUserInfo);
   };
 
   const components = [
@@ -30,7 +28,6 @@ const Index = () => {
       component: <div>1</div>
     },
   ];
-
 
   return (
     <div>

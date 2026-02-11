@@ -1,4 +1,4 @@
-import type { NodeSchema, ResumeSchema } from "./core";
+import type { NodeSchema, ResumeData, ResumeSchema } from "./core";
 import { previewComponentMap, editorComponentMap } from "./core";
 
 export const PreviewRenderer = ({ schema }: { schema: ResumeSchema }) => {
@@ -22,7 +22,7 @@ export const PreviewRenderer = ({ schema }: { schema: ResumeSchema }) => {
   );
 };
 
-export const EditorRenderer = ({ schema, onNodeChange }: { schema: ResumeSchema, onNodeChange: (schema: NodeSchema) => void }) => {
+export const EditorRenderer = ({ schema, onNodeChange }: { schema: ResumeData, onNodeChange: (schema: NodeSchema) => void }) => {
 
   if (!schema) {
     return null;

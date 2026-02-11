@@ -1,6 +1,4 @@
-import { matchLogoPreset } from "@/components/EditorCard/preset";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { useMemo } from "react";
 
 interface CardProps {
   title: string;

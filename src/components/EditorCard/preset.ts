@@ -1,5 +1,5 @@
 import { UserIcon, AcademicCapIcon, BriefcaseIcon, BoltIcon, BeakerIcon, FolderIcon } from "@heroicons/react/24/outline";
-import type { ModuleType } from "@/pages/Editor/template";
+import type { ModuleType } from "@/config/customTemplate";
 
 export type CssNamedColor = 'red' | 'orange' | 'yellow' | 'green' | 'cyan' | 'blue' | 'purple' | 'indigo' | 'pink'
 

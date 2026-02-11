@@ -5,10 +5,8 @@ import Input from "@/components/Input";
 import { Upload } from "antd";
 import type { RcFile } from "antd/es/upload/interface";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
-import Photo from '@/assets/images/photo.png';
-import SchoolIcon from '@/assets/images/logo.jpg';
 
-interface OptionProps {
+export interface OptionProps {
   photoPosition?: 'left' | 'right';
   valuePosition?: 'left' | 'center' | 'right';
   hasSchoolIcon?: boolean;
@@ -16,7 +14,7 @@ interface OptionProps {
   hasLine?: boolean;
 };
 
-interface CommonProfileModuleProps {
+export interface CommonProfileModuleProps {
   name?: string;
   schoolIcon?: string;
   photo?: string;
@@ -26,8 +24,8 @@ interface CommonProfileModuleProps {
 
 const CommonProfileModule = ({
   name,
-  schoolIcon = SchoolIcon,
-  photo = Photo,
+  schoolIcon,
+  photo,
   items,
   option = {
     photoPosition: 'right',
@@ -166,7 +164,7 @@ const CommonProfileModule = ({
   );
 };
 
-interface CommonProfileModuleEditorProps {
+export interface CommonProfileModuleEditorProps {
   schema: NodeSchema;
   option: OptionProps;
   onChange: (newNode: NodeSchema, action: NodeChangeAction) => void;

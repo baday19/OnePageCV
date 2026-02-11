@@ -1,6 +1,44 @@
-import BlockTitle from "@/components/BlockTitle"
-import type { NodeType } from "@/components/Renderer/core"
-import { experienceStyleList, profileStyleList } from "../../../template"
+import BlockTitle from "@/components/BlockTitle";
+import type { NodeType } from "@/components/Renderer/core";
+import { experienceStyleList, profileStyleList } from "../../../../../config/customTemplate";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import type { CssNamedColor } from "@/components/EditorCard/preset";
+
+interface CardProps {
+  title: string;
+  picture: string;
+  active: boolean;
+  color: CssNamedColor;
+  onClick: () => void;
+}
+
+const Card = ({
+  title,
+  picture,
+  active,
+  color,
+  onClick,
+}: CardProps) => {
+  const imgCardClassName = "w-full overflow-hidden aspect-[5/2]";
+
+  return (
+    <div
+      className={`p-3 border-2 rounded-lg hover:shadow hover:translate-y-[-3px] transition-transform duration-300 ${active ? `border-${color}-500 bg-${color}-50` : `border-gray-200`}`}
+      onClick={onClick}
+    >
+      <div className="mb-2 flex justify-between h-5">
+        <div>{title}</div>
+        {active && <CheckCircleIcon className={`w-5 h-5 text-${color}-600`} />}
+      </div>
+      <div className={`${imgCardClassName} border border-gray-100`}>
+        <img
+          className="w-full h-full object-cover cursor-pointer"
+          src={picture} alt={title} />
+      </div>
+    </div>
+  );
+};
+
 
 interface CustomPanelProps {
   profileType: NodeType | null;
@@ -16,33 +54,16 @@ const CustomPanel = ({
   onChangeExperience,
 }: CustomPanelProps) => {
   const containerClassName = "grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4";
-  const imgCardClassName = "w-full overflow-hidden rounded-md aspect-[5/2]";
   return (
     <div>
       <div className="mb-4">
         {/* 基本信息 */}
-        <BlockTitle text="基本信息" className="mb-3" iconClassName="bg-yellow-500" />
+        <BlockTitle text="基本信息" className="mb-3" iconClassName="bg-blue-500" />
         <div
           className={containerClassName}
         >
           {
-            profileStyleList.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  onClick={() => {
-                    onChangeProfile(item.componentType)
-                  }}
-                >
-                  <div className={`${imgCardClassName} ${profileType === item.componentType ? 'border-2 border-yellow-400' : 'border border-gray-200'}`}>
-                    <img
-                      className="w-full h-full object-cover"
-                      src={item.picture} alt={item.title} />
-                  </div>
-                  <div className="mt-2 text-center">{item.title}</div>
-                </div>
-              )
-            })
+            profileStyleList.map((item, index) => <Card color="blue" key={index} title={item.title} picture={item.picture} active={profileType === item.componentType} onClick={() => onChangeProfile(item.componentType)} />)
           }
         </div>
       </div>
@@ -53,28 +74,12 @@ const CustomPanel = ({
           className={containerClassName}
         >
           {
-            experienceStyleList.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  onClick={() => {
-                    onChangeExperience(item.componentType)
-                  }}
-                >
-                  <div className={`${imgCardClassName} ${experienceType === item.componentType ? 'border-purple-400 border-2' : 'border-gray-200 border'}`}>
-                    <img
-                      className="w-full h-full object-cover"
-                      src={item.picture} alt={item.title} />
-                  </div>
-                  <div className="mt-2 text-center">{item.title}</div>
-                </div>
-              )
-            })
+            experienceStyleList.map((item, index) => <Card color="purple" key={index} title={item.title} picture={item.picture} active={experienceType === item.componentType} onClick={() => onChangeExperience(item.componentType)} />)
           }
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CustomPanel
+export default CustomPanel;

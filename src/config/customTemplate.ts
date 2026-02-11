@@ -1,13 +1,14 @@
 import type { NodeType } from "@/components/Renderer/core";
+
 const profiles: string[] = Object.values(import.meta.glob('@/assets/images/profile_*.png', {
   eager: true,
   import: 'default'
-}))
+}));
 
 const experiences: string[] = Object.values(import.meta.glob('@/assets/images/experience_*.png', {
   eager: true,
   import: 'default'
-}))
+}));
 
 
 export interface StyleProps {
@@ -56,8 +57,13 @@ export const profileStyleList: StyleProps[] = [
     title: '照片-信息(无强调线)',
     componentType: 'commonProfileModule7',
     picture: profiles[7],
+  },
+  {
+    title: '圆边照片',
+    componentType: 'circleProfileModule',
+    picture: profiles[8],
   }
-]
+];
 
 
 export const experienceStyleList: StyleProps[] = [
@@ -71,6 +77,6 @@ export const experienceStyleList: StyleProps[] = [
     componentType: 'commonExperienceModule1',
     picture: experiences[1],
   },
-]
+];
 
 export type ModuleType = 'work' | 'project' | 'education' | 'skill' | 'profile' | 'custom'

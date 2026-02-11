@@ -1,5 +1,5 @@
 import type { NodeSchema } from "@/components/Renderer/core";
-import type { ModuleType } from "@/pages/Editor/template";
+import type { ModuleType } from "@/config/customTemplate";
 import type { UserInfoProps } from "@/types/user";
 import { buildPresetPropsByUserInfo } from "@/utils/utils";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";

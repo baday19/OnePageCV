@@ -16,7 +16,7 @@ const Input = ({
   className,
   style,
   value,
-  defaultValue = '',
+  defaultValue,
   placeholder = '',
   onChange = () => { }
 }: InputProps) => {

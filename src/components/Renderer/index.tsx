@@ -1,4 +1,4 @@
-import type { NodeSchema, ResumeData, ResumeSchema } from "./core";
+import type { NodeSchema, ResumeSchema } from "./core";
 import { previewComponentMap, editorComponentMap } from "./core";
 
 export const PreviewRenderer = ({ schema }: { schema: ResumeSchema }) => {

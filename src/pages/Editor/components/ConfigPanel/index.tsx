@@ -1,90 +1,46 @@
-import PanelHeader from "@/components/PanelHeader"
+import PanelHeader from "@/components/PanelHeader";
 import Input from "@/components/Input";
 import type { ConfigDataProps } from "@/types/config";
-import { ColorPicker, Select, Slider } from "antd"
+import { ColorPicker, Select, Slider } from "antd";
 import BlockTitle from "@/components/BlockTitle";
+import presetColors from "@/config/presetColors";
+import presetFonts from "@/config/presetFontFamily";
 
 interface ConfigPanelProps {
   configData: ConfigDataProps;
   onChange: (newConfig: ConfigDataProps) => void;
 }
 
-const presetColors = [
-  {
-    themeColor: '#AF032E',
-    borderColor: '#FBF2F4'
-  },
-  {
-    themeColor: '#EE8732',
-    borderColor: '#FEF9F5'
-  },
-  {
-    themeColor: '#4183FF',
-    borderColor: '#F5F9FF'
-  },
-  {
-    themeColor: '#9C5BDE',
-    borderColor: '#FAF7FD'
-  },
-  {
-    themeColor: '#6DB557',
-    borderColor: '#F7FBF6'
-  }
-]
-
-export const presetFonts = [
-  {
-    label: "微软雅黑",
-    value: `"PingFang SC", "Microsoft YaHei", sans-serif`
-  },
-  {
-    label: "宋体",
-    value: `"Source Han Serif CN", "Source Han Serif SC", SimSun, STSong, sans-serif`
-  },
-  {
-    label: "仿宋",
-    value: `FangSong, STFangsong, sans-serif`
-  },
-  {
-    label: "黑体",
-    value: `SimHei, STHeiti, sans-serif`
-  },
-  {
-    label: "楷体",
-    value: `KaiTi, STKaiti, sans-serif`
-  }
-];
-
 
 const ConfigPanel = ({
   configData,
   onChange
 }: ConfigPanelProps) => {
-  const { themeColor, borderColor, lineHeight, lineSpacing, fontFamily } = configData
+  const { themeColor, borderColor, lineHeight, lineSpacing, fontFamily } = configData;
 
   const setThemeColor = (newColor: string) => {
-    onChange({ ...configData, themeColor: newColor })
-  }
+    onChange({ ...configData, themeColor: newColor });
+  };
 
   const setBorderColor = (newColor: string) => {
-    onChange({ ...configData, borderColor: newColor })
-  }
+    onChange({ ...configData, borderColor: newColor });
+  };
 
   const setLineHeight = (newLineHeight: number) => {
-    onChange({ ...configData, lineHeight: newLineHeight })
-  }
+    onChange({ ...configData, lineHeight: newLineHeight });
+  };
 
   const setLineSpacing = (newLineSpacing: number) => {
-    onChange({ ...configData, lineSpacing: newLineSpacing })
-  }
+    onChange({ ...configData, lineSpacing: newLineSpacing });
+  };
 
   const setFontFamily = (newFont: string) => {
-    onChange({ ...configData, fontFamily: newFont })
-  }
+    onChange({ ...configData, fontFamily: newFont });
+  };
 
   const handleChangePresetColor = (colors: { themeColor: string, borderColor: string }) => {
-    onChange({ ...configData, themeColor: colors.themeColor, borderColor: colors.borderColor })
-  }
+    onChange({ ...configData, themeColor: colors.themeColor, borderColor: colors.borderColor });
+  };
 
   return (
     <div>
@@ -109,7 +65,7 @@ const ConfigPanel = ({
             <BlockTitle text="主题色" className="mb-4" iconClassName="bg-cyan-500" />
             <div className="flex items-center">
               <ColorPicker defaultValue={'#4183FF'} value={themeColor} onChange={(value) => {
-                setThemeColor(value.toHexString())
+                setThemeColor(value.toHexString());
               }} />
               <Input
                 className="h-8 ml-2 w-full"
@@ -120,7 +76,7 @@ const ConfigPanel = ({
             <BlockTitle text="副色" className="mb-4" iconClassName="bg-purple-500" />
             <div className="flex items-center">
               <ColorPicker defaultValue={'#4183FF'} value={borderColor} onChange={(value) => {
-                setBorderColor(value.toHexString())
+                setBorderColor(value.toHexString());
               }} />
               <Input
                 className="h-8 ml-2 w-full"
@@ -170,7 +126,7 @@ const ConfigPanel = ({
 
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ConfigPanel
+export default ConfigPanel;

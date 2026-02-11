@@ -5,19 +5,22 @@ import RoundedMenu from "@/components/RoundedMenu";
 import { SparklesIcon, PaintBrushIcon } from "@heroicons/react/24/outline";
 import CustomPanel from "./components/CustomPanel";
 import PresetPanel from "./components/PresetPanel";
-
+import templates, { type TemplateProps } from "@/config/templates";
+import type { ConfigDataProps } from "@/types/config";
 
 
 interface TemplatePanelProps {
   resumeData: ResumeData;
-  onChange: (e: ResumeSchema) => void;
+  onResumeChange: (e: ResumeSchema) => void;
+  onConfigChange: (e: ConfigDataProps) => void;
 }
 
 
 
 const TemplatePanel = ({
   resumeData,
-  onChange
+  onResumeChange,
+  onConfigChange,
 }: TemplatePanelProps) => {
   const [activeType, setActiveType] = useState<string>('preset');
 
@@ -48,16 +51,56 @@ const TemplatePanel = ({
         }
       }
     };
-    onChange(newResume);
+    onResumeChange(newResume);
   };
 
-
+  const handleApplyTemplate = (template: TemplateProps, isOnlyStyle: boolean) => {
+    const config = template.config;
+    if (isOnlyStyle) {
+      const { profile, experience } = template.resume.metadata.default; 
+      const newResume = {
+        ...resumeData,
+        id: resumeData?.id ?? Date.now(),
+        children: resumeData?.children.map((item) => {
+          if (item.componentType === profileType) {
+            return {
+              ...item,
+              componentType: profile
+            };
+          }
+          if (item.componentType === experienceType) {
+            return {
+              ...item,
+              componentType: experience
+            };
+          }
+          return item;
+        }) ?? [],
+        metadata: {
+          ...resumeData?.metadata,
+          default: {
+            ...resumeData?.metadata.default,
+            profile,
+            experience
+          }
+        }
+      };
+      onResumeChange(newResume);
+    } else {
+      const newResume = {
+        ...template.resume,
+        id: resumeData?.id ?? Date.now()
+      };
+      onResumeChange(newResume);
+    }
+    onConfigChange(config);
+  };
 
   const componentTypeList = [
     {
       key: 'preset',
       label: '预设模板',
-      value: <PresetPanel />,
+      value: <PresetPanel templates={templates} onApplyTemplate={handleApplyTemplate} />,
       icon: SparklesIcon
     },
     {

@@ -27,7 +27,7 @@ const Index = () => {
     {
       key: 'ai',
       label: '接口配置',
-      component: <div>1</div>
+      component: <div>开发中</div>
     },
   ];
 

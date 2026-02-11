@@ -1,5 +1,6 @@
 import * as CommonProfileModules from "./components/CommonProfileModule";
 import { CommonExperienceModule0, CommonExperienceModule1, CommonExperienceModule0Editor, CommonExperienceModule1Editor } from "./components/CommonExperienceModule";
+import { CircleProfileModule, CircleProfileModuleEditor } from "./components/CircleProfileModule";
 
 
 const componentRegistry = {
@@ -34,6 +35,10 @@ const componentRegistry = {
   commonProfileModule7: {
     preview: CommonProfileModules.CommonProfileModule7,
     editor: CommonProfileModules.CommonProfileModule7Editor,
+  },
+  circleProfileModule: {
+    preview: CircleProfileModule,
+    editor: CircleProfileModuleEditor,
   },
   commonExperienceModule0: {
     preview: CommonExperienceModule0,

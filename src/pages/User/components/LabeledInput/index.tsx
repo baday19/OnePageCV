@@ -27,7 +27,7 @@ const LabeledInput = ({
       <div className={`${changed ? 'text-orange-400' : ''} mb-2`}>{label}{changed && ' *'}</div>
       {
         type === 'text'
-          ? <Input className="w-full" defaultValue={initValue} value={value} onChange={(e) => onChange(e.target.value)} />
+          ? <Input className="w-full" value={value} onChange={(e) => onChange(e.target.value)} />
           : <RichInput value={value} onChange={(value) => onChange(value)} />
       }
     </div>
